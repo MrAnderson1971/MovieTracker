@@ -71,12 +71,35 @@
 }
 
 .grid {
+    background-color: whitesmoke;
     display: flex;
-    height: 100vh;
+    justify-content: center;
+    height: 82vh;
     width: 100vw;
 }
 
 .grid img {
     max-width: 100%;
     max-height: 100%;
+}
+
+.join_div {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+}
+
+#join-button {
+    font-size: 33px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: black;
+    color: whitesmoke;
+    padding: 10px 50px;
+    margin: 10px;
+    box-shadow: none;
+}
+
+#join-button:hover {
+    background-color: whitesmoke;
+    color: black;
 }
