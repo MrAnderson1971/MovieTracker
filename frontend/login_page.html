@@ -28,37 +28,32 @@
     </nav>
 </div>
 
-<div class="panels">
-    <div class="info">
-        <h1>SIGN UP</h1>
+<div class="loginPanels">
+    <div class="loginInfo">
+        <h1>LOGIN</h1>
 
-        <form id="newUserForm" action="">
-            <input type="text" id="userName" placeholder="User Name" maxlength="16">
-            <input type="email" id="userEmail" placeholder="Email" maxlength="255">
-            <input type="date" id="userBirthDate" placeholder="Birth Date">
-            <input type="password" id="userPassword" placeholder="Create Password" maxlength="255">
-            <input type="password" id="userPasswordCheck" placeholder="Confirm Password" maxlength="255">
-            <input type="submit" id="submitButton" value="SIGN UP">
+        <form id="loginForm">
+            <input type="text" id="loginUserName" placeholder="User Name" maxlength="16">
+            <input type="password" id="loginUserPassword" placeholder="Enter Password" maxlength="255">
+            <input type="submit" id="logInButton" value="LOG IN">
         </form>
 
         <div class="login-from-signup">
-            <h3>Already have an account?</h3>
-            <ul class="login_link">
-                <li><a href="login_page.html">Login</a></li>
+            <h3>Dont have an account?</h3>
+            <ul class="signup_link">
+                <li><a href="signup.html">Signup</a></li>
             </ul>
         </div>
-
     </div>
 
     <div class="welcomeSideCover">
-        <h6>WELCOME TO</h6>
-        <h1>WATCHER</h1>
+        <h2>WELCOME</h2>
+        <h2>BACK</h2>
     </div>
 
 </div>
 
-
-<script type="module" src="signup.js"></script>
+<script type="module" src="login.js"></script>
 
 </body>
 </html>
