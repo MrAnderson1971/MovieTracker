@@ -29,11 +29,11 @@
         <h1>SIGN UP</h1>
 
         <form id="newUserForm">
-            <input type="text" id="userName" placeholder="User Name">
-            <input type="email" id="userEmail" placeholder="Email">
+            <input type="text" id="userName" placeholder="User Name" maxlength="16">
+            <input type="email" id="userEmail" placeholder="Email" maxlength="255">
             <input type="date" id="userBirthDate" placeholder="Birth Date">
-            <input type="password" id="userPassword" placeholder="Create Password">
-            <input type="password" id="userPasswordCheck" placeholder="Confirm Password">
+            <input type="password" id="userPassword" placeholder="Create Password" maxlength="255">
+            <input type="password" id="userPasswordCheck" placeholder="Confirm Password" maxlength="255">
             <input type="submit" id="submitButton" value="SIGN UP">
         </form>
 
@@ -53,6 +53,8 @@
 
 </div>
 
+
+<script type="module" src="signup.js"></script>
 
 </body>
 </html>
