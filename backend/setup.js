@@ -1,4 +1,6 @@
 const oracledb = require('oracledb');
+const { randomUUID } = require('crypto'); // If using Node.js' crypto
+
 
 // Function to run a block of create table statements
 async function createTables(createTableStatements) {
@@ -34,7 +36,6 @@ async function createTables(createTableStatements) {
     }
 }
 
-// Your CREATE TABLE statements
 const createTableStatements = [
     `CREATE TABLE Review_2 (
         reviewID INTEGER PRIMARY KEY,
@@ -174,5 +175,93 @@ const createTableStatements = [
 );`
 ];
 
+async function error(err) {
+    console.error("Transaction failed, rolling back...", err);
+    await dbConnection.execute("ROLLBACK");
+    throw err;
+}
+
+async function insertReview(dbConnection, score, text, category) {
+    try {
+        const reviewID = randomUUID();
+        const sqlInsertReview1 = `INSERT INTO Review_1(score, category) VALUES (:score, :category)`;
+        const sqlInsertReview2 = `INSERT INTO Review_2(reviewID, score, reviewText) VALUES (:reviewID, :score, :text)`;
+
+        // Start a transaction
+        await dbConnection.execute('BEGIN');
+
+        await Promise.all(dbConnection.execute(sqlInsertReview1, {score: score, category: category}, {autoCommit: false}),
+            dbConnection.execute(sqlInsertReview2, {reviewID: reviewID, score: score, text: text}, {autoCommit: false}));
+
+        // If both inserts are successful, commit the transaction
+        await dbConnection.execute('COMMIT');
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertUser(dbConnection, age, ageLock, birthdate, email, password, username) {
+    try {
+        const userID = randomUUID();
+        const sqlInsertUser1 = `INSERT INTO User_1(age, ageLock) VALUES (:age, :ageLock)`;
+        const sqlInsertUser2 = `INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES (:userID, :birthdate, :email, :password, :username)`;
+        const sqlInsertUser3 = `INSERT INTO User_3(birthdate, age) VALUES (:birthdate, :age)`;
+        await dbConnection.execute('BEGIN');
+        await Promise.all(dbConnection.execute(sqlInsertUser1, {age: age, ageLock: ageLock}),
+            dbConnection.execute(sqlInsertUser2, {userID: userID, birthdate: birthdate, email: email, userPassword: password, username: username}),
+            dbConnection.execute(sqlInsertUser3, {birthdate: birthdate, age: age}));
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertWatchlist(dbConnection, name) {
+    try {
+        const watchlistID = randomUUID();
+        await dbConnection.execute('BEGIN');
+        await dbConnection.execute(`INSERT INTO Watchlist(watchListID, name) VALUES (:watchlistID, :name)`, {watchlistID: watchlistID, name: name});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertMovie(dbConnection, ageRating, ageRestricted, title, releaseDate, duration, lengthType) {
+    try {
+        const contentID = randomUUID();
+        await dbConnection.execute("BEGIN");
+        const sqlInsertMovie1 = `INSERT INTO Movie_1(duration, lengthType) VALUES (:duration, :lengthType)`;
+        const sqlInsertMovie2 = `INSERT INTO Movie_2(contentID, duration) VALUES (:contentID, :duration)`;
+        await Promise.all(dbConnection.execute(sqlInsertMovie1, {duration: duration, lengthType: lengthType}),
+            dbConnection.execute(sqlInsertMovie2, {contentID: contentID, duration: duration}));
+        await insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate);
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertTVShow(dbConnection, ageRating, ageRestricted, title, releaseDate, numSeasons, seriesType) {
+    try {
+        const contentID = randomUUID();
+        await dbConnection.execute("BEGIN");
+        const sqlInsertTVShow2 = `INSERT INTO TVShow_2(numSeasons, seriesType) VALUES (:numSeasons, :seriesType)`;
+        const sqlInsertTVShow1 = `INSERT INTO TVShow_1(contentID, numSeasons) VALUES (:contentID, :numSeasons)`;
+        await Promise.all(dbConnection.execute(sqlInsertTVShow2, {numSeasons: numSeasons, seriesType: seriesType}),
+            dbConnection.execute(sqlInsertTVShow1, {contentID: contentID, numSeasons: numSeasons}));
+        await insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate);
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate) {
+        const sqlInsertContent1 = `INSERT INTO Content_1(ageRating, ageRestricted) VALUES (:ageRating, :ageRestricted)`;
+        const sqlInsertContent2 = `INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES (:contentID, :ageRating, :title, :releaseDate)`;
+        await Promise.all(dbConnection.execute(sqlInsertContent1, {ageRating: ageRating, ageRestricted: ageRestricted}),
+            dbConnection.execute(sqlInsertContent2, {contentID: contentID, ageRating: ageRating, title: title, releaseDate: releaseDate}));
+}
 // Run the create tables function
 createTables(createTableStatements);
