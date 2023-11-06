@@ -19,10 +19,7 @@ function collectUserSignUpInfo() {
     } else if(birthdate.length == 0) {
         alert("Please enter a valid birth date")
         valid = false
-    }
-
-    // Check password is not empty, matches with confirmation
-    if (password.length == 0) {
+    } else if (password.length == 0) {
         alert("Please enter a valid password")
         valid = false
     } else if (password != passwordCheck) {
