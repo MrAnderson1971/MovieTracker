@@ -4,9 +4,9 @@ function loginUser() {
     const username = document.getElementById("loginUserName").value;
     const password = document.getElementById("loginUserPassword").value;
 
-    // send to database and validate
+    // Send username and password to database to check that they are valid
 
-    // receive result
+    // Get validity results
 
     const valid = true
 
