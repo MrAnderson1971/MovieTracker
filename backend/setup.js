@@ -10,7 +10,7 @@ async function createTables(createTableStatements) {
         connection = await oracledb.getConnection({
             user: 'ora_bchu01',
             password: 'a27539022',
-            connectionString: 'localhost:1521/orclpdb1'
+            connectionString: "localhost:50000/stu"
         });
 
         let plsqlBlock = `BEGIN\n`;
@@ -50,7 +50,7 @@ const createTableStatements = [
     FOREIGN KEY (score) REFERENCES Review_1(score),
     FOREIGN KEY (userID) REFERENCES User_2(userID),
     FOREIGN KEY (contentID) REFERENCES Content_2(contentID)
-     )`
+     )`,
 `CREATE TABLE User_1 (
     age INTEGER PRIMARY KEY,
     ageLock BOOLEAN
