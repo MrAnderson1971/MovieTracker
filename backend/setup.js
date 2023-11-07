@@ -10,7 +10,7 @@ async function createTables(createTableStatements) {
         connection = await oracledb.getConnection({
             user: 'ora_bchu01',
             password: 'a27539022',
-            connectionString: "localhost:50000/stu"
+            connectionString: "dbhost.students.cs.ubc.ca:1522/stu"
         });
 
         let plsqlBlock = `BEGIN\n`;
@@ -38,9 +38,10 @@ async function createTables(createTableStatements) {
 
 const createTableStatements = [
     `CREATE TABLE Review_1 (
-    score INTEGER (score >= 1 AND score <= 10) PRIMARY KEY,
-    category VARCHAR(100)
-     )`,
+    score INTEGER PRIMARY KEY,
+    category VARCHAR(100),
+    CONSTRAINT score_range CHECK (score >= 1 AND score <= 10)
+)`,
     `CREATE TABLE Review_2 (
     reviewID INTEGER PRIMARY KEY,
     score INTEGER NOT NULL,
