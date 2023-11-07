@@ -1,20 +1,28 @@
-document.getElementById("loginForm").addEventListener("submit", loginUser);
+document.getElementById("logInButton").addEventListener("click", loginUser);
+
+let userName = null
+let userPassword = null
+let loginStatus = null
 
 function loginUser() {
-    const username = document.getElementById("loginUserName").value;
-    const password = document.getElementById("loginUserPassword").value;
+    // Clear any prior login information stored
+    localStorage.clear();
 
-    // Send username and password to database to check that they are valid
+    // Collect user login information
+    const un = document.getElementById("loginUserName").value;
+    const up = document.getElementById("loginUserPassword").value;
 
-    // Get validity results
+    // Check username and password with database to ensure that they are valid
 
     const valid = true
 
     if(valid) {
-        alert("YAY")
+        userName = un;
+        userPassword = up;
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("userPassword", userPassword);
+        window.location.href = 'homepage.html'
     } else {
         alert("NAY")
     }
 }
-
-
