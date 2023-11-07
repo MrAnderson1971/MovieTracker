@@ -296,3 +296,11 @@
     padding: 20px;
     position: center;
 }
+
+.userDashboard {
+    font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    background-color: black;
+    text-align: center;
+}
