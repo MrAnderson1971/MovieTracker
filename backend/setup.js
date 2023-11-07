@@ -37,12 +37,20 @@ async function createTables(createTableStatements) {
 }
 
 const createTableStatements = [
+    `CREATE TABLE Review_1 (
+    score INTEGER (score >= 1 AND score <= 10) PRIMARY KEY,
+    category VARCHAR(100),
+     )`,
     `CREATE TABLE Review_2 (
-        reviewID INTEGER PRIMARY KEY,
-    score INTEGER,
-    reviewText VARCHAR(255),
-    FOREIGN KEY (score) REFERENCES Review_1(score)
-);`,
+    reviewID INTEGER PRIMARY KEY,
+    score INTEGER NOT NULL,
+    reviewText VARCHAR(100),
+    userID INTEGER NOT NULL,
+    contentID INTEGER NOT NULL,
+    FOREIGN KEY (score) REFERENCES Review_1(score),
+    FOREIGN KEY (userID) REFERENCES User_2(userID),
+    FOREIGN KEY (contentID) REFERENCES Content_2(contentID)
+     )`
 `CREATE TABLE User_1 (
     age INTEGER PRIMARY KEY,
     ageLock BOOLEAN
@@ -94,7 +102,9 @@ const createTableStatements = [
 );`,
 `CREATE TABLE Watchlist (
     watchlistID INTEGER PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    contentID INTEGER NOT NULL,
+    FOREIGN KEY (contentID) REFERENCES Content_2(contentID)
 );`,
 `CREATE TABLE Language (
     languageName VARCHAR(255) PRIMARY KEY
@@ -181,17 +191,17 @@ async function error(err) {
     throw err;
 }
 
-async function insertReview(dbConnection, score, text, category) {
+async function insertReview(dbConnection, score, text, category, userID, contentID) {
     try {
         const reviewID = randomUUID();
         const sqlInsertReview1 = `INSERT INTO Review_1(score, category) VALUES (:score, :category)`;
-        const sqlInsertReview2 = `INSERT INTO Review_2(reviewID, score, reviewText) VALUES (:reviewID, :score, :text)`;
+        const sqlInsertReview2 = `INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES (:reviewID, :score, :text, :userID, :contentID)`;
 
         // Start a transaction
         await dbConnection.execute('BEGIN');
 
         await Promise.all(dbConnection.execute(sqlInsertReview1, {score: score, category: category}, {autoCommit: false}),
-            dbConnection.execute(sqlInsertReview2, {reviewID: reviewID, score: score, text: text}, {autoCommit: false}));
+            dbConnection.execute(sqlInsertReview2, {reviewID: reviewID, score: score, text: text, userID: userID, contentID: contentID}, {autoCommit: false}));
 
         // If both inserts are successful, commit the transaction
         await dbConnection.execute('COMMIT');
@@ -207,9 +217,9 @@ async function insertUser(dbConnection, age, ageLock, birthdate, email, password
         const sqlInsertUser2 = `INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES (:userID, :birthdate, :email, :password, :username)`;
         const sqlInsertUser3 = `INSERT INTO User_3(birthdate, age) VALUES (:birthdate, :age)`;
         await dbConnection.execute('BEGIN');
-        await Promise.all(dbConnection.execute(sqlInsertUser1, {age: age, ageLock: ageLock}),
-            dbConnection.execute(sqlInsertUser2, {userID: userID, birthdate: birthdate, email: email, userPassword: password, username: username}),
-            dbConnection.execute(sqlInsertUser3, {birthdate: birthdate, age: age}));
+        await Promise.all(dbConnection.execute(sqlInsertUser1, {age: age, ageLock: ageLock}, {autoCommit: false}),
+            dbConnection.execute(sqlInsertUser2, {userID: userID, birthdate: birthdate, email: email, userPassword: password, username: username}, {autoCommit: false}),
+            dbConnection.execute(sqlInsertUser3, {birthdate: birthdate, age: age}, {autoCommit: false}));
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
@@ -220,7 +230,7 @@ async function insertWatchlist(dbConnection, name) {
     try {
         const watchlistID = randomUUID();
         await dbConnection.execute('BEGIN');
-        await dbConnection.execute(`INSERT INTO Watchlist(watchListID, name) VALUES (:watchlistID, :name)`, {watchlistID: watchlistID, name: name});
+        await dbConnection.execute(`INSERT INTO Watchlist(watchListID, name) VALUES (:watchlistID, :name)`, {watchlistID: watchlistID, name: name}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
@@ -233,8 +243,8 @@ async function insertMovie(dbConnection, ageRating, ageRestricted, title, releas
         await dbConnection.execute("BEGIN");
         const sqlInsertMovie1 = `INSERT INTO Movie_1(duration, lengthType) VALUES (:duration, :lengthType)`;
         const sqlInsertMovie2 = `INSERT INTO Movie_2(contentID, duration) VALUES (:contentID, :duration)`;
-        await Promise.all(dbConnection.execute(sqlInsertMovie1, {duration: duration, lengthType: lengthType}),
-            dbConnection.execute(sqlInsertMovie2, {contentID: contentID, duration: duration}));
+        await Promise.all(dbConnection.execute(sqlInsertMovie1, {duration: duration, lengthType: lengthType}, {autoCommit: false}),
+            dbConnection.execute(sqlInsertMovie2, {contentID: contentID, duration: duration}, {autoCommit: false}));
         await insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate);
         await dbConnection.execute("COMMIT");
     } catch (err) {
@@ -248,8 +258,8 @@ async function insertTVShow(dbConnection, ageRating, ageRestricted, title, relea
         await dbConnection.execute("BEGIN");
         const sqlInsertTVShow2 = `INSERT INTO TVShow_2(numSeasons, seriesType) VALUES (:numSeasons, :seriesType)`;
         const sqlInsertTVShow1 = `INSERT INTO TVShow_1(contentID, numSeasons) VALUES (:contentID, :numSeasons)`;
-        await Promise.all(dbConnection.execute(sqlInsertTVShow2, {numSeasons: numSeasons, seriesType: seriesType}),
-            dbConnection.execute(sqlInsertTVShow1, {contentID: contentID, numSeasons: numSeasons}));
+        await Promise.all(dbConnection.execute(sqlInsertTVShow2, {numSeasons: numSeasons, seriesType: seriesType}, {autoCommit: false}),
+            dbConnection.execute(sqlInsertTVShow1, {contentID: contentID, numSeasons: numSeasons}, {autoCommit: false}));
         await insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate);
         await dbConnection.execute("COMMIT");
     } catch (err) {
@@ -260,8 +270,8 @@ async function insertTVShow(dbConnection, ageRating, ageRestricted, title, relea
 async function insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate) {
         const sqlInsertContent1 = `INSERT INTO Content_1(ageRating, ageRestricted) VALUES (:ageRating, :ageRestricted)`;
         const sqlInsertContent2 = `INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES (:contentID, :ageRating, :title, :releaseDate)`;
-        await Promise.all(dbConnection.execute(sqlInsertContent1, {ageRating: ageRating, ageRestricted: ageRestricted}),
-            dbConnection.execute(sqlInsertContent2, {contentID: contentID, ageRating: ageRating, title: title, releaseDate: releaseDate}));
+        await Promise.all(dbConnection.execute(sqlInsertContent1, {ageRating: ageRating, ageRestricted: ageRestricted}, {autoCommit: false}),
+            dbConnection.execute(sqlInsertContent2, {contentID: contentID, ageRating: ageRating, title: title, releaseDate: releaseDate}, {autoCommit: false}));
 }
 
 async function insertLanguage(dbConnection, languageName) {
@@ -277,7 +287,7 @@ async function insertLanguage(dbConnection, languageName) {
 async function insertCountry(dbConnection, countryName) {
     try {
         await dbConnection.execute("BEGIN");
-        await dbConnection.execute(`INSERT INTO Country(countryName) VALUES (:countryName)`, {countryName: countryName});
+        await dbConnection.execute(`INSERT INTO Country(countryName) VALUES (:countryName)`, {countryName: countryName}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
@@ -287,7 +297,7 @@ async function insertCountry(dbConnection, countryName) {
 async function insertGenre(dbConnection, genreName) {
     try {
         await dbConnection.execute("BEGIN");
-        await dbConnection.execute(`INSERT INTO Genre(genreName) VALUES (:genreName)`, {genreName: genreName});
+        await dbConnection.execute(`INSERT INTO Genre(genreName) VALUES (:genreName)`, {genreName: genreName}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
@@ -297,7 +307,7 @@ async function insertGenre(dbConnection, genreName) {
 async function insertStreamingService(dbConnection, streamingServiceName) {
     try {
         await dbConnection.execute("BEGIN");
-        await dbConnection.execute(`INSERT INTO StreamingService(streamingServiceName) VALUES (:streamingServiceName)`, {streamingServiceName: streamingServiceName});
+        await dbConnection.execute(`INSERT INTO StreamingService(streamingServiceName) VALUES (:streamingServiceName)`, {streamingServiceName: streamingServiceName}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
@@ -308,7 +318,7 @@ async function insertEpisode(dbConnection, contentID, season, episode, duration,
     try {
         await dbConnection.execute("BEGIN");
         await dbConnection.execute(`INSERT INTO Episode(conetnID, season, duration, title) VALUES (:contentID, :season, :episode, :duration, :title)`,
-            {contentID: contentID, season: season, episode: episode, duration: duration, title: title});
+            {contentID: contentID, season: season, episode: episode, duration: duration, title: title}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
