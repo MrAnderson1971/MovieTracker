@@ -263,5 +263,57 @@ async function insertContent(dbConnection, contentID, ageRating, ageRestricted, 
         await Promise.all(dbConnection.execute(sqlInsertContent1, {ageRating: ageRating, ageRestricted: ageRestricted}),
             dbConnection.execute(sqlInsertContent2, {contentID: contentID, ageRating: ageRating, title: title, releaseDate: releaseDate}));
 }
+
+async function insertLanguage(dbConnection, languageName) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO Language(languageName) VALUES (:languageName)`, {languageName: languageName});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertCountry(dbConnection, countryName) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO Country(countryName) VALUES (:countryName)`, {countryName: countryName});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertGenre(dbConnection, genreName) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO Genre(genreName) VALUES (:genreName)`, {genreName: genreName});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertStreamingService(dbConnection, streamingServiceName) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO StreamingService(streamingServiceName) VALUES (:streamingServiceName)`, {streamingServiceName: streamingServiceName});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
+async function insertEpisode(dbConnection, contentID, season, episode, duration, title) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO Episode(conetnID, season, duration, title) VALUES (:contentID, :season, :episode, :duration, :title)`,
+            {contentID: contentID, season: season, episode: episode, duration: duration, title: title});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await error(err);
+    }
+}
+
 // Run the create tables function
 createTables(createTableStatements);
