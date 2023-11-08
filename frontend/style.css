@@ -320,11 +320,11 @@
     color: white;
 }
 
-.cardBig {
+.cardBig1, .cardBig2 {
     margin: 10px;
     width: 50vw;
     height: 200px;
-    background: repeating-linear-gradient(140deg, red, black 50px);
+    background: repeating-linear-gradient(150deg, red, black 50px);
     text-align: center;
     flex-direction: column;
     display: flex;
@@ -340,14 +340,13 @@
     color: white;
 }
 
-.cardSmall {
+.cardSmall1, .cardSmall2, .cardSmall3  {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 5px;
-
     width: 33vw;
     height: 200px;
-    background: repeating-linear-gradient(50deg, red, black 50px);
+    background: repeating-linear-gradient(60deg, red, black 50px);
     text-align: center;
     flex-direction: column;
     display: flex;
