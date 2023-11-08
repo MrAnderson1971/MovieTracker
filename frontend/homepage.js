@@ -19,11 +19,11 @@ function changeHomeNavBar() {
     // Create a new sign-out link anchor
     const signOutLink = document.createElement("a");
     signOutLink.textContent = "SIGN OUT";
+    signOutLink.href = 'homepage.html';
 
     // Add listener to clear local storage and redirect user to refreshed homepage upon signing out
     signOutLink.addEventListener("click", function () {
         localStorage.clear();
-        window.location.href = 'homepage.html';
     });
 
     // Add link anchor to list item
