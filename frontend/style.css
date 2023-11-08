@@ -118,7 +118,7 @@
 
 
 .grid {
-    background-color: whitesmoke;
+    background-color: white;
     display: flex;
     justify-content: center;
     height: 82vh;
@@ -129,8 +129,6 @@
     max-width: 100%;
     max-height: 100%;
 }
-
-
 
 .join_link {
     display: flex;
@@ -224,7 +222,7 @@
     color: white;
     font-size: 100px;
     padding-left: 20px;
-    background: linear-gradient(to right, black, red);
+    background: repeating-linear-gradient(30deg, red, black 50px);
 }
 
 .login-from-signup {
@@ -297,10 +295,62 @@
     position: center;
 }
 
-.userDashboard {
-    font-size: 24px;
+
+
+
+
+.userWelcome {
     font-family: 'Montserrat', sans-serif;
-    color: white;
-    background-color: black;
+    font-size: 34px;
+    color: black;
+    background: white;
     text-align: center;
+}
+
+.userStatBoards {
+    background-color: white;
+
+}
+
+.userStatBoardBig {
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    color: white;
+}
+
+.cardBig {
+    margin: 10px;
+    width: 50vw;
+    height: 200px;
+    background: repeating-linear-gradient(140deg, red, black 50px);
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userStatBoardSmall {
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 45px;
+    color: white;
+}
+
+.cardSmall {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+
+    width: 33vw;
+    height: 200px;
+    background: repeating-linear-gradient(50deg, red, black 50px);
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
