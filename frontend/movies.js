@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
 
-    if(lS != null) {
+    if(lS == null) {
+        window.location.href = 'signup.html';
+    } else {
         changeMoviesNavBar();
     }
 });
