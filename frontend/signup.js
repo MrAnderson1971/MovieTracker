@@ -35,4 +35,6 @@ function collectUserSignUpInfo() {
         this.action = "login_page.html"; // Change the form's action URL
     }
 
+    insertUser()
+
 }
