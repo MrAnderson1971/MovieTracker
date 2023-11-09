@@ -1,3 +1,7 @@
+/*
+    Code taken from the demo project files
+*/
+
 const express = require('express');
 const appController = require('./appController');
 

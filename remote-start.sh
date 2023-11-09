@@ -1,3 +1,4 @@
+# Code taken from demo project files
 #!/bin/bash
 
 # Set Oracle environment
