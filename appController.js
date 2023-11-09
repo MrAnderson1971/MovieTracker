@@ -13,4 +13,14 @@ router.post("/insert-user", async (req, res) => {
     }
 });
 
+router.delete("/delete-watchlist", async (req, res) => {
+    const { watchlistID } = req.body;
+    const deleteResult = await appService.deleteWatchlist(watchlistID);
+    if (deleteResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router;

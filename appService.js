@@ -58,13 +58,13 @@ async function insertUser(username, email, password, birthDate) {
         );
 
         const result3 = await connection.execute(
-            `INSERT IGNORE INTO User_3 (birthDate, name) VALUES (:birthDate, :age)`,
+            `INSERT IGNORE INTO User_3 (birthDate, name) VALUES (TO_DATE(:birthDate, 'yyyymmdd'), name) :birthDate, :age)`,
             [birthDate, age],
             { autoCommit: true }
         );
 
         const result2 = await connection.execute(
-            `INSERT INTO User_3 (userID, birthDate, email, userPassword, username) VALUES (:userID, :birthDate, :email, :password, :username)`,
+            `INSERT INTO User_3 (userID, birthDate, email, userPassword, username) VALUES (:userID, TO_DATE(:birthDate, 'yyyymmdd'), name) , :email, :password, :username)`,
             [userID, birthDate, email, password, username],
             { autoCommit: true }
         );
@@ -75,6 +75,47 @@ async function insertUser(username, email, password, birthDate) {
     });
 }
 
+async function deleteWatchlist(watchlistID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM Watchlist WHERE watchlistID = :watchlistID`,
+            [watchlistID],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function updateWatchlist(watchlistID, name, userID) {
+    return await withOracleDB(async (connection) => {
+        if (name) {
+            const result = await connection.execute(
+                `UPDATE Watchlist SET name = :name WHERE watchlistID = :watchlistID`,
+                [watchlistID],
+                { autoCommit: true }
+            );
+        }
+
+        if (userID) {
+            const result = await connection.execute(
+                `UPDATE Watchlist SET userID = :userID WHERE watchlistID = :watchlistID`,
+                [watchlistID],
+                { autoCommit: true }
+            );
+        }
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
 module.exports = {
-    testOracleConnection
+    testOracleConnection,
+    insertUser,
+    deleteWatchlist,
+    updateWatchlist
 };
