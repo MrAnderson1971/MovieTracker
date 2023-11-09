@@ -1,3 +1,6 @@
+/*
+    Code taken from the demo project files
+*/
 const fs = require('fs');
 
 function loadEnvFile(filePath) {

@@ -1,3 +1,7 @@
+/*
+    Code adapted from the demo project files
+*/
+
 const express = require('express');
 const appService = require('./appService');
 
