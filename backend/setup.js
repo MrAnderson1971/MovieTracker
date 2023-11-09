@@ -104,8 +104,8 @@ const createTableStatements = [
 `CREATE TABLE Watchlist (
     watchlistID INTEGER PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    contentID INTEGER NOT NULL,
-    FOREIGN KEY (contentID) REFERENCES Content_2(contentID)
+    userID INTEGER NOT NULL,
+    FOREIGN KEY (userID) REFERENCES User_2(contentID)
 );`,
 `CREATE TABLE Language (
     languageName VARCHAR(255) PRIMARY KEY
@@ -227,11 +227,11 @@ async function insertUser(dbConnection, age, ageLock, birthdate, email, password
     }
 }
 
-async function insertWatchlist(dbConnection, name) {
+async function insertWatchlist(dbConnection, name, userID) {
     try {
         const watchlistID = randomUUID();
         await dbConnection.execute('BEGIN');
-        await dbConnection.execute(`INSERT INTO Watchlist(watchListID, name) VALUES (:watchlistID, :name)`, {watchlistID: watchlistID, name: name}, {autoCommit: false});
+        await dbConnection.execute(`INSERT INTO Watchlist(watchListID, name, userID) VALUES (:watchlistID, :name, :userID)`, {watchlistID: watchlistID, name: name, userID: userID}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
         await error(err);
