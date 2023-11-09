@@ -1,3 +1,7 @@
+/*
+    Code adapted from the demo project files
+*/
+
 const oracledb = require('oracledb');
 const loadEnvFile = require('./utils/envUtil');
 
@@ -45,26 +49,29 @@ async function insertUser(username, email, password, birthDate) {
         let date = new Date();
         let year = date.getFullYear();
         let age = year - birthDate.getFullYear();
-        let ageLock = fale;
+        let ageLock = 0;
         if ( age <= 13) {
-            ageLock = true;
+            ageLock = 1;
         }
         let userID = Math.random() * 4294967296;
-
+        
         const result1 = await connection.execute(
-            `INSERT IGNORE INTO User_1 (age, ageLock) VALUES (:age, :ageLock)`,
+            `IF NOT EXISTS (SELECT * FROM User_1 WHERE age = :age) 
+            BEGIN INSERT INTO User_1 (age, ageLock) VALUES (:age, :ageLock) END`,
             [age, ageLock],
             { autoCommit: true }
         );
 
         const result3 = await connection.execute(
-            `INSERT IGNORE INTO User_3 (birthDate, name) VALUES (TO_DATE(:birthDate, 'yyyymmdd'), name) :birthDate, :age)`,
+            `IF NOT EXISTS (SELECT * FROM User_3 WHERE birthDate = TO_DATE(:birthDate, 'yyyymmdd')) 
+            BEGIN INSERT INTO User_3 (birthDate, age) VALUES (TO_DATE(:birthDate, 'yyyymmdd'), :age) END`,
             [birthDate, age],
             { autoCommit: true }
         );
 
         const result2 = await connection.execute(
-            `INSERT INTO User_3 (userID, birthDate, email, userPassword, username) VALUES (:userID, TO_DATE(:birthDate, 'yyyymmdd'), name) , :email, :password, :username)`,
+            `INSERT INTO User_2 (userID, birthDate, email, userPassword, username) 
+            VALUES (:userID, TO_DATE(:birthDate, 'yyyymmdd'), :email, :password, :username)`,
             [userID, birthDate, email, password, username],
             { autoCommit: true }
         );
