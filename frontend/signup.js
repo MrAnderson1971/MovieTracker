@@ -10,6 +10,7 @@ function collectUserSignUpInfo(event) {
     const birthdate = document.getElementById("userBirthDate").value;
     const password = document.getElementById("userPassword").value;
     const passwordCheck = document.getElementById("userPasswordCheck").value;
+    console.log(birthdate);
 
     // Check simple fields
     if (username.length === 0) {
