@@ -44,6 +44,19 @@ async function testOracleConnection() {
     });
 }
 
+async function login(username, userPassword) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `SELECT username, userPassword FROM User_2 WHERE username = :username AND userPassword = :userPassword`,
+            { username: username, userPassword: userPassword }
+        );
+        return result.rows.length > 0;
+    }).catch((error) => {
+        console.error(error);
+        return false;
+    });
+}
+
 async function insertUser(username, email, password, birthDate) {
     return await withOracleDB(async (connection) => {
         let date = new Date();
@@ -54,20 +67,25 @@ async function insertUser(username, email, password, birthDate) {
             ageLock = 1;
         }
         let userID = Math.random() * 4294967296;
-        
-        const result1 = await connection.execute(
-            `IF NOT EXISTS (SELECT * FROM User_1 WHERE age = :age) 
-            BEGIN INSERT INTO User_1 (age, ageLock) VALUES (:age, :ageLock) END`,
-            [age, ageLock],
-            { autoCommit: true }
-        );
 
-        const result3 = await connection.execute(
-            `IF NOT EXISTS (SELECT * FROM User_3 WHERE birthDate = TO_DATE(:birthDate, 'yyyymmdd')) 
-            BEGIN INSERT INTO User_3 (birthDate, age) VALUES (TO_DATE(:birthDate, 'yyyymmdd'), :age) END`,
-            [birthDate, age],
-            { autoCommit: true }
-        );
+        const userExists1 = await connection.execute(`SELECT  1 FROM User_1 WHERE age = :age`, [age]);
+
+        if (userExists1.rows.length === 0) {
+            await connection.execute(
+                `INSERT INTO User_1 (age, ageLock) VALUES (:age, :ageLock)`,
+                [age, ageLock],
+                { autoCommit: true }
+            );
+        }
+
+        const userExists3 = await connection.execute(`SELECT 1 FROM User_3 WHERE birthDate = TO_DATE(:birthdate, 'yyyymmdd')`, [birthDate])
+        if (userExists3.rows.length === 0) {
+            await connection.execute(
+                `INSERT INTO User_3 (birthDate, age) VALUES (TO_DATE(:birthDate, 'yyyymmdd'), :age)`,
+                [birthDate, age],
+                { autoCommit: true }
+            );
+        }
 
         const result2 = await connection.execute(
             `INSERT INTO User_2 (userID, birthDate, email, userPassword, username) 
