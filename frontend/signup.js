@@ -1,7 +1,9 @@
 document.getElementById("newUserForm").addEventListener("submit", collectUserSignUpInfo);
 
-function collectUserSignUpInfo() {
+function collectUserSignUpInfo(event) {
+    console.log("SIGNUP");
     let valid = true
+    event.preventDefault(); // prevent default submission
 
     const username = document.getElementById("userName").value;
     const email = document.getElementById("userEmail").value;
@@ -10,28 +12,48 @@ function collectUserSignUpInfo() {
     const passwordCheck = document.getElementById("userPasswordCheck").value;
 
     // Check simple fields
-    if (username.length == 0) {
+    if (username.length === 0) {
         alert("Please enter a valid username")
         valid = false
-    } else if(email.length == 0) {
+    } else if(email.length === 0) {
         alert("Please enter a valid email")
         valid = false
-    } else if(birthdate.length == 0) {
+    } else if(birthdate.length === 0) {
         alert("Please enter a valid birth date")
         valid = false
-    } else if (password.length == 0) {
+    } else if (password.length === 0) {
         alert("Please enter a valid password")
         valid = false
-    } else if (password != passwordCheck) {
+    } else if (password !== passwordCheck) {
         alert("Passwords dont match")
         valid = false
     }
 
-    // Send data to database
-
-    // Validate user details
-
     if (valid) {
-        this.action = "login_page.html"; // Change the form's action URL
+        const userData = {
+            username: username,
+            email: email,
+            password: password,
+            birthDate: birthdate
+        };
+
+        fetch('/insert-user', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "login_page.html";
+                } else {
+                    alert("There was a problem signing up.");
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 }

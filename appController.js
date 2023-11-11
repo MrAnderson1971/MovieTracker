@@ -4,6 +4,7 @@
 
 const express = require('express');
 const appService = require('./appService');
+const cors = require("cors");
 
 const router = express.Router();
 
