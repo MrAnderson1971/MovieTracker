@@ -61,7 +61,7 @@ async function insertUser(username, email, password, birthDate) {
     return await withOracleDB(async (connection) => {
         let date = new Date();
         let year = date.getFullYear();
-        let age = year - birthDate.getFullYear();
+        let age = year - Number(birthDate.substring(0, birthDate.indexOf("-")));
         let ageLock = 0;
         if ( age <= 13) {
             ageLock = 1;
@@ -78,10 +78,10 @@ async function insertUser(username, email, password, birthDate) {
             );
         }
 
-        const userExists3 = await connection.execute(`SELECT 1 FROM User_3 WHERE birthDate = TO_DATE(:birthdate, 'yyyymmdd')`, [birthDate])
+        const userExists3 = await connection.execute(`SELECT 1 FROM User_3 WHERE birthDate = TO_DATE(:birthdate, 'yyyy-mm-dd')`, [birthDate])
         if (userExists3.rows.length === 0) {
             await connection.execute(
-                `INSERT INTO User_3 (birthDate, age) VALUES (TO_DATE(:birthDate, 'yyyymmdd'), :age)`,
+                `INSERT INTO User_3 (birthDate, age) VALUES (TO_DATE(:birthDate, 'yyyy-mm-dd'), :age)`,
                 [birthDate, age],
                 { autoCommit: true }
             );
@@ -89,7 +89,7 @@ async function insertUser(username, email, password, birthDate) {
 
         const result2 = await connection.execute(
             `INSERT INTO User_2 (userID, birthDate, email, userPassword, username) 
-            VALUES (:userID, TO_DATE(:birthDate, 'yyyymmdd'), :email, :password, :username)`,
+            VALUES (:userID, TO_DATE(:birthDate, 'yyyy-mm-dd'), :email, :password, :username)`,
             [userID, birthDate, email, password, username],
             { autoCommit: true }
         );
