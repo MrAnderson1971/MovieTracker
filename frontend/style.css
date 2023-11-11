@@ -373,19 +373,62 @@
     padding: 20px;
 }
 
-/*#refreshServicesCount {*/
-/*    background-color: black;*/
-/*    color: white;*/
-/*    font-size: 25px;*/
-/*    display: block;*/
-/*    margin: 18px 0;*/
-/*    padding: 20px;*/
-/*    border: 2px solid white;*/
-/*    border-radius: 10px;*/
-/*}*/
 
-/*#refreshServicesCount:hover {*/
-/*    color: black;*/
-/*    background-color: white;*/
-/*    border-color: white;*/
-/*}*/
+.servicesSelector {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    background-color: whitesmoke;
+}
+
+
+.B {
+    margin-left: 100px;
+}
+
+.A input, .B input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.A select, .B select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#searchServices {
+    width: 175px;
+    height: 175px;
+    margin-left: 100px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    padding: 20px;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+#searchServices i {
+    font-size: 50px;
+}
+
+#searchServices:hover {
+    color: white;
+    background-color: red;
+    border: 3px solid black;
+}
+
+
