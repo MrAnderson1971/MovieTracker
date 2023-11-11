@@ -4,6 +4,7 @@
 
 const express = require('express');
 const appService = require('./appService');
+const cors = require("cors");
 
 const router = express.Router();
 
@@ -36,6 +37,7 @@ router.delete("/delete-watchlist", async (req, res) => {
         res.status(500).json({ success: false });
     }
 });
+
 
 router.post("/update-watchlist", async (req, res) => {
     const { watchlistID, name, userID } = req.body;

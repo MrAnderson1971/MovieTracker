@@ -4,19 +4,15 @@
     padding: 0;
 }
 
-
-
 .navbar {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     width: 100%;
     height: 90px;
     background-color: white;
     padding: 0 20px;
 }
-
-
 
 .logo {
     background-color: white;
@@ -37,8 +33,6 @@
     color: black;
 }
 
-
-
 .nav_links {
     height: 90px;
     background-color: white;
@@ -47,7 +41,6 @@
     list-style: none;
     display: inline-block;
     vertical-align: middle;
-    margin-left: 300px;
 }
 
 .nav_links li {
@@ -320,11 +313,11 @@
     color: white;
 }
 
-.cardBig {
+.cardBig1, .cardBig2 {
     margin: 10px;
     width: 50vw;
     height: 200px;
-    background: repeating-linear-gradient(140deg, red, black 50px);
+    background: repeating-linear-gradient(150deg, red, black 50px);
     text-align: center;
     flex-direction: column;
     display: flex;
@@ -340,17 +333,102 @@
     color: white;
 }
 
-.cardSmall {
+.cardSmall1, .cardSmall2, .cardSmall3  {
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 5px;
-
     width: 33vw;
     height: 200px;
-    background: repeating-linear-gradient(50deg, red, black 50px);
+    background: repeating-linear-gradient(60deg, red, black 50px);
     text-align: center;
     flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
+
+
+
+.servicesInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    color: white;
+    background-color: black;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.serviceCount {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+}
+
+.sCount {
+    padding: 20px;
+}
+
+
+.servicesSelector {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px;
+    background-color: whitesmoke;
+}
+
+
+.B {
+    margin-left: 100px;
+}
+
+.A input, .B input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.A select, .B select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    display: block;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#searchServices {
+    width: 175px;
+    height: 175px;
+    margin-left: 100px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    padding: 20px;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+#searchServices i {
+    font-size: 50px;
+}
+
+#searchServices:hover {
+    color: white;
+    background-color: red;
+    border: 3px solid black;
+}
+
+

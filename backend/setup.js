@@ -104,8 +104,8 @@ const createTableStatements = [
 `CREATE TABLE Watchlist (
     watchlistID INTEGER PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    contentID INTEGER NOT NULL,
-    FOREIGN KEY (contentID) REFERENCES Content_2(contentID)
+    userID INTEGER NOT NULL,
+    FOREIGN KEY (userID) REFERENCES User_2(contentID)
 );`,
 `CREATE TABLE Language (
     languageName VARCHAR(255) PRIMARY KEY
@@ -143,13 +143,6 @@ const createTableStatements = [
     FOREIGN KEY (userID) REFERENCES User_2(userID),
     FOREIGN KEY (reviewID) REFERENCES Review_2(reviewID)
 );`,
-`CREATE TABLE Creates (
-    watchlistID INTEGER,
-    userID INTEGER,
-    PRIMARY KEY (watchlistID, userID),
-    FOREIGN KEY (watchlistID) REFERENCES Watchlist(watchlistID),
-    FOREIGN KEY (userID) REFERENCES User_2(userID)
-);`,
 `CREATE TABLE Collects (
     watchlistID INTEGER,
     contentID INTEGER,
@@ -186,7 +179,7 @@ const createTableStatements = [
 );`
 ];
 
-async function error(err) {
+async function onError(err) {
     console.error("Transaction failed, rolling back...", err);
     await dbConnection.execute("ROLLBACK");
     throw err;
@@ -207,7 +200,7 @@ async function insertReview(dbConnection, score, text, category, userID, content
         // If both inserts are successful, commit the transaction
         await dbConnection.execute('COMMIT');
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -223,18 +216,21 @@ async function insertUser(dbConnection, age, ageLock, birthdate, email, password
             dbConnection.execute(sqlInsertUser3, {birthdate: birthdate, age: age}, {autoCommit: false})]);
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
-async function insertWatchlist(dbConnection, name) {
+async function insertWatchlist(dbConnection, name, userID, contentID) {
     try {
         const watchlistID = randomUUID();
         await dbConnection.execute('BEGIN');
-        await dbConnection.execute(`INSERT INTO Watchlist(watchListID, name) VALUES (:watchlistID, :name)`, {watchlistID: watchlistID, name: name}, {autoCommit: false});
+        const sqlInsertWatchlist = `INSERT INTO Watchlist(watchListID, name, userID) VALUES (:watchlistID, :name, :userID)`;
+        const sqlInsertCollects = `INSERT INTO Collects(watchlistID, contentID) VALUES (:watchlistID, :contentID)`;
+        await Promise.all([dbConnection.execute(sqlInsertWatchlist, {watchlistID: watchlistID, name: name, userID: userID}, {autoCommit: false}),
+        dbConnection.execute(sqlInsertCollects, {watchlistID: watchlistID, contentID: contentID})]);
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -249,7 +245,7 @@ async function insertMovie(dbConnection, ageRating, ageRestricted, title, releas
         await insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate);
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -264,7 +260,7 @@ async function insertTVShow(dbConnection, ageRating, ageRestricted, title, relea
         await insertContent(dbConnection, contentID, ageRating, ageRestricted, title, releaseDate);
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -281,7 +277,7 @@ async function insertLanguage(dbConnection, languageName) {
         await dbConnection.execute(`INSERT INTO Language(languageName) VALUES (:languageName)`, {languageName: languageName});
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -291,7 +287,7 @@ async function insertCountry(dbConnection, countryName) {
         await dbConnection.execute(`INSERT INTO Country(countryName) VALUES (:countryName)`, {countryName: countryName}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -301,7 +297,7 @@ async function insertGenre(dbConnection, genreName) {
         await dbConnection.execute(`INSERT INTO Genre(genreName) VALUES (:genreName)`, {genreName: genreName}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -311,7 +307,7 @@ async function insertStreamingService(dbConnection, streamingServiceName) {
         await dbConnection.execute(`INSERT INTO StreamingService(streamingServiceName) VALUES (:streamingServiceName)`, {streamingServiceName: streamingServiceName}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
     }
 }
 
@@ -322,7 +318,39 @@ async function insertEpisode(dbConnection, contentID, season, episode, duration,
             {contentID: contentID, season: season, episode: episode, duration: duration, title: title}, {autoCommit: false});
         await dbConnection.execute("COMMIT");
     } catch (err) {
-        await error(err);
+        await onError(err);
+    }
+}
+
+async function insertCategorizedAs(dbConnection, genreName, contentID) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO CategorizedAs(genreName, contentID) VALUES (:genreName, :contentID)`, {genreName: genreName, contentID: contentID}, {autocommit: false});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await onError(err);
+    }
+}
+
+async function insertHas(dbConnection, streamingServiceName, contentID) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO Has(streamingServiceName, contentID) VALUES (:streamingServiceName, :contentID)`, {streamingServiceName: streamingServiceName, contentID: contentID},
+            {autocomplete: false});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await onError(err);
+    }
+}
+
+async function insertAvailableIn(dbConnection, countryName, streamingServiceName) {
+    try {
+        await dbConnection.execute("BEGIN");
+        await dbConnection.execute(`INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES (:countryName, :streamingServiceName)`, {countryName: countryName, streamingServiceName: streamingServiceName},
+            {autocommit: false});
+        await dbConnection.execute("COMMIT");
+    } catch (err) {
+        await onError(err);
     }
 }
 

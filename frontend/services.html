@@ -7,33 +7,76 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
 <div class="navbar">
-    <nav>
-        <ul class="logo">
-            <li><a href="homepage.html">WATCHER</a></li>
-        </ul>
-        <ul class="nav_links">
-            <li><a href="services.html">SERVICES</a></li>
-            <li><a href="series.html">SERIES</a></li>
-            <li><a href="movies.html">MOVIES</a></li>
-            <li><a href="watchlists.html">WATCHLISTS</a></li>
-        </ul>
-        <ul class="account_links">
-            <li><a href="login_page.html">SIGN IN</a></li>
-            <li><a href="signup.html">SIGN UP</a></li>
-        </ul>
-    </nav>
+    <ul class="logo">
+        <li><a href="homepage.html">WATCHER</a></li>
+    </ul>
+    <ul class="nav_links">
+        <li><a href="services.html">SERVICES</a></li>
+        <li><a href="series.html">SERIES</a></li>
+        <li><a href="movies.html">MOVIES</a></li>
+        <li><a href="watchlists.html">WATCHLISTS</a></li>
+    </ul>
+    <ul class="account_links">
+        <li><a href="login_page.html">SIGN IN</a></li>
+        <li><a href="signup.html">SIGN UP</a></li>
+    </ul>
 </div>
 
-<div class="info">
-    <h2>SERVICES</h2>
+<div class="servicesInfo">
+<!--    <h1>SERVICES</h1>-->
+
+<!--    <div class="serviceCount">-->
+<!--        <div class="sCount">-->
+<!--            <h1>77</h1>-->
+<!--            <h6>SERVICES</h6>-->
+<!--        </div>-->
+<!--        <button id="refreshServicesCount" value="REFRESH">-->
+<!--            <i class="fa-solid fa-arrows-rotate"></i>-->
+<!--        </button>-->
+<!--    </div>-->
 </div>
+
+<div class="servicesSelector">
+    <div class="A">
+        <h1>NAME</h1>
+        <label for="serviceName">CONTAINS:</label>
+        <input type="text" id="serviceName"><br>
+
+        <label for="serviceNameSort">SORT BY:</label>
+        <select id="serviceNameSort">
+            <option value="asc">ASCENDING</option>
+            <option value="desc">DESCENDING</option>
+        </select>
+    </div>
+
+    <div class="B">
+        <h1>COUNTRY</h1>
+        <label for="serviceCountryText">CONTAINS:</label>
+        <input type="text" id="serviceCountryText"><br>
+
+        <label for="serviceCountrySort">SORT BY:</label>
+        <select id="serviceCountrySort">
+            <option value="asc">ASCENDING</option>
+            <option value="desc">DESCENDING</option>
+        </select>
+    </div>
+
+    <button id="searchServices" value="SEARCH">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+</div>
+
+
 
 
 <script type="module" src="services.js"></script>
+
 
 </body>
 </html>
