@@ -180,6 +180,56 @@ async function countReviews(userID) {
     });
 }
 
+async function countServices() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT Count(*) FROM StreamingServices`);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
+async function searchServices(name, country, descending) {
+    return await withOracleDB(async (connection) => {
+        let result = [];
+        if (name) {
+            let searchTerm = "%" + name + "%";
+            if (descending) {
+                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                               FROM StreamingService s, AvailableIn a
+                                               WHERE s.streamingServiceName LIKE :searchTerm AND 
+                                               s.streamingServiceName = a.streamingServiceName
+                                               ORDER BY s.streamingServiceName DESC`, [searchTerm]);
+            } else {
+                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                               FROM StreamingService s, AvailableIn a
+                                               WHERE s.streamingServiceName LIKE :searchTerm AND 
+                                               s.streamingServiceName = a.streamingServiceName
+                                               ORDER BY s.streamingServiceName`, [searchTerm]);
+            }
+        }
+        if (name) {
+            let searchTerm = "%" + country + "%";
+            if (descending) {
+                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                               FROM StreamingService s, AvailableIn a
+                                               WHERE a.countryName LIKE :searchTerm AND 
+                                               s.streamingServiceName = a.streamingServiceName
+                                               ORDER BY a.countryName DESC`, [searchTerm]);
+            } else {
+                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                                FROM StreamingService s, AvailableIn a
+                                                WHERE a.countryName LIKE :searchTerm AND 
+                                                s.streamingServiceName = a.streamingServiceName
+                                                ORDER BY a.countryName`, [searchTerm]);
+            }
+        }
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 module.exports = {
     testOracleConnection,
     login,
@@ -189,5 +239,8 @@ module.exports = {
     countWatchlist,
     countMovies,
     countSeries,
-    countReviews
+    countReviews,
+    countSeries,
+    countServices,
+    searchServices
 };
