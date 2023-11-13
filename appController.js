@@ -10,11 +10,11 @@ const router = express.Router();
 
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
-    const insertResult = await appService.insertUser(username, password);
-    if (insertResult) {
-        res.json({ success: true });
+    const loginResult = await appService.getUser(username, password);
+    if (insertResult > 0) {
+        res.json({ success: true, userID: loginResult });
     } else {
-        res.status(500).json({ success: false });
+        res.status(500).json({ success: false, userID: loginResult });
     }
 });
 
@@ -46,6 +46,70 @@ router.post("/update-watchlist", async (req, res) => {
         res.json({ success: true });
     } else {
         res.status(500).json({ success: false });
+    }
+});
+
+router.get('/count-watchlist', async (req, res) => {
+    const { userID } = req.body;
+    const tableCount = await appService.countWatchlist(userID);
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            count: tableCount
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            count: tableCount
+        });
+    }
+});
+
+router.get('/count-movies', async (req, res) => {
+    const { userID } = req.body;
+    const tableCount = await appService.countMovies(userID);
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            count: tableCount
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            count: tableCount
+        });
+    }
+});
+
+router.get('/count-series', async (req, res) => {
+    const { userID } = req.body;
+    const tableCount = await appService.countSeries(userID);
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            count: tableCount
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            count: tableCount
+        });
+    }
+});
+
+router.get('/count-reviews', async (req, res) => {
+    const { userID } = req.body;
+    const tableCount = await appService.countReviews(userID);
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            count: tableCount
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            count: tableCount
+        });
     }
 });
 
