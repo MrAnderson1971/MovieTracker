@@ -47,13 +47,13 @@ async function testOracleConnection() {
 async function login(username, userPassword) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT username, userPassword FROM User_2 WHERE username = :username AND userPassword = :userPassword`,
-            { username: username, userPassword: userPassword }
+            `SELECT userID FROM User_2 WHERE username = :username AND userPassword = :userPassword`,
+            [ username, userPassword ]
         );
-        return result.rows.length > 0;
+        return result.rows[0][0];
     }).catch((error) => {
         console.error(error);
-        return false;
+        return -1;
     });
 }
 
@@ -68,7 +68,7 @@ async function insertUser(username, email, password, birthDate) {
         }
         let userID = Math.random() * 4294967296;
 
-        const userExists1 = await connection.execute(`SELECT  1 FROM User_1 WHERE age = :age`, [age]);
+        const userExists1 = await connection.execute(`SELECT 1 FROM User_1 WHERE age = :age`, [age]);
 
         if (userExists1.rows.length === 0) {
             await connection.execute(
@@ -138,9 +138,56 @@ async function updateWatchlist(watchlistID, name, userID) {
     });
 }
 
+async function countWatchlist(userID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT Count(*) FROM Watchlist WHERE userID = :userID`, [userID]);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
+async function countMovies(userID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT Count(*) 
+                                                FROM Watchlist w, Collects c, Movie_2 m
+                                                WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
+                                                c.contentID = m.contentID`, [userID]);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
+async function countSeries(userID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT Count(*) 
+                                                FROM Watchlist w, Collects c, TVShow_1 t
+                                                WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
+                                                c.contentID = t.contentID`, [userID]);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
+async function countReviews(userID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT Count(*) FROM Review_2 WHERE userID = :userID`, [userID]);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
 module.exports = {
     testOracleConnection,
+    login,
     insertUser,
     deleteWatchlist,
-    updateWatchlist
+    updateWatchlist,
+    countWatchlist,
+    countMovies,
+    countSeries,
+    countReviews
 };
