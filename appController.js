@@ -113,4 +113,36 @@ router.get('/count-reviews', async (req, res) => {
     }
 });
 
+router.get('/count-services', async (req, res) => {
+    const { userID } = req.body;
+    const tableCount = await appService.countServices();
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            count: tableCount
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            count: tableCount
+        });
+    }
+});
+
+router.get('/search-services', async (req, res) => {
+    const { name, country, descending } = req.body;
+    const response = await appService.searchServices(name, country, descending);
+    if (tableCount >= 0) {
+        res.json({ 
+            success: true,  
+            result: response
+        });
+    } else {
+        res.status(500).json({ 
+            success: false, 
+            result: response
+        });
+    }
+});
+
 module.exports = router;
