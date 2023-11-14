@@ -386,27 +386,18 @@
 }
 
 
-.B {
+.B, .C {
     margin-left: 100px;
 }
 
-.A input, .B input {
+.A input, .B input, .C select {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
-    display: block;
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
 }
 
-.A select, .B select {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    display: block;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px;
-}
 
 #searchServices {
     width: 175px;
@@ -428,7 +419,7 @@
 #searchServices:hover {
     color: white;
     background-color: red;
-    border: 3px solid black;
+    border: 5px solid black;
 }
 
 
