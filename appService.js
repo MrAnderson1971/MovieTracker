@@ -189,41 +189,41 @@ async function countServices() {
     });
 }
 
-async function searchServices(name, country, descending) {
+async function searchServices(name, country, order) {
     return await withOracleDB(async (connection) => {
-        let result = [];
-        if (name) {
-            let searchTerm = "%" + name + "%";
-            if (descending) {
-                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
-                                               FROM StreamingService s, AvailableIn a
-                                               WHERE s.streamingServiceName LIKE :searchTerm AND 
-                                               s.streamingServiceName = a.streamingServiceName
-                                               ORDER BY s.streamingServiceName DESC`, [searchTerm]);
-            } else {
-                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
-                                               FROM StreamingService s, AvailableIn a
-                                               WHERE s.streamingServiceName LIKE :searchTerm AND 
-                                               s.streamingServiceName = a.streamingServiceName
-                                               ORDER BY s.streamingServiceName`, [searchTerm]);
-            }
+        let result;
+        let nameSearchTerm = "%" + name + "%";
+        let countrySearchTerm = "%" + country + "%";
+        if (order === 0) {
+            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                            FROM StreamingService s, AvailableIn a
+                                            WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
+                                            a.CountryName LIKE :countrySearchTerm AND
+                                            s.streamingServiceName = a.streamingServiceName
+                                            ORDER BY s.streamingServiceName ASC`, [nameSearchTerm, countrySearchTerm]);
+        } else if (order === 1) {
+            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                            FROM StreamingService s, AvailableIn a
+                                            WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
+                                            a.CountryName LIKE :countrySearchTerm AND
+                                            s.streamingServiceName = a.streamingServiceName
+                                            ORDER BY s.streamingServiceName DESC`, [nameSearchTerm, countrySearchTerm]);
+        } else if (order === 2) {
+            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                            FROM StreamingService s, AvailableIn a
+                                            WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
+                                            a.CountryName LIKE :countrySearchTerm AND
+                                            s.streamingServiceName = a.streamingServiceName
+                                            ORDER BY a.countryName ASC`, [nameSearchTerm, countrySearchTerm]);
+        } else if (order === 2) {
+            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                            FROM StreamingService s, AvailableIn a
+                                            WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
+                                            a.CountryName LIKE :countrySearchTerm AND
+                                            s.streamingServiceName = a.streamingServiceName
+                                            ORDER BY a.countryName DESC`, [nameSearchTerm, countrySearchTerm]);
         }
-        if (name) {
-            let searchTerm = "%" + country + "%";
-            if (descending) {
-                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
-                                               FROM StreamingService s, AvailableIn a
-                                               WHERE a.countryName LIKE :searchTerm AND 
-                                               s.streamingServiceName = a.streamingServiceName
-                                               ORDER BY a.countryName DESC`, [searchTerm]);
-            } else {
-                result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
-                                                FROM StreamingService s, AvailableIn a
-                                                WHERE a.countryName LIKE :searchTerm AND 
-                                                s.streamingServiceName = a.streamingServiceName
-                                                ORDER BY a.countryName`, [searchTerm]);
-            }
-        }
+
         return result.rows;
     }).catch(() => {
         return [];
