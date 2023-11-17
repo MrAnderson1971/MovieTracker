@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         loadDefaultPage();
     }
 });
+document.getElementById("searchServices").addEventListener("click", searchServices);
 
 function loadDefaultPage() {
     changeServicesNavBar();
@@ -15,6 +16,68 @@ function loadDefaultPage() {
     fetchItemCount("movies");
     fetchItemCount("series");
     fetchItemCount("reviews");
+}
+
+function searchServices() {
+    const name = document.getElementById('serviceName').value;
+    const country = document.getElementById('serviceCountryText').value;
+    const order = document.getElementById('nameCountrySort').value;
+
+    fetch('/search-services', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, country, order })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                displaySearchResults(data.result);
+            } else {
+                console.error('Search failed:', data.result);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+}
+
+function displaySearchResults(results) {
+    const container = document.getElementById('searchResultsContainer');
+    container.innerHTML = '';
+
+    const table = document.createElement('table');
+    table.classList.add('results-table');
+
+    const headerRow = document.createElement('tr');
+    const serviceHeader = document.createElement('th');
+    serviceHeader.textContent = 'Streaming Service';
+    const countryHeader = document.createElement('th');
+    countryHeader.textContent = 'Country';
+
+    headerRow.appendChild(serviceHeader);
+    headerRow.appendChild(countryHeader);
+    table.appendChild(headerRow);
+
+    results.forEach(result => {
+        const row = document.createElement('tr');
+        const serviceCell = document.createElement('td');
+        serviceCell.textContent = result.streamingServiceName;
+        const countryCell = document.createElement('td');
+        countryCell.textContent = result.countryName;
+
+        row.appendChild(serviceCell);
+        row.appendChild(countryCell);
+        table.appendChild(row);
+    });
+
+    container.appendChild(table);
 }
 
 function fetchItemCount(item) {
