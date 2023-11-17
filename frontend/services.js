@@ -24,7 +24,7 @@ function searchServices() {
     const order = document.getElementById('nameCountrySort').value;
 
     fetch('/search-services', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
