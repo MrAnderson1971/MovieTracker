@@ -52,7 +52,6 @@ async function login(username, userPassword) {
         );
         return result.rows[0][0];
     }).catch((error) => {
-        console.error(error);
         return -1;
     });
 }
