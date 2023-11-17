@@ -11,7 +11,32 @@ document.addEventListener("DOMContentLoaded", function () {
 function loadDefaultPage() {
     changeServicesNavBar();
     addServicesBar();
+    fetchItemCount("watchlist");
+    fetchItemCount("movies");
+    fetchItemCount("series");
+    fetchItemCount("reviews");
+}
 
+function fetchItemCount(item) {
+    const userID = localStorage.getItem('userId');
+
+    fetch(`/count-${item}?userID=${userID}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                document.getElementById(`${item}Count`).textContent = data.count;
+            } else {
+                console.error(`Failed to fetch ${item} count.`);
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
 }
 
 function changeServicesNavBar() {
