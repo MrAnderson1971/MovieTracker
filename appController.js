@@ -50,7 +50,7 @@ router.post("/update-watchlist", async (req, res) => {
 });
 
 router.get('/count-watchlist', async (req, res) => {
-    const { userID } = req.body;
+    const userID = req.query.userID;
     const tableCount = await appService.countWatchlist(userID);
     if (tableCount >= 0) {
         res.json({
@@ -66,7 +66,7 @@ router.get('/count-watchlist', async (req, res) => {
 });
 
 router.get('/count-movies', async (req, res) => {
-    const { userID } = req.body;
+    const { userID } = req.query;
     const tableCount = await appService.countMovies(userID);
     if (tableCount >= 0) {
         res.json({
