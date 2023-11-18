@@ -11,16 +11,23 @@ const envVariables = loadEnvFile('./.env');
 const dbConfig = {
     user: envVariables.ORACLE_USER,
     password: envVariables.ORACLE_PASS,
-    connectString: `${envVariables.ORACLE_HOST}:${envVariables.ORACLE_PORT}/${envVariables.ORACLE_DBNAME}`
+    connectString: `${envVariables.ORACLE_HOST}:${envVariables.ORACLE_PORT}/${envVariables.ORACLE_DBNAME}`,
+    poolMax: 1
 };
 
 
 // ----------------------------------------------------------
 // Wrapper to manage OracleDB actions, simplifying connection handling.
+let poolMade = false;
 async function withOracleDB(action) {
     let connection;
     try {
-        connection = await oracledb.getConnection(dbConfig);
+        if (!poolMade) {
+            await oracledb.createPool(dbConfig);
+            pool = oracledb.getPool();
+            poolMade = true;
+        }
+        connection = await pool.getConnection();
         return await action(connection);
     } catch (err) {
         console.error(err);
@@ -181,7 +188,7 @@ async function countReviews(userID) {
 
 async function countServices() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT Count(*) FROM StreamingServices`);
+        const result = await connection.execute(`SELECT Count(*) FROM StreamingService`);
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -214,7 +221,7 @@ async function searchServices(name, country, order) {
                                             a.CountryName LIKE :countrySearchTerm AND
                                             s.streamingServiceName = a.streamingServiceName
                                             ORDER BY a.countryName ASC`, [nameSearchTerm, countrySearchTerm]);
-        } else if (order === 2) {
+        } else if (order === 3) {
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
                                             FROM StreamingService s, AvailableIn a
                                             WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
@@ -222,7 +229,7 @@ async function searchServices(name, country, order) {
                                             s.streamingServiceName = a.streamingServiceName
                                             ORDER BY a.countryName DESC`, [nameSearchTerm, countrySearchTerm]);
         }
-
+        
         return result.rows;
     }).catch(() => {
         return [];
