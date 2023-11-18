@@ -200,34 +200,39 @@ async function searchServices(name, country, order) {
         let result;
         let nameSearchTerm = "%" + name + "%";
         let countrySearchTerm = "%" + country + "%";
-        if (order === 0) {
+        switch (order) {
+            case 0:
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
                                             FROM StreamingService s, AvailableIn a
                                             WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
                                             a.CountryName LIKE :countrySearchTerm AND
                                             s.streamingServiceName = a.streamingServiceName
                                             ORDER BY s.streamingServiceName ASC`, [nameSearchTerm, countrySearchTerm]);
-        } else if (order === 1) {
+            break;
+            case 1:
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
                                             FROM StreamingService s, AvailableIn a
                                             WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
                                             a.CountryName LIKE :countrySearchTerm AND
                                             s.streamingServiceName = a.streamingServiceName
                                             ORDER BY s.streamingServiceName DESC`, [nameSearchTerm, countrySearchTerm]);
-        } else if (order === 2) {
+            break;
+            case 2:
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
                                             FROM StreamingService s, AvailableIn a
                                             WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
                                             a.CountryName LIKE :countrySearchTerm AND
                                             s.streamingServiceName = a.streamingServiceName
                                             ORDER BY a.countryName ASC`, [nameSearchTerm, countrySearchTerm]);
-        } else if (order === 3) {
+            break;
+            case 3:
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
                                             FROM StreamingService s, AvailableIn a
                                             WHERE s.streamingServiceName LIKE :nameSearchTerm AND 
                                             a.CountryName LIKE :countrySearchTerm AND
                                             s.streamingServiceName = a.streamingServiceName
                                             ORDER BY a.countryName DESC`, [nameSearchTerm, countrySearchTerm]);
+            default:
         }
         
         return result.rows;
