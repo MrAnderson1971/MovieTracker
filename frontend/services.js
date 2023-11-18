@@ -21,7 +21,25 @@ function loadDefaultPage() {
 function searchServices() {
     const name = document.getElementById('serviceName').value;
     const country = document.getElementById('serviceCountryText').value;
-    const order = document.getElementById('nameCountrySort').value;
+    const option = document.getElementById('nameCountrySort').value;
+    let order;
+
+    switch (option) {
+        case 'nasc':
+            order = 0;
+            break;
+        case 'ndesc':
+            order = 1;
+            break;
+        case 'casc':
+            order = 2;
+            break;
+        case 'cdesc':
+            order = 3;
+            break;
+        default:
+            order = 0;
+    }
 
     fetch('/search-services', {
         method: 'POST',
@@ -68,9 +86,9 @@ function displaySearchResults(results) {
     results.forEach(result => {
         const row = document.createElement('tr');
         const serviceCell = document.createElement('td');
-        serviceCell.textContent = result.streamingServiceName;
+        serviceCell.textContent = result[0];
         const countryCell = document.createElement('td');
-        countryCell.textContent = result.countryName;
+        countryCell.textContent = result[1];
 
         row.appendChild(serviceCell);
         row.appendChild(countryCell);

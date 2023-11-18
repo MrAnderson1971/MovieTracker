@@ -132,7 +132,7 @@ router.get('/count-services', async (req, res) => {
 router.post('/search-services', async (req, res) => {
     const { name, country, order } = req.body;
     const response = await appService.searchServices(name, country, order);
-    if (tableCount >= 0) {
+    if (response.length >= 0) {
         res.json({
             success: true,
             result: response
