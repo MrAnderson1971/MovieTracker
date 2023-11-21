@@ -54,12 +54,12 @@ async function testOracleConnection() {
 async function login(username, userPassword) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
-            `SELECT userID FROM User_2 WHERE username = :username AND userPassword = :userPassword`,
+            `SELECT userID, admin FROM User_2 WHERE username = :username AND userPassword = :userPassword`,
             [ username, userPassword ]
         );
-        return result.rows[0][0];
+        return result.rows;
     }).catch((error) => {
-        return -1;
+        return [];
     });
 }
 
@@ -254,6 +254,21 @@ async function searchServices(name, country, order) {
     });
 }
 
+async function viewTable(tableName, attributes) {
+    return await withOracleDB(async (connection) => {
+        let queryString = `SELECT `;
+        for (a in attributes) {
+            queryString = queryString + a + ` `;
+        }
+        queryString = queryString + ` FROM ` + tableName;
+
+        const result = await connection.execute(queryString);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
 module.exports = {
     testOracleConnection,
     login,
@@ -267,5 +282,6 @@ module.exports = {
     countSeries,
     countServices,
     searchServices,
-    getMostPopularGenre
+    getMostPopularGenre,
+    viewTable
 };

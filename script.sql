@@ -67,6 +67,8 @@ CREATE TABLE User_2 (
   email VARCHAR(255) UNIQUE,
   userPassword VARCHAR(255),
   username VARCHAR(255) UNIQUE,
+  admin INTEGER,
+  CHECK (admin = 0 OR admin = 1),
   FOREIGN KEY (birthDate) REFERENCES User_3(birthDate)
 );
 grant select on User_2 to public;
@@ -258,20 +260,20 @@ INSERT INTO User_3(birthdate, age) VALUES
 (TO_DATE('20130525', 'yyyymmdd'), 10);
 
 
-INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES
-(1, TO_DATE('19980101', 'yyyymmdd'), 'user1@example.com', 'password1', 'user1');
+INSERT INTO User_2(userID, birthdate, email, userPassword, username, admin) VALUES
+(1, TO_DATE('19980101', 'yyyymmdd'), 'user1@example.com', 'password1', 'user1', 1);
 
-INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES
-(2, TO_DATE('19930210', 'yyyymmdd'), 'user2@example.com', 'password2', 'user2');
+INSERT INTO User_2(userID, birthdate, email, userPassword, username, admin) VALUES
+(2, TO_DATE('19930210', 'yyyymmdd'), 'user2@example.com', 'password2', 'user2', 0);
 
-INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES
-(3, TO_DATE('20100320', 'yyyymmdd'), 'user3@example.com', 'password3', 'user3');
+INSERT INTO User_2(userID, birthdate, email, userPassword, username, admin) VALUES
+(3, TO_DATE('20100320', 'yyyymmdd'), 'user3@example.com', 'password3', 'user3', 0);
 
-INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES
-(4, TO_DATE('19830415', 'yyyymmdd'), 'user4@example.com', 'password4', 'user4');
+INSERT INTO User_2(userID, birthdate, email, userPassword, username, admin) VALUES
+(4, TO_DATE('19830415', 'yyyymmdd'), 'user4@example.com', 'password4', 'user4', 0);
 
-INSERT INTO User_2(userID, birthdate, email, userPassword, username) VALUES
-(5, TO_DATE('20130525', 'yyyymmdd'), 'user5@example.com', 'password5', 'user5');
+INSERT INTO User_2(userID, birthdate, email, userPassword, username, admin) VALUES
+(5, TO_DATE('20130525', 'yyyymmdd'), 'user5@example.com', 'password5', 'user5', 0);
 
 
 INSERT INTO Content_1(ageRating, ageRestricted) VALUES
