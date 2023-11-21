@@ -201,7 +201,6 @@ async function getMostPopularGenre() {
 FROM CategorizedAs
 GROUP BY genreName
 ORDER BY genreCount DESC
-FETCH FIRST 1 ROW ONLY;
 `);
         return result.rows[0][0];
     }).catch(() => {
@@ -267,5 +266,6 @@ module.exports = {
     countReviews,
     countSeries,
     countServices,
-    searchServices
+    searchServices,
+    getMostPopularGenre
 };

@@ -110,7 +110,7 @@ function createBigUserStatBoard() {
         })
         .then((data) => {
             if (data.success) {
-                populateCard(cards[0], 'WATCHLISTS CREATED', data.count);
+                populateCard(cards[1], 'WATCHLISTS CREATED', data.count);
             } else {
                 console.error("Failed to get watchlist count.");
             }
@@ -137,10 +137,48 @@ function createSmallUserStatBoard() {
     const cardNames = ['.cardSmall1', '.cardSmall2', '.cardSmall3'];
     const cards = cardNames.map(cardName => document.querySelector(cardName));
 
-    // TODO:: Get values from database
-    populateCard(cards[0], 'MOVIES TRACKED', '1')
-    populateCard(cards[1], 'SERIES TRACKED', '1')
-    populateCard(cards[2], 'REVIEWS WRITTEN', '1')
+    fetch('/count-movies')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("error");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.success) {
+                populateCard(cards[0], 'MOVIES TRACKED', data.count);
+            } else {
+                console.error("Failed to get movies count.");
+            }
+        })
+    fetch('/count-series')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("error");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.success) {
+                populateCard(cards[0], 'SERIES TRACKED', data.count);
+            } else {
+                console.error("Failed to get series count.");
+            }
+        })
+    fetch('/count-reviews')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("error");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.success) {
+                populateCard(cards[0], 'REVIEWS WRITTEN', data.count);
+            } else {
+                console.error("Failed to get reviews count.");
+            }
+        })
 }
 
 function createSmallCards() {
