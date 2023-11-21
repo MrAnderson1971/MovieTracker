@@ -96,7 +96,7 @@ function createBigUserStatBoard() {
         })
         .then((data) => {
             if (data.success) {
-                populateCards(cards[0], 'FAVORITE GENRE', data.count);
+                populateCard(cards[0], 'FAVORITE GENRE', data.count);
             } else {
                 console.error("Failed to get favorite genre.");
             }
@@ -110,7 +110,7 @@ function createBigUserStatBoard() {
         })
         .then((data) => {
             if (data.success) {
-                populateCards(cards[0], 'WATCHLISTS CREATED', data.count);
+                populateCard(cards[0], 'WATCHLISTS CREATED', data.count);
             } else {
                 console.error("Failed to get watchlist count.");
             }
@@ -166,8 +166,3 @@ function populateCard(card, title, value) {
 
     card.append(h5, h1);
 }
-
-
-
-
-
