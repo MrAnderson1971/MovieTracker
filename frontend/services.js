@@ -12,10 +12,6 @@ document.getElementById("searchServices").addEventListener("click", searchServic
 function loadDefaultPage() {
     changeServicesNavBar();
     addServicesBar();
-    fetchItemCount("watchlist");
-    fetchItemCount("movies");
-    fetchItemCount("series");
-    fetchItemCount("reviews");
 }
 
 function searchServices() {
@@ -67,6 +63,7 @@ function searchServices() {
 }
 
 function displaySearchResults(results) {
+    console.log(results);
     const container = document.getElementById('searchResultsContainer');
     container.innerHTML = '';
 
