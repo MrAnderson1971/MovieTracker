@@ -129,6 +129,21 @@ router.get('/count-services', async (req, res) => {
     }
 });
 
+router.get('/count-genres', async (req, res) => {
+    const genre = await appService.getMostPopularGenre();
+    if (genre !== -1) {
+        res.json({
+            success: true,
+            count: genre
+        })
+    } else {
+        res.status(500).json ({
+            success: false,
+            count: -1
+        });
+    }
+})
+
 router.post('/search-services', async (req, res) => {
     const { name, country, order } = req.body;
     const response = await appService.searchServices(name, country, order);
