@@ -19,6 +19,7 @@ async function loginUser() {
 
         if (data.success) {
             localStorage.setItem("userId", data.userID);
+            localStorage.setItem("userName", un);
             localStorage.setItem("loginStatus", "true");
             window.location.href = 'homepage.html';
         } else {
