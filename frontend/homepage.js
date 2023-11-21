@@ -160,7 +160,7 @@ function createSmallUserStatBoard() {
         })
         .then((data) => {
             if (data.success) {
-                populateCard(cards[0], 'SERIES TRACKED', data.count);
+                populateCard(cards[1], 'SERIES TRACKED', data.count);
             } else {
                 console.error("Failed to get series count.");
             }
@@ -174,7 +174,7 @@ function createSmallUserStatBoard() {
         })
         .then((data) => {
             if (data.success) {
-                populateCard(cards[0], 'REVIEWS WRITTEN', data.count);
+                populateCard(cards[2], 'REVIEWS WRITTEN', data.count);
             } else {
                 console.error("Failed to get reviews count.");
             }
