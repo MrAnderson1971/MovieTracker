@@ -195,6 +195,20 @@ async function countServices() {
     });
 }
 
+async function getMostPopularGenre() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT genreName, COUNT(*) as genreCount
+FROM CategorizedAs
+GROUP BY genreName
+ORDER BY genreCount DESC
+FETCH FIRST 1 ROW ONLY;
+`);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
 async function searchServices(name, country, order) {
     return await withOracleDB(async (connection) => {
         let result;
@@ -234,7 +248,7 @@ async function searchServices(name, country, order) {
                                             ORDER BY a.countryName DESC`, [nameSearchTerm, countrySearchTerm]);
             default:
         }
-        
+
         return result.rows;
     }).catch(() => {
         return [];

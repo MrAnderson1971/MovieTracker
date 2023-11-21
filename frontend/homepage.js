@@ -87,9 +87,34 @@ function createBigUserStatBoard() {
     const cards = cardNames.map(cardName => document.querySelector(cardName));
 
     // Populate cards
-    // TODO:: Get values from database
-    populateCard(cards[0], 'WATCHLISTS CREATED', '1');
-    populateCard(cards[1], 'FAVOURITE GENRE', 'Action')
+    fetch('/count-genres')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("error");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.success) {
+                populateCards(cards[0], 'FAVORITE GENRE', data.count);
+            } else {
+                console.error("Failed to get favorite genre.");
+            }
+        })
+    fetch('/count-watchlist')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("error");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.success) {
+                populateCards(cards[0], 'WATCHLISTS CREATED', data.count);
+            } else {
+                console.error("Failed to get watchlist count.");
+            }
+        })
 }
 
 function createBigCards() {
