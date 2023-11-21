@@ -28,6 +28,16 @@ router.post("/insert-user", async (req, res) => {
     }
 });
 
+router.post("/create-watchlist", async (req, res) => {
+    const { name, userID } = req.body;
+    const insertResult = await appService.createWatchlist(name, userID);
+    if (insertResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.delete("/delete-watchlist", async (req, res) => {
     const { watchlistID } = req.body;
     const deleteResult = await appService.deleteWatchlist(watchlistID);
@@ -46,6 +56,16 @@ router.post("/update-watchlist", async (req, res) => {
         res.json({ success: true });
     } else {
         res.status(500).json({ success: false });
+    }
+});
+
+router.post("/get-watchlists", async (req, res) => {
+    const { userID } = req.body;
+    const result = await appService.getWatchlistsForUser(userID);
+    if (result.length > 0) {
+        res.json({ success: true, result: result });
+    } else {
+        res.status(500).json({ success: false, result: result });
     }
 });
 
