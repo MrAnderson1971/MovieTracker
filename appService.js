@@ -106,6 +106,39 @@ async function insertUser(username, email, password, birthDate) {
     });
 }
 
+async function createWatchlist(name, userID) {
+    return await withOracleDB(async (connection) => {
+        let watchlistID = Math.random() * 4294967296;
+
+        const result = await connection.execute(
+            `INSERT INTO Watchlist (watchlistID, name, userID)
+            VALUES (:watchlistID, :name, :userID)`,
+            [watchlistID, name, userID],
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return false;
+    });
+}
+
+async function getWatchlistsForUser(userID) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT w.watchlistID, w.name, c.contentID
+                                                FROM Watchlist w, Collects c
+                                                WHERE w.userID = :userID
+                                                ORDER BY w.watchlistID ASC`,
+            [userID],
+            { autoCommit: true }
+        );
+
+        return result.rows;
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function deleteWatchlist(watchlistID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
@@ -273,8 +306,10 @@ module.exports = {
     testOracleConnection,
     login,
     insertUser,
+    createWatchlist,
     deleteWatchlist,
     updateWatchlist,
+    getWatchlistsForUser,
     countWatchlist,
     countMovies,
     countSeries,
