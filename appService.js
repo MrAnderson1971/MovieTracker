@@ -127,7 +127,7 @@ async function getWatchlistsForUser(userID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT w.watchlistID, w.name, c.contentID
                                                 FROM Watchlist w, Collects c
-                                                WHERE w.userID = :userID
+                                                WHERE w.userID = :userID and w.watchlistID = c.watchlistID
                                                 ORDER BY w.watchlistID ASC`,
             [userID],
             { autoCommit: true }
@@ -228,6 +228,33 @@ async function countServices() {
     });
 }
 
+async function countShowsBySeasons(seasonNumber) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT Count(*)
+                                                FROM TVShow_1 t
+                                                GROUP BY t.numSeasons
+                                                HAVING t.numSeasons > :seasons`);
+        return result.rows[0][0];
+    }).catch(() => {
+        return -1;
+    });
+}
+
+async function getUltimateReviewers() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT userID
+                                                FROM User_2 u
+                                                WHERE NOT EXISTS ((SELECT c.contentID
+                                                                  FROM Content_2 c)
+                                                                  EXCEPT (SELECT r.reviewID
+                                                                  FROM Review_2 r
+                                                                  WHERE r.userID = u.userID)))`);
+        return result.rows;
+    }).catch(() => {
+        return -1;
+    });
+}
+
 async function getMostPopularGenre() {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT genreName, COUNT(*) as genreCount
@@ -316,7 +343,9 @@ module.exports = {
     countReviews,
     countSeries,
     countServices,
+    countShowsBySeasons,
     searchServices,
+    getUltimateReviewers,
     getMostPopularGenre,
     viewTable
 };
