@@ -227,4 +227,20 @@ router.post('/view-table', async (req, res) => {
     }
 });
 
+router.post('/search-movies', async (req, res) => {
+    const { contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted, and } = req.body;
+    const response = await appService.searchMovies(contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted, and);
+    if (response.length >= 0) {
+        res.json({
+            success: true,
+            result: response
+        });
+    } else {
+        res.status(500).json({
+            success: false,
+            result: response
+        });
+    }
+});
+
 module.exports = router;
