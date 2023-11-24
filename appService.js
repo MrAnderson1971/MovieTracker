@@ -314,6 +314,33 @@ async function searchServices(name, country, order) {
     });
 }
 
+async function searchMovies(contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted, and) {
+    return await withOracleDB(async (connection) => {
+        let result;
+        if (and) {
+            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                            FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
+                                            WHERE m1.contentID = :contentID AND m2.duration = :duration AND m1.lengthType = :lengthType
+                                            AND c2.ageRating = :ageRating AND c2.title = title AND c2.releaseDate = 
+                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted
+                                            ORDER BY m2.movieID ASC`, 
+                                            [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
+        } else {
+            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+                                            FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
+                                            WHERE m1.contentID = :contentID OR m2.duration = :duration OR m1.lengthType = :lengthType
+                                            OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate = :releaseDate
+                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted
+                                            ORDER BY m2.movieID ASC`, 
+                                            [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
+        }
+
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 async function viewTable(tableName, attributes) {
     return await withOracleDB(async (connection) => {
         let queryString = `SELECT `;
@@ -347,5 +374,6 @@ module.exports = {
     searchServices,
     getUltimateReviewers,
     getMostPopularGenre,
+    searchMovies,
     viewTable
 };
