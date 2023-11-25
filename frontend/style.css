@@ -347,9 +347,6 @@
     align-items: center;
 }
 
-
-
-
 .servicesInfo {
     display: flex;
     justify-content: space-between;
@@ -373,7 +370,6 @@
     padding: 20px;
 }
 
-
 .servicesSelector {
     display: flex;
     justify-content: flex-start;
@@ -384,7 +380,6 @@
     padding: 20px;
     background-color: whitesmoke;
 }
-
 
 .B, .C {
     margin-left: 100px;
@@ -397,7 +392,6 @@
     border-radius: 5px;
     padding: 5px;
 }
-
 
 #searchServices {
     width: 175px;
@@ -422,8 +416,6 @@
     border: 5px solid black;
 }
 
-
-
 .watchlistBar {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
@@ -442,12 +434,17 @@
     background-color: whitesmoke;
 }
 
-
-.deleteArea, .addArea {
+.deleteArea, .addArea, .updateArea{
     font-size: 18px;
     background-color: whitesmoke;
     padding: 20px;
 }
+
+.updateArea {
+    display: flex;
+    align-items: center;
+}
+
 
 .watchlistSec input {
     font-family: 'Montserrat', sans-serif;
@@ -456,9 +453,10 @@
     border-radius: 5px;
     padding: 5px;
     height: 40px;
+    margin: 15px;
 }
 
-#delWatchList, #addWatchList {
+#delWatchList, #addWatchList, #updateWatchList {
     width: 150px;
     height: 40px;
     background-color: red;
@@ -469,14 +467,11 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #addWatchList:hover {
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
 }
-
-
-
 
 .mainWatchlistBar {
     display: flex;
