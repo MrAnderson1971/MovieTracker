@@ -456,7 +456,7 @@
     margin: 15px;
 }
 
-#delWatchList, #addWatchList, #updateWatchList{
+#delWatchList, #addWatchList, #updateWatchList, #getTable{
     width: 150px;
     height: 40px;
     background-color: red;
@@ -467,10 +467,14 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover{
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover, #getTable:hover{
     color: white;
     background-color: red;
     border: 2px solid black;
+}
+
+#getTable {
+    margin: 20px ;
 }
 
 .mainWatchlistBar {
@@ -538,6 +542,19 @@
     display: block;
     border: 3px solid red;
     border-radius: 10px;
+}
+
+.attrContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.attrContainer label {
+    margin-left: 10px;
 }
 
 
