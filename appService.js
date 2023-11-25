@@ -155,8 +155,9 @@ async function deleteWatchlist(watchlistID) {
 
 async function updateWatchlist(watchlistID, name, userID) {
     return await withOracleDB(async (connection) => {
+        let result;
         if (name) {
-            const result = await connection.execute(
+            result = await connection.execute(
                 `UPDATE Watchlist SET name = :name WHERE watchlistID = :watchlistID`,
                 [name, watchlistID],
                 { autoCommit: true }
@@ -164,7 +165,7 @@ async function updateWatchlist(watchlistID, name, userID) {
         }
 
         if (userID) {
-            const result = await connection.execute(
+            result = await connection.execute(
                 `UPDATE Watchlist SET userID = :userID WHERE watchlistID = :watchlistID`,
                 [userID, watchlistID],
                 { autoCommit: true }
