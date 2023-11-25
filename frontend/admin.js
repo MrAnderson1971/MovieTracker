@@ -1,5 +1,5 @@
 
-document.getElementById("chooseRelation").addEventListener("click", test);
+document.getElementById("chooseRelation").addEventListener("click", addRelationToggle);
 
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
@@ -38,41 +38,107 @@ function changeAdminNavBar() {
     al.appendChild(liSO);
 }
 
-function test() {
-    const aS = document.querySelector('.attributeSelection');
-
+function addRelationToggle() {
     // --- Get selector value
     const rS = document.getElementById('relationSelector');
+    const rVal = rS.value;
 
-    const relationSelected = rS.value;
-
-    const relations = [
-        "Review_1",
-        "Review_2",
-        "User_1",
-        "User_2",
-        "User_3",
-        "Content_1",
-        "Content_2",
-        "Movie_1",
-        "Movie_2",
-        "TVShow_1",
-        "TVShow_2",
-        "Watchlist",
-        "Language",
-        "Genre",
-        "Country",
-        "StreamingService",
-        "Episode",
-        "TranslatedAs",
-        "Collects",
-        "CategorizedAs",
-        "Has",
-        "AvailableIn"
+    const attributes = [
+        ["score", "category"],
+        ["reviewID", "score", "reviewText", "userID", "contentID"],
+        ["age", "ageLock"],
+        ["userID", "birthdate", "email", "userPassword", "username", "admin"],
+        ["birthdate", "age"],
+        ["ageRating", "ageRestricted"],
+        ["contentID", "ageRating", "title", "releaseDate"],
+        ["duration", "lengthType"],
+        ["contentID", "duration"],
+        ["contentID", "numSeasons"],
+        ["numSeasons", "seriesType"],
+        ["watchlistID", "name", "userID"],
+        ["languageName"],
+        ["genreName"],
+        ["countryName"],
+        ["streamingServiceName"],
+        ["contentID", "season", "episode", "duration", "title"],
+        ["languageName", "contentID", "audio", "subtitles"],
+        ["watchlistID", "contentID"],
+        ["genreName", "contentID"],
+        ["streamingServiceName", "contentID"],
+        ["countryName", "streamingServiceName"]
     ];
 
-    const rIndex = relations.indexOf(relationSelected);
+    const selAttr = attributes[rVal];
 
-    alert(rIndex);
+    displayAttributeSelector(selAttr);
+    addSubmitButton();
 }
+
+function displayAttributeSelector(attArray) {
+    if(!Array.isArray(attArray)) {
+        alert("ERROR");
+    }
+
+    resetSelector();
+    resetSubmit();
+    attArray.forEach(addCheckBoxes);
+}
+
+function resetSelector() {
+    const aS = document.querySelector(".attrContainer");
+    aS.remove();
+
+    const nCont = document.createElement('div');
+    nCont.classList.add('attrContainer');
+
+    const attSel = document.querySelector(".attributeSelection");
+    attSel.appendChild(nCont);
+}
+
+function resetSubmit() {
+    const sC = document.querySelector(".subContainer");
+    sC.remove();
+
+    const newSC = document.createElement('div');
+    newSC.classList.add('subContainer');
+
+    const sA = document.querySelector(".submitArea");
+    sA.appendChild(newSC);
+}
+
+function addCheckBoxes(attr) {
+    const aC = document.querySelector(".attrContainer");
+
+    const div = document.createElement('div');
+    aC.appendChild(div);
+
+    const attBox = document.createElement('input');
+    attBox.type = 'checkbox';
+    attBox.id = attr;
+    attBox.name = attr;
+    attBox.value = attr;
+
+    div.appendChild(attBox);
+
+    const attLabel = document.createElement('label');
+    attLabel.setAttribute('for', attr);
+    attLabel.textContent = attr;
+
+    div.appendChild(attLabel);
+}
+
+function addSubmitButton() {
+    const button = document.createElement("button");
+    button.id = 'getTable';
+    button.value = 'getTable';
+
+    const icon = document.createElement('i');
+    icon.className = 'fa-solid fa-magnifying-glass';
+    button.append(icon);
+
+    const sC = document.querySelector(".subContainer");
+    sC.appendChild(button);
+}
+
+
 
