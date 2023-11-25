@@ -4,8 +4,26 @@ document.addEventListener("DOMContentLoaded", function () {
     if(lS != null) {
         changeHomeNavBar();
         changeHomePage();
+
+        if(localStorage.getItem("admin") == 1) {
+            addAdminLink();
+        }
     }
 });
+
+function addAdminLink() {
+    const al = document.querySelector('.nav_links');
+
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "admin.html";
+    link.textContent = "ADMIN";
+
+    listItem.appendChild(link);
+
+    al.appendChild(listItem);
+}
+
 
 function changeHomeNavBar() {
     const al = document.querySelector('.account_links');

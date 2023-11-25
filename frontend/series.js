@@ -5,8 +5,25 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = 'signup.html';
     } else {
         changeSeriesNavBar();
+
+        if(localStorage.getItem("admin") == 1) {
+            addAdminLink();
+        }
     }
 });
+
+function addAdminLink() {
+    const al = document.querySelector('.nav_links');
+
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "admin.html";
+    link.textContent = "ADMIN";
+
+    listItem.appendChild(link);
+
+    al.appendChild(listItem);
+}
 
 function changeSeriesNavBar() {
     const al = document.querySelector('.account_links');
