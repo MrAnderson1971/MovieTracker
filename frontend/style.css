@@ -443,7 +443,7 @@
 }
 
 
-.deleteArea {
+.deleteArea, .addArea {
     font-size: 18px;
     background-color: whitesmoke;
     padding: 20px;
@@ -458,7 +458,7 @@
     height: 40px;
 }
 
-#delWatchList {
+#delWatchList, #addWatchList {
     width: 150px;
     height: 40px;
     background-color: red;
@@ -469,7 +469,7 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #refWatchList:hover{
+#delWatchList:hover, #addWatchList:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
