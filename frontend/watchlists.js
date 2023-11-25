@@ -8,6 +8,35 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.getElementById('delWatchList').addEventListener('click', async function() {
+    const watchlistID = document.getElementById('deleteWatchlist').value;
+
+    if (watchlistID) {
+        try {
+            const response = await fetch('/delete-watchlist', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ watchlistID: watchlistID })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Watchlist deleted successfully');
+            } else {
+                console.error('Failed to delete watchlist');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    } else {
+        alert('Please enter a watchlist ID');
+    }
+});
+
+
 function changeWatchlistsNavBar() {
     const al = document.querySelector('.account_links');
 
