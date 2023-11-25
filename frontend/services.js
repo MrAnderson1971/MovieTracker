@@ -12,6 +12,22 @@ document.getElementById("searchServices").addEventListener("click", searchServic
 function loadDefaultPage() {
     changeServicesNavBar();
     addServicesBar();
+
+    if(localStorage.getItem("admin") == 1) {
+        addAdminLink();
+    }
+}
+function addAdminLink() {
+    const al = document.querySelector('.nav_links');
+
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "admin.html";
+    link.textContent = "ADMIN";
+
+    listItem.appendChild(link);
+
+    al.appendChild(listItem);
 }
 
 function searchServices() {
