@@ -416,7 +416,7 @@
     font-size: 50px;
 }
 
-#searchServices:hover {
+#searchServices:hover{
     color: white;
     background-color: red;
     border: 5px solid black;
@@ -424,7 +424,7 @@
 
 
 
-.deleteBar {
+.watchlistBar {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     background-color: black;
@@ -432,7 +432,7 @@
     padding: 20px;
 }
 
-.deleteWatchlistSec {
+.watchlistSec {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -449,7 +449,7 @@
     padding: 20px;
 }
 
-.deleteWatchlistSec input {
+.watchlistSec input {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     border: 1px solid black;
@@ -469,11 +469,46 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover {
+#delWatchList:hover, #refWatchList:hover{
     color: white;
     background-color: red;
     border: 2px solid black;
 }
+
+
+
+
+.mainWatchlistBar {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+
+.watchlistRefresh {
+    position: absolute;
+    right: 20px;
+}
+
+#refWatchList {
+    width: 100px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+#refWatchList:hover {
+    border-color: white;
+}
+
+
+
 
 
 
