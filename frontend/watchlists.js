@@ -8,6 +8,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+document.getElementById("updateWatchList").addEventListener('click', async function() {
+    const id = document.getElementById('watchlistUpdateID').value;
+    const name = document.getElementById('watchlistUpdateName').value;
+    const userId = document.getElementById('watchlistUpdateUserID').value;
+
+    try {
+        const response = await fetch('/update-watchlist', {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({watchlistID: id, name, userId})
+        });
+        const data = await response.json();
+        if (data.success) {
+            console.log("Watchlist updated successfully");
+        } else {
+            console.error("Failed to update watchlist.");
+        }
+    } catch (err) {
+        alert("Error in form");
+    }
+})
+
 document.getElementById('delWatchList').addEventListener('click', async function() {
     const watchlistID = document.getElementById('deleteWatchlist').value;
 
@@ -36,6 +60,27 @@ document.getElementById('delWatchList').addEventListener('click', async function
     }
 });
 
+document.getElementById("addWatchList").addEventListener("click", async function() {
+    const name = document.getElementById("watchlistAddName").value;
+    const userID = localStorage.getItem("userId");
+    try {
+        const response = await fetch('/create-watchlist', {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({name: name, userID: userID})
+        });
+        const data = await response.json();
+        if (data.success) {
+            console.log("Successfully added watchlist");
+        } else {
+            console.error("Failed to add watchlist");
+        }
+    } catch (err) {
+        alert("Please enter a name.");
+    }
+})
 
 function changeWatchlistsNavBar() {
     const al = document.querySelector('.account_links');
