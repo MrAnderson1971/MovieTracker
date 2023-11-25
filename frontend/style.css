@@ -423,3 +423,57 @@
 }
 
 
+
+.deleteBar {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+
+.deleteWatchlistSec {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: whitesmoke;
+}
+
+
+.deleteArea {
+    font-size: 18px;
+    background-color: whitesmoke;
+    padding: 20px;
+}
+
+.deleteWatchlistSec input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    height: 40px;
+}
+
+#delWatchList {
+    width: 150px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+#delWatchList:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+}
+
+
+
