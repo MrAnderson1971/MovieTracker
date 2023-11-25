@@ -502,6 +502,18 @@
     border-color: white;
 }
 
+.dataHeader {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    color: white;
+    padding: 20px;
+    background-color: black;
+}
+
+.relationSelection, .relationSelection select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
 
 
 
