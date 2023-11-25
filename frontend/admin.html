@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -32,32 +33,39 @@
 </div>
 
 <div class="relationSelection">
-    <label for="relationSelector">RELATION:</label>
-    <select id="relationSelector">
-        <option value="Review_1">Review_1</option>
-        <option value="Review_2">Review_2</option>
-        <option value="User_1">User_1</option>
-        <option value="User_2">User_2</option>
-        <option value="User_3">User_3</option>
-        <option value="Content_1">Content_1</option>
-        <option value="Content_2">Content_2</option>
-        <option value="Movie_1">Movie_1</option>
-        <option value="Movie_2">Movie_2</option>
-        <option value="TVShow_1">TVShow_1</option>
-        <option value="TVShow_2">TVShow_2</option>
-        <option value="Watchlist">Watchlist</option>
-        <option value="Language">Language</option>
-        <option value="Genre">Genre</option>
-        <option value="Country">Country</option>
-        <option value="StreamingService">StreamingService</option>
-        <option value="Episode">Episode</option>
-        <option value="TranslatedAs">TranslatedAs</option>
-        <option value="Collects">Collects</option>
-        <option value="CategorizedAs">CategorizedAs</option>
-        <option value="Has">Has</option>
-        <option value="AvailableIn">AvailableIn</option>
-    </select>
+    <div class="rSel">
+        <label for="relationSelector">RELATION:</label>
+        <select id="relationSelector">
+            <option value="Review_1">Review_1</option>
+            <option value="Review_2">Review_2</option>
+            <option value="User_1">User_1</option>
+            <option value="User_2">User_2</option>
+            <option value="User_3">User_3</option>
+            <option value="Content_1">Content_1</option>
+            <option value="Content_2">Content_2</option>
+            <option value="Movie_1">Movie_1</option>
+            <option value="Movie_2">Movie_2</option>
+            <option value="TVShow_1">TVShow_1</option>
+            <option value="TVShow_2">TVShow_2</option>
+            <option value="Watchlist">Watchlist</option>
+            <option value="Language">Language</option>
+            <option value="Genre">Genre</option>
+            <option value="Country">Country</option>
+            <option value="StreamingService">StreamingService</option>
+            <option value="Episode">Episode</option>
+            <option value="TranslatedAs">TranslatedAs</option>
+            <option value="Collects">Collects</option>
+            <option value="CategorizedAs">CategorizedAs</option>
+            <option value="Has">Has</option>
+            <option value="AvailableIn">AvailableIn</option>
+        </select>
+    </div>
+    <button id="chooseRelation" value="chooseRelation">
+        <i class="fa-solid fa-caret-down"></i>
+    </button>
 </div>
+
+<div class="attributeSelection"></div>
 
 <script type="module" src="admin.js"></script>
 
