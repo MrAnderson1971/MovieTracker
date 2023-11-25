@@ -456,7 +456,7 @@
     margin: 15px;
 }
 
-#delWatchList, #addWatchList, #updateWatchList {
+#delWatchList, #addWatchList, #updateWatchList{
     width: 150px;
     height: 40px;
     background-color: red;
@@ -467,7 +467,7 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover {
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover{
     color: white;
     background-color: red;
     border: 2px solid black;
@@ -510,10 +510,38 @@
     background-color: black;
 }
 
-.relationSelection, .relationSelection select {
+.relationSelection {
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
+    display: flex;
+    align-items: center;
 }
+
+.rSel {
+    margin: 20px;
+}
+
+.rSel select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#chooseRelation {
+    width: 100px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+
+
 
 
 
