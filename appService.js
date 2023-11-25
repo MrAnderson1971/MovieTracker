@@ -158,7 +158,7 @@ async function updateWatchlist(watchlistID, name, userID) {
         if (name) {
             const result = await connection.execute(
                 `UPDATE Watchlist SET name = :name WHERE watchlistID = :watchlistID`,
-                [watchlistID],
+                [name, watchlistID],
                 { autoCommit: true }
             );
         }
@@ -166,7 +166,7 @@ async function updateWatchlist(watchlistID, name, userID) {
         if (userID) {
             const result = await connection.execute(
                 `UPDATE Watchlist SET userID = :userID WHERE watchlistID = :watchlistID`,
-                [watchlistID],
+                [userID, watchlistID],
                 { autoCommit: true }
             );
         }
@@ -323,7 +323,7 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
                                             WHERE m1.contentID = :contentID AND m2.duration = :duration AND m1.lengthType = :lengthType
                                             AND c2.ageRating = :ageRating AND c2.title = title AND c2.releaseDate = 
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted
-                                            ORDER BY m2.movieID ASC`, 
+                                            ORDER BY m2.movieID ASC`,
                                             [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
         } else {
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
@@ -331,7 +331,7 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
                                             WHERE m1.contentID = :contentID OR m2.duration = :duration OR m1.lengthType = :lengthType
                                             OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate = :releaseDate
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted
-                                            ORDER BY m2.movieID ASC`, 
+                                            ORDER BY m2.movieID ASC`,
                                             [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
         }
 
