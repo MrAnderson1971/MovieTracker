@@ -370,7 +370,7 @@ async function getTableNames() {
 // https://stackoverflow.com/questions/452464/how-can-i-get-column-names-from-a-table-in-oracle
 async function getAttributeNames(tableName) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT columnName FROM user_tab_columns WHERE table_name = :tableName`, [tableName]);
+        const result = await connection.execute(`SELECT column_name FROM user_tab_columns WHERE table_name = :tableName`, [tableName]);
         return result.rows;
     }).catch(() => {
         return [];
@@ -397,5 +397,6 @@ module.exports = {
     getMostPopularGenre,
     searchMovies,
     viewTable,
-    getTableNames
+    getTableNames,
+    getAttributeNames
 };
