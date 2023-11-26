@@ -318,7 +318,7 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
     return await withOracleDB(async (connection) => {
         let result;
         if (and) {
-            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+            result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
                                             WHERE m1.contentID = :contentID AND m2.duration = :duration AND m1.lengthType = :lengthType
                                             AND c2.ageRating = :ageRating AND c2.title = title AND c2.releaseDate = 
@@ -326,7 +326,7 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
                                             ORDER BY m2.movieID ASC`, 
                                             [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
         } else {
-            result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
+            result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
                                             WHERE m1.contentID = :contentID OR m2.duration = :duration OR m1.lengthType = :lengthType
                                             OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate = :releaseDate
