@@ -241,15 +241,15 @@ async function countShowsBySeasons(seasonNumber) {
     });
 }
 
-async function getUltimateReviewers() {
+async function getUltimateReviewers(age) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT userID
                                                 FROM User_2 u
-                                                WHERE NOT EXISTS ((SELECT c.contentID
+                                                WHERE u.age <= :age NOT EXISTS ((SELECT c.contentID
                                                                   FROM Content_2 c)
                                                                   EXCEPT (SELECT r.reviewID
                                                                   FROM Review_2 r
-                                                                  WHERE r.userID = u.userID)))`);
+                                                                  WHERE r.userID = u.userID)))`, [age]);
         return result.rows;
     }).catch(() => {
         return -1;
@@ -357,6 +357,26 @@ async function viewTable(tableName, attributes) {
     });
 }
 
+async function getTableNames() {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT table_name FROM user_tables`);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+// Query adapted from baretta on StackOverflow
+// https://stackoverflow.com/questions/452464/how-can-i-get-column-names-from-a-table-in-oracle
+async function getAttributeNames(tableName) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT columnName FROM user_tab_columns WHERE table_name = :tableName`, [tableName]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
 module.exports = {
     testOracleConnection,
     login,
@@ -376,5 +396,6 @@ module.exports = {
     getUltimateReviewers,
     getMostPopularGenre,
     searchMovies,
-    viewTable
+    viewTable,
+    getTableNames
 };
