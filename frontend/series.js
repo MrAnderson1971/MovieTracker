@@ -1,3 +1,5 @@
+document.getElementById("searchShows").addEventListener("click", searchShows);
+
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
 
@@ -50,4 +52,8 @@ function changeSeriesNavBar() {
 
     // Add list item to list
     al.appendChild(liSO);
+}
+
+function searchShows() {
+    alert("HI");
 }
