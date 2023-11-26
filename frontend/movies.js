@@ -1,3 +1,5 @@
+document.getElementById("searchGenre").addEventListener("click", searchGenreCount);
+
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
 
@@ -51,4 +53,8 @@ function changeMoviesNavBar() {
 
     // Add list item to list
     al.appendChild(liSO);
+}
+
+function searchGenreCount() {
+    alert("HI");
 }
