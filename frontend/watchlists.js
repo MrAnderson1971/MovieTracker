@@ -1,3 +1,6 @@
+document.getElementById("refWatchList").addEventListener("click", refWatchList);
+document.getElementById("alterContentWatchlist").addEventListener("click", alterContentWatchlist);
+
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
 
@@ -125,4 +128,12 @@ function changeWatchlistsNavBar() {
 
     // Add list item to list
     al.appendChild(liSO);
+}
+
+function refWatchList() {
+    alert("HI");
+}
+
+function alterContentWatchlist() {
+    alert("ALTER");
 }
