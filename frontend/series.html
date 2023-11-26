@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -27,13 +28,23 @@
 </div>
 
 <div class="info">
-    <h2>SERIES</h2>
+    <h1>SERIES</h1>
+</div>
+
+<div class="countShowsBySeasons">
+    <div class="seriesData">
+        <h1>COUNT</h1>
+        <label for="seasonsGreater">SEASONS GREATER THAN:</label>
+        <input type="text" id="seasonsGreater"><br>
+    </div>
+
+    <button id="searchShows" value="Shows">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
 </div>
 
 
+
 <script type="module" src="series.js"></script>
-
-
-
 </body>
 </html>

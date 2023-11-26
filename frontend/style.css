@@ -107,9 +107,6 @@
     border-radius: 5px;
 }
 
-
-
-
 .grid {
     background-color: white;
     display: flex;
@@ -288,13 +285,13 @@
     position: center;
 }
 
-
-
-
-
 .userWelcome {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: 'Montserrat', sans-serif;
-    font-size: 34px;
+    font-size: 24px;
     color: black;
     background: white;
     text-align: center;
@@ -347,16 +344,10 @@
     align-items: center;
 }
 
-
-
-
 .servicesInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    color: white;
     background-color: black;
+    color: white;
+    height: 90px;
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
     padding-left: 20px;
@@ -373,7 +364,6 @@
     padding: 20px;
 }
 
-
 .servicesSelector {
     display: flex;
     justify-content: flex-start;
@@ -384,7 +374,6 @@
     padding: 20px;
     background-color: whitesmoke;
 }
-
 
 .B, .C {
     margin-left: 100px;
@@ -398,10 +387,9 @@
     padding: 5px;
 }
 
-
 #searchServices {
-    width: 175px;
-    height: 175px;
+    width: 100px;
+    height: 100px;
     margin-left: 100px;
     background-color: red;
     color: white;
@@ -413,13 +401,283 @@
 }
 
 #searchServices i {
-    font-size: 50px;
+    font-size: 40px;
 }
 
-#searchServices:hover {
+#searchServices:hover{
     color: white;
     background-color: red;
     border: 5px solid black;
 }
+
+.watchlistBar {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+
+.watchlistSec {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    background-color: whitesmoke;
+}
+
+.deleteArea, .addArea, .updateArea{
+    font-size: 18px;
+    background-color: whitesmoke;
+    padding: 20px;
+}
+
+.updateArea {
+    display: flex;
+    align-items: center;
+}
+
+
+.watchlistSec input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    height: 40px;
+    margin: 15px;
+}
+
+#delWatchList, #addWatchList, #updateWatchList, #getTable {
+    width: 150px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover, #getTable:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+}
+
+#getTable {
+    margin: 20px ;
+}
+
+.mainWatchlistBar {
+    display: flex;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+
+.watchlistRefresh {
+    position: absolute;
+    right: 20px;
+}
+
+#refWatchList {
+    width: 100px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+#refWatchList:hover {
+    border-color: white;
+}
+
+.dataHeader {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    color: white;
+    padding: 20px;
+    background-color: black;
+}
+
+.relationSelection {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.rSel {
+    margin: 20px;
+}
+
+.rSel select {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#chooseRelation {
+    width: 100px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid red;
+    border-radius: 10px;
+}
+
+.attrContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: whitesmoke;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.attrContainer label {
+    margin-left: 10px;
+}
+#refreshStats {
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    border: 3px solid black;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+}
+
+#refreshStats:hover, #searchLeaderBoard:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+}
+
+.userLeaderboardArea {
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.countShowsBySeasons {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    padding: 20px;
+    background-color: whitesmoke;
+}
+
+.countShowsBySeasons input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#searchShows, #searchGenre {
+    width: 60px;
+    height: 100px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    border: 3px solid red;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+#searchShows i, #searchGenre i {
+    font-size: 40px;
+}
+
+#searchShows:hover, #searchGenre:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+}
+
+.genreCounts {
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 20px;
+}
+
+.genreData {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+
+.genreData input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+.userLeaderboardArea {
+    align-items: center;
+    background-color: whitesmoke;
+}
+
+#searchLeaderBoard {
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+.searchAge input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.leaderBoardSearch {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 

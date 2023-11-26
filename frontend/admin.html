@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Watcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<div class="navbar">
+    <ul class="logo">
+        <li><a href="homepage.html">WATCHER</a></li>
+    </ul>
+    <ul class="nav_links">
+        <li><a href="services.html">SERVICES</a></li>
+        <li><a href="series.html">SERIES</a></li>
+        <li><a href="movies.html">MOVIES</a></li>
+        <li><a href="watchlists.html">WATCHLISTS</a></li>
+        <li><a href="admin.html">ADMIN</a></li>
+    </ul>
+    <ul class="account_links">
+        <li><a href="login_page.html">SIGN IN</a></li>
+        <li><a href="signup.html">SIGN UP</a></li>
+    </ul>
+</div>
+
+<div class="dataHeader">
+    <h1>DATA</h1>
+</div>
+
+<div class="relationSelection">
+    <div class="rSel">
+        <label for="relationSelector">RELATION:</label>
+        <select id="relationSelector">
+            <option value="0">Review_1</option>
+            <option value="1">Review_2</option>
+            <option value="2">User_1</option>
+            <option value="3">User_2</option>
+            <option value="4">User_3</option>
+            <option value="5">Content_1</option>
+            <option value="6">Content_2</option>
+            <option value="7">Movie_1</option>
+            <option value="8">Movie_2</option>
+            <option value="9">TVShow_1</option>
+            <option value="10">TVShow_2</option>
+            <option value="11">Watchlist</option>
+            <option value="12">Language</option>
+            <option value="13">Genre</option>
+            <option value="14">Country</option>
+            <option value="15">StreamingService</option>
+            <option value="16">Episode</option>
+            <option value="17">TranslatedAs</option>
+            <option value="18">Collects</option>
+            <option value="19">CategorizedAs</option>
+            <option value="20">Has</option>
+            <option value="21">AvailableIn</option>
+        </select>
+    </div>
+    <button id="chooseRelation" value="chooseRelation">
+        <i class="fa-solid fa-caret-down"></i>
+    </button>
+</div>
+
+<div class="attributeSelection">
+    <div class="attrContainer"></div>
+</div>
+
+<div class="submitArea">
+    <div class="subContainer"></div>
+</div>
+
+<script type="module" src="admin.js"></script>
+
+</body>
+</html>

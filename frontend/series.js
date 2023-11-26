@@ -1,3 +1,5 @@
+document.getElementById("searchShows").addEventListener("click", searchShows);
+
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
 
@@ -5,8 +7,25 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = 'signup.html';
     } else {
         changeSeriesNavBar();
+
+        if(localStorage.getItem("admin") == 1) {
+            addAdminLink();
+        }
     }
 });
+
+function addAdminLink() {
+    const al = document.querySelector('.nav_links');
+
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "admin.html";
+    link.textContent = "ADMIN";
+
+    listItem.appendChild(link);
+
+    al.appendChild(listItem);
+}
 
 function changeSeriesNavBar() {
     const al = document.querySelector('.account_links');
@@ -33,4 +52,8 @@ function changeSeriesNavBar() {
 
     // Add list item to list
     al.appendChild(liSO);
+}
+
+function searchShows() {
+    alert("HI");
 }

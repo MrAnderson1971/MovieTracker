@@ -4,8 +4,26 @@ document.addEventListener("DOMContentLoaded", function () {
     if(lS != null) {
         changeHomeNavBar();
         changeHomePage();
+
+        if(localStorage.getItem("admin") == 1) {
+            addAdminLink();
+        }
     }
 });
+
+function addAdminLink() {
+    const al = document.querySelector('.nav_links');
+
+    const listItem = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = "admin.html";
+    link.textContent = "ADMIN";
+
+    listItem.appendChild(link);
+
+    al.appendChild(listItem);
+}
+
 
 function changeHomeNavBar() {
     const al = document.querySelector('.account_links');
@@ -41,14 +59,31 @@ function changeHomePage() {
 
     displayWelcomeMessage();
     displayUserStatBoards();
-
+    displayUserLeaderBoard();
 }
 function displayWelcomeMessage() {
     const loc = document.querySelector('.userWelcome');
     const welcome = document.createElement('h1');
     welcome.append(localStorage.getItem("userName"));
     loc.append(welcome);
+    addRefreshButton();
 }
+
+function addRefreshButton() {
+    const button = document.createElement("button");
+    button.id = 'refreshStats';
+    button.value = 'refreshStats';
+
+    const icon = document.createElement('i');
+    icon.className = "fa-solid fa-arrows-rotate";
+    button.append(icon);
+
+    button.addEventListener("click", handleStatBoardRefresh);
+
+    const sC = document.querySelector(".userWelcome");
+    sC.appendChild(button);
+}
+
 
 function displayUserStatBoards() {
     createUserStatBoardContainer();
@@ -204,3 +239,74 @@ function populateCard(card, title, value) {
 
     card.append(h5, h1);
 }
+
+function displayUserLeaderBoard(){
+    const userLb = document.createElement("div");
+    userLb.className = 'userLeaderboardArea';
+
+    document.body.appendChild(userLb);
+
+    // Get list of usernames
+
+    const test = document.createElement("h1");
+    test.textContent = "USER LEADERBOARD";
+
+    userLb.appendChild(test);
+
+    addLeaderBoardSearch();
+}
+
+function addLeaderBoardSearch() {
+    const lba = document.querySelector('.userLeaderboardArea');
+
+    const mC = document.createElement("div");
+    mC.className = "leaderBoardSearch"
+
+    const sC = document.createElement("div");
+    sC.className = "searchAge"
+
+    const h1 = document.createElement("h1");
+    h1.textContent = "AGE";
+
+    const label = document.createElement('label');
+    label.setAttribute('for', 'seasonsGreater');
+    label.textContent = 'UP TO:';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'seasonsGreater';
+
+
+    sC.append(h1, label, input);
+    mC.append(sC);
+
+    lba.appendChild(mC);
+
+    addSearchButton();
+}
+
+function addSearchButton() {
+    const lba = document.querySelector('.leaderBoardSearch');
+
+    const button = document.createElement("button");
+    button.id = 'searchLeaderBoard';
+    button.value = 'searchLeaderBoard';
+
+    const icon = document.createElement('i');
+    icon.className = "fa-solid fa-magnifying-glass";
+    button.append(icon);
+    button.addEventListener("click", handleLeaderBoardSearch);
+
+    lba.append(button);
+}
+
+function handleLeaderBoardSearch() {
+    alert("SEARCH");
+}
+
+function handleStatBoardRefresh() {}
+
+
+
+
+

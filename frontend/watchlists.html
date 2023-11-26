@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -26,9 +27,76 @@
     </ul>
 </div>
 
-<div class="info">
-    <h2>WATCHLISTS</h2>
+<!--WATCHLIST SECTION-->
+
+<div class="mainWatchlistBar">
+    <h1>WATCHLISTS</h1>
+    <div class="watchlistRefresh">
+        <button id="refWatchList" value="refWatchList">
+            <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+    </div>
 </div>
+
+<!--PLACEHOLDER FOR DATA-->
+<div class="watchlistInfo"></div>
+
+
+<!--WATCHLIST ADD SECTION-->
+
+<div class="watchlistBar">
+    <h1>ADD</h1>
+</div>
+
+<div class="watchlistSec">
+    <div class="addArea">
+        <label for="watchlistAddName">NAME:</label>
+        <input type="text" id="watchlistAddName"><br>
+    </div>
+    <button id="addWatchList" value="addWatchList">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</div>
+
+<!--WATCHLIST UPDATE SECTION-->
+
+<div class="watchlistBar">
+    <h1>UPDATE</h1>
+</div>
+
+<div class="watchlistSec">
+    <div class="updateArea">
+        <label for="watchlistUpdateID">ID:</label>
+        <input type="text" id="watchlistUpdateID"><br>
+
+        <label for="watchlistUpdateName">NAME:</label>
+        <input type="text" id="watchlistUpdateName"><br>
+
+        <label for="watchlistUpdateUserID">USER ID:</label>
+        <input type="text" id="watchlistUpdateUserID"><br>
+    </div>
+    <button id="updateWatchList" value="updateWatchList">
+        <i class="fa-solid fa-pen-to-square"></i>
+    </button>
+</div>
+
+<!--WATCHLIST DELETE SECTION-->
+
+<div class="watchlistBar">
+    <h1>DELETE</h1>
+</div>
+
+<div class="watchlistSec">
+    <div class="deleteArea">
+        <label for="deleteWatchlist">ID:</label>
+        <input type="text" id="deleteWatchlist"><br>
+    </div>
+    <button id="delWatchList" value="delWatchList">
+        <i class="fa-solid fa-trash"></i>
+    </button>
+</div>
+
+
 
 
 <script type="module" src="watchlists.js"></script>
