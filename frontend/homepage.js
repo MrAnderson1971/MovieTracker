@@ -66,7 +66,24 @@ function displayWelcomeMessage() {
     const welcome = document.createElement('h1');
     welcome.append(localStorage.getItem("userName"));
     loc.append(welcome);
+    addRefreshButton();
 }
+
+function addRefreshButton() {
+    const button = document.createElement("button");
+    button.id = 'refreshStats';
+    button.value = 'refreshStats';
+
+    const icon = document.createElement('i');
+    icon.className = "fa-solid fa-arrows-rotate";
+    button.append(icon);
+
+    const sC = document.querySelector(".userWelcome");
+    sC.appendChild(button);
+}
+
+
+
 
 function displayUserStatBoards() {
     createUserStatBoardContainer();
