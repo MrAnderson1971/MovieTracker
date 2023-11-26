@@ -253,24 +253,56 @@ function displayUserLeaderBoard(){
 
     userLb.appendChild(test);
 
-    addLeaderBoardRefreshButton();
+    addLeaderBoardSearch();
 }
 
-function addLeaderBoardRefreshButton() {
+function addLeaderBoardSearch() {
+    const lba = document.querySelector('.userLeaderboardArea');
+
+    const mC = document.createElement("div");
+    mC.className = "leaderBoardSearch"
+
+    const sC = document.createElement("div");
+    sC.className = "searchAge"
+
+    const h1 = document.createElement("h1");
+    h1.textContent = "AGE";
+
+    const label = document.createElement('label');
+    label.setAttribute('for', 'seasonsGreater');
+    label.textContent = 'UP TO:';
+
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'seasonsGreater';
+
+
+    sC.append(h1, label, input);
+    mC.append(sC);
+
+    lba.appendChild(mC);
+
+    addSearchButton();
+}
+
+function addSearchButton() {
+    const lba = document.querySelector('.leaderBoardSearch');
+
     const button = document.createElement("button");
-    button.id = 'refreshLeaderBoard';
-    button.value = 'refreshLeaderBoard';
+    button.id = 'searchLeaderBoard';
+    button.value = 'searchLeaderBoard';
 
     const icon = document.createElement('i');
-    icon.className = "fa-solid fa-arrows-rotate";
+    icon.className = "fa-solid fa-magnifying-glass";
     button.append(icon);
-    button.addEventListener("click", handleLeaderBoardRefresh);
+    button.addEventListener("click", handleLeaderBoardSearch);
 
-    const sC = document.querySelector(".userLeaderboardArea");
-    sC.appendChild(button);
+    lba.append(button);
 }
 
-function handleLeaderBoardRefresh() {}
+function handleLeaderBoardSearch() {
+    alert("SEARCH");
+}
 
 function handleStatBoardRefresh() {}
 
