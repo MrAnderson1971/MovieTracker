@@ -107,9 +107,6 @@
     border-radius: 5px;
 }
 
-
-
-
 .grid {
     background-color: white;
     display: flex;
@@ -288,11 +285,11 @@
     position: center;
 }
 
-
-
-
-
 .userWelcome {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 34px;
     color: black;
@@ -467,7 +464,7 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover, #getTable:hover{
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover, #getTable:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
@@ -547,8 +544,8 @@
 .attrContainer {
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
     padding: 20px;
+    background-color: whitesmoke;
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
 }
@@ -556,6 +553,26 @@
 .attrContainer label {
     margin-left: 10px;
 }
+#refreshStats {
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 3px solid black;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+}
+
+#refreshStats:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid black;
+}
+
+
 
 
 
