@@ -59,7 +59,7 @@ function changeHomePage() {
 
     displayWelcomeMessage();
     displayUserStatBoards();
-
+    displayUserLeaderBoard();
 }
 function displayWelcomeMessage() {
     const loc = document.querySelector('.userWelcome');
@@ -78,11 +78,11 @@ function addRefreshButton() {
     icon.className = "fa-solid fa-arrows-rotate";
     button.append(icon);
 
+    button.addEventListener("click", handleStatBoardRefresh);
+
     const sC = document.querySelector(".userWelcome");
     sC.appendChild(button);
 }
-
-
 
 
 function displayUserStatBoards() {
@@ -239,3 +239,42 @@ function populateCard(card, title, value) {
 
     card.append(h5, h1);
 }
+
+function displayUserLeaderBoard(){
+    const userLb = document.createElement("div");
+    userLb.className = 'userLeaderboardArea';
+
+    document.body.appendChild(userLb);
+
+    // Get list of usernames
+
+    const test = document.createElement("h1");
+    test.textContent = "USER LEADERBOARD";
+
+    userLb.appendChild(test);
+
+    addLeaderBoardRefreshButton();
+}
+
+function addLeaderBoardRefreshButton() {
+    const button = document.createElement("button");
+    button.id = 'refreshLeaderBoard';
+    button.value = 'refreshLeaderBoard';
+
+    const icon = document.createElement('i');
+    icon.className = "fa-solid fa-arrows-rotate";
+    button.append(icon);
+    button.addEventListener("click", handleLeaderBoardRefresh);
+
+    const sC = document.querySelector(".userLeaderboardArea");
+    sC.appendChild(button);
+}
+
+function handleLeaderBoardRefresh() {}
+
+function handleStatBoardRefresh() {}
+
+
+
+
+
