@@ -550,20 +550,19 @@
 .attrContainer label {
     margin-left: 10px;
 }
-#refreshStats, #refreshLeaderBoard {
+#refreshStats {
     width: 200px;
     height: 70px;
     background-color: black;
     color: white;
     font-size: 25px;
-    display: block;
     border: 3px solid black;
     border-radius: 10px;
     position: absolute;
     right: 20px;
 }
 
-#refreshStats:hover, #refreshLeaderBoard:hover {
+#refreshStats:hover, #searchLeaderBoard:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
@@ -596,12 +595,11 @@
 }
 
 #searchShows, #searchGenre {
-    width: 100px;
+    width: 60px;
     height: 100px;
     background-color: red;
     color: white;
     font-size: 25px;
-    display: block;
     border: 3px solid red;
     border-radius: 10px;
     margin-left: 20px;
@@ -633,6 +631,41 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
     border-radius: 5px;
+}
+
+.userLeaderboardArea {
+    align-items: center;
+    background-color: whitesmoke;
+}
+
+#searchLeaderBoard {
+    width: 200px;
+    height: 70px;
+    background-color: black;
+    color: white;
+    font-size: 25px;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+.searchAge input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+.leaderBoardSearch {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    font-size: 20px;
+    font-family: 'Montserrat', sans-serif;
+    position: absolute;
+    right: 20px;
 }
 
 
