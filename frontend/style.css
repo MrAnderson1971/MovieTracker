@@ -595,7 +595,7 @@
     padding: 5px;
 }
 
-#searchShows {
+#searchShows, #searchGenre {
     width: 100px;
     height: 100px;
     background-color: red;
@@ -607,15 +607,36 @@
     margin-left: 20px;
 }
 
-#searchShows i {
+#searchShows i, #searchGenre i {
     font-size: 40px;
 }
 
-#searchShows:hover {
+#searchShows:hover, #searchGenre:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
 }
+
+.genreCounts {
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
+    padding: 20px;
+}
+
+.genreData {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+
+.genreData input {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+
+
 
 
 
