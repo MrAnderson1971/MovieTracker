@@ -44,9 +44,9 @@ document.getElementById("updateWatchList").addEventListener('click', async funct
         });
         const data = await response.json();
         if (data.success) {
-            console.log("Watchlist updated successfully");
+            alert("Watchlist updated successfully");
         } else {
-            console.error("Failed to update watchlist.");
+            alert("Failed to update watchlist.");
         }
     } catch (err) {
         alert("Error in form");
@@ -69,9 +69,9 @@ document.getElementById('delWatchList').addEventListener('click', async function
             const data = await response.json();
 
             if (data.success) {
-                console.log('Watchlist deleted successfully');
+                alert('Watchlist deleted successfully');
             } else {
-                console.error('Failed to delete watchlist');
+                alert('Failed to delete watchlist');
             }
         } catch (error) {
             console.error('Error:', error);
@@ -94,9 +94,9 @@ document.getElementById("addWatchList").addEventListener("click", async function
         });
         const data = await response.json();
         if (data.success) {
-            console.log("Successfully added watchlist");
+            alert("Successfully added watchlist");
         } else {
-            console.error("Failed to add watchlist");
+            alert("Failed to add watchlist");
         }
     } catch (err) {
         alert("Please enter a name.");

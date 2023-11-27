@@ -193,7 +193,6 @@ async function countMovies(userID) {
                                                 FROM Watchlist w, Collects c, Movie_2 m
                                                 WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
                                                 c.contentID = m.contentID`, [userID]);
-        console.log(result.rows);
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -206,7 +205,7 @@ async function countSeries(userID) {
                                                 FROM Watchlist w, Collects c, TVShow_1 t
                                                 WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
                                                 c.contentID = t.contentID`, [userID]);
-        console.log(result.rows);
+
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -216,7 +215,6 @@ async function countSeries(userID) {
 async function countReviews(userID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT Count(*) FROM Review_2 WHERE userID = :userID`, [userID]);
-        console.log(result.rows);
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -317,25 +315,27 @@ async function searchServices(name, country, order) {
     });
 }
 
-async function searchMovies(contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted, and) {
+async function searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and) {
     return await withOracleDB(async (connection) => {
         let result;
         if (and) {
-            result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
+            result = await connection.execute(`SELECT DISTINCT m2.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
-                                            WHERE m1.contentID = :contentID AND m2.duration = :duration AND m1.lengthType = :lengthType
-                                            AND c2.ageRating = :ageRating AND c2.title = title AND c2.releaseDate = 
-                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted
-                                            ORDER BY m2.movieID`,
-                                            [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
+                                            WHERE m2.contentID = :contentID AND m2.duration <= :duration AND m1.lengthType = :lengthType
+                                            AND c2.ageRating = :ageRating AND c2.title = :title AND c2.releaseDate <= 
+                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted AND m1.duration = m2.duration
+                                            AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating
+                                            ORDER BY m2.contentID`,
+                                            [contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted]);
         } else {
-            result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
+            result = await connection.execute(`SELECT DISTINCT m2.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
-                                            WHERE m1.contentID = :contentID OR m2.duration = :duration OR m1.lengthType = :lengthType
-                                            OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate = :releaseDate
-                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted
-                                            ORDER BY m2.movieID`,
-                                            [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
+                                            WHERE (m2.contentID = :contentID OR m2.duration <= :duration OR m1.lengthType = :lengthType
+                                            OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate <=
+                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted) AND m1.duration = m2.duration
+                                            AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating
+                                            ORDER BY m2.contentID`,
+                                            [contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted]);
         }
 
         return result.rows;
@@ -346,14 +346,12 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
 
 async function getGenreCountByAverageRuntime(releaseDate) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
-                                            FROM Movie_2 m2, Genre g, CategorizedAs ca
-                                            WHERE m2.contentID = ca.contentID AND ca.genreName = g.genreName
-                                            GROUP BY g.genreName
-                                            HAVING m2.duration < (SELECT AVG(m.duration)
-                                                                    FROM Movie m
-                                                                    WHERE m.releaseDate <= TO_DATE(:releaseDate, 'yyyy-mm-dd'))
-                                            ORDER BY g.genreName ASC`,
+        const result = await connection.execute(`SELECT ca.genreName, Count(*) as genreCount 
+                                                FROM Movie_2 m2, Content_2 c2, CategorizedAs ca 
+                                                WHERE ca.contentID = m2.contentID AND c2.contentID = m2.contentID AND c2.releaseDate <= 
+                                                TO_DATE(:releaseDate, 'yyyy-mm-dd') AND m2.duration <= (SELECT Avg(m.duration) 
+                                                                                                        FROM Movie_2 m) 
+                                                GROUP BY ca.genreName`,
                                              [releaseDate]);
         return result.rows;
     }).catch(() => {

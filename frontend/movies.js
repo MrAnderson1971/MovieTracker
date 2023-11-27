@@ -1,4 +1,5 @@
 document.getElementById("searchGenre").addEventListener("click", searchGenreCount);
+document.getElementById("searchMovies").addEventListener("click", searchMovies);
 
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
@@ -55,6 +56,45 @@ function changeMoviesNavBar() {
     al.appendChild(liSO);
 }
 
-function searchGenreCount() {
-    alert("HI");
+async function searchGenreCount() {
+    const releaseDate = document.getElementById("dateGreater").value;
+
+    const results = await fetch("/get-genre-count-average-runtime", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ releaseDate })
+    });
+
+    const data = await results.json();
+
+    console.log(data.result);
+}
+
+async function searchMovies() {
+    const title = document.getElementById("movieTitle").value;
+    const contentID = document.getElementById("movieID").value;
+    const ageRating = document.getElementById("movieAgeRating").value;
+    const ageRestricted = document.getElementById("movieAgeRes").value;
+    const releaseDate = document.getElementById("movieReleaseDate").value;
+    const lengthType = document.getElementById("movieLengthType").value;
+    const duration = document.getElementById("movieDuration").value;
+    let and = 0;
+    if (document.getElementById("movieSelectionType").value === "and") {
+        and = 1;
+    }
+
+
+    const results = await fetch("/search-movies", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and })
+    });
+
+    const data = await results.json();
+
+    console.log(data.result);
 }

@@ -10,7 +10,6 @@ function collectUserSignUpInfo(event) {
     const birthdate = document.getElementById("userBirthDate").value;
     const password = document.getElementById("userPassword").value;
     const passwordCheck = document.getElementById("userPasswordCheck").value;
-    console.log(birthdate);
 
     // Check simple fields
     if (username.length === 0) {
@@ -48,6 +47,7 @@ function collectUserSignUpInfo(event) {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    alert("Signup was succesful");
                     window.location.href = "login_page.html";
                 } else {
                     alert("There was a problem signing up.");
