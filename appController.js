@@ -167,16 +167,16 @@ router.post('/count-genres', async (req, res) => {
 
 router.post('/count-shows-by-seasons', async (req, res) => {
     const { seasonNumber } = req.body;
-    const count = await appService.countShowsBySeasons(seasonNumber);
-    if (count !== -1) {
+    const response = await appService.countShowsBySeasons(seasonNumber);
+    if (response.length > 0) {
         res.json({
             success: true,
-            count: count
+            result: response
         })
     } else {
         res.status(500).json ({
             success: false,
-            count: -1
+            count: response
         });
     }
 });

@@ -232,13 +232,12 @@ async function countServices() {
 
 async function countShowsBySeasons(seasonNumber) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT Count(*)
-                                                FROM TVShow_1 t
-                                                GROUP BY t.numSeasons
-                                                HAVING t.numSeasons > :seasons`);
-        return result.rows[0][0];
+        const result = await connection.execute(`SELECT t.numSeasons, Count(*) as seasonCount 
+                                                FROM TVShow_1 t GROUP BY t.numSeasons 
+                                                HAVING t.numSeasons >= :seasonNumber`, [seasonNumber]);
+        return result.rows;
     }).catch(() => {
-        return -1;
+        return [];
     });
 }
 

@@ -54,6 +54,21 @@ function changeSeriesNavBar() {
     al.appendChild(liSO);
 }
 
-function searchShows() {
-    alert("HI");
+async function searchShows() {
+    const seasonNum = document.getElementById("seasonsGreater").value;
+
+    const response = await fetch('/count-shows-by-seasons', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ seasonNumber: seasonNum })
+    });
+
+    const data = await response.json();
+    if (!data.success) {
+        alert("Invalid input");
+    } else {
+        console.log(data.result);
+    }
 }
