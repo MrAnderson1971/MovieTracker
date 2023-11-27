@@ -27,25 +27,16 @@
     </ul>
 </div>
 
-<!--WATCHLIST SECTION-->
+<!------------------------------------------------------------------------------------WATCHLIST SECTION-->
 
-<div class="mainWatchlistBar">
-    <h1>WATCHLISTS</h1>
-    <div class="watchlistRefresh">
-        <button id="refWatchList" value="refWatchList">
-            <i class="fa-solid fa-arrows-rotate"></i>
-        </button>
-    </div>
+<div class="watchlistMainBar">
+    <h1>WATCHLIST</h1>
 </div>
-
-<!--PLACEHOLDER FOR DATA-->
-<div class="watchlistInfo"></div>
-
 
 <!--WATCHLIST ADD SECTION-->
 
 <div class="watchlistBar">
-    <h1>ADD</h1>
+    <h2>ADD</h2>
 </div>
 
 <div class="watchlistSec">
@@ -61,7 +52,7 @@
 <!--WATCHLIST UPDATE SECTION-->
 
 <div class="watchlistBar">
-    <h1>UPDATE</h1>
+    <h2>UPDATE</h2>
 </div>
 
 <div class="watchlistSec">
@@ -83,7 +74,7 @@
 <!--WATCHLIST DELETE SECTION-->
 
 <div class="watchlistBar">
-    <h1>DELETE</h1>
+    <h2>DELETE</h2>
 </div>
 
 <div class="watchlistSec">
@@ -98,9 +89,50 @@
 
 
 
+<div class="watchlistMainBar">
+    <h1>CONTENT</h1>
+</div>
+
+<!------------------------------------------------------------------------------------CONTENT SECTION-->
+
+<div class="watchlistBar">
+    <h2>ADD/REMOVE CONTENT</h2>
+</div>
+
+<div class="watchlistSec">
+    <div class="alterContentArea">
+        <label for="alterContentWID">WATCHLIST ID:</label>
+        <input type="text" id="alterContentWID"><br>
+
+        <label for="alterContentCID">CONTENT ID:</label>
+        <input type="text" id="alterContentCID"><br>
+
+        <label for="watchListOp">OPERATION:</label>
+        <select id="watchListOp">
+            <option value="add">ADD</option>
+            <option value="remove">REMOVE</option>
+        </select>
+    </div>
+    <button id="alterContentWatchlist" value="alterContentWatchlist">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</div>
+
+<!-----------------------------------------------------------------------------MY WATCHLIST(S) SECTION-->
+
+<div class="mainWatchlistBar">
+    <h1>MY WATCHLISTS</h1>
+    <div class="watchlistRefresh">
+        <button id="refWatchList" value="refWatchList">
+            <i class="fa-solid fa-arrows-rotate"></i>
+        </button>
+    </div>
+</div>
+
+<!--PLACEHOLDER FOR DATA-->
+<div class="watchlistInfo"></div>
 
 <script type="module" src="watchlists.js"></script>
-
 
 </body>
 </html>
