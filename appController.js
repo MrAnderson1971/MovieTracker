@@ -69,8 +69,8 @@ router.post("/get-watchlists", async (req, res) => {
     }
 });
 
-router.get('/count-watchlist', async (req, res) => {
-    const userID = req.query.userID;
+router.post('/count-watchlist', async (req, res) => {
+    const { userID } = req.body;
     const tableCount = await appService.countWatchlist(userID);
     if (tableCount >= 0) {
         res.json({
@@ -85,8 +85,9 @@ router.get('/count-watchlist', async (req, res) => {
     }
 });
 
-router.get('/count-movies', async (req, res) => {
-    const { userID } = req.query;
+router.post('/count-movies', async (req, res) => {
+    const { userID } = req.body;
+    console.log(userID);
     const tableCount = await appService.countMovies(userID);
     if (tableCount >= 0) {
         res.json({
@@ -101,7 +102,7 @@ router.get('/count-movies', async (req, res) => {
     }
 });
 
-router.get('/count-series', async (req, res) => {
+router.post('/count-series', async (req, res) => {
     const { userID } = req.body;
     const tableCount = await appService.countSeries(userID);
     if (tableCount >= 0) {
@@ -117,7 +118,7 @@ router.get('/count-series', async (req, res) => {
     }
 });
 
-router.get('/count-reviews', async (req, res) => {
+router.post('/count-reviews', async (req, res) => {
     const { userID } = req.body;
     const tableCount = await appService.countReviews(userID);
     if (tableCount >= 0) {
@@ -149,17 +150,18 @@ router.get('/count-services', async (req, res) => {
     }
 });
 
-router.get('/count-genres', async (req, res) => {
-    const genre = await appService.getMostPopularGenre();
+router.post('/count-genres', async (req, res) => {
+    const { userID } = req.body;
+    const genre = await appService.getMostPopularGenre(userID);
     if (genre !== -1) {
         res.json({
             success: true,
-            count: genre
+            genre: genre
         })
     } else {
         res.status(500).json ({
             success: false,
-            count: -1
+            genre: ""
         });
     }
 });
@@ -259,7 +261,7 @@ router.get('/get-tables', async (req, res) => {
     }
 });
 
-router.get('/get-attributes', async (req, res) => {
+router.post('/get-attributes', async (req, res) => {
     const { tableName } = req.body;
     const response = await appService.getAttributeNames(tableName);
     if (response.length >= 0) {

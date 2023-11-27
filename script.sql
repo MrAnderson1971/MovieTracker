@@ -1,25 +1,3 @@
--- drop table Review_1;
--- drop table Review_2;
--- drop table User_1;
--- drop table User_2;
--- drop table User_3;
--- drop table Content_1;
--- drop table Content_2;
--- drop table Movie_1;
--- drop table Movie_2;
--- drop table TVShow_1;
--- drop table TVShow_2;
--- drop table Watchlist;
--- drop table Language;
--- drop table Genre;
--- drop table Country;
--- drop table Episode;
--- drop table TranslatedAs;
--- drop table Collects;
--- drop table CategorizedAs;
--- drop table Has;
--- drop table AvailableIn;
-
 drop table AVAILABLEIN cascade constraints;
 drop table CATEGORIZEDAS cascade constraints;
 drop table COLLECTS cascade constraints;
@@ -341,6 +319,34 @@ INSERT INTO Review_1(score, category) VALUES
 
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 (1, 1, 'Did not like this at all.', 1, 1);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(6, 1, 'Did not like this at all.', 1, 2);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(7, 1, 'Did not like this at all.', 1, 3);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(8, 1, 'Did not like this at all.', 1, 4);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(9, 1, 'Did not like this at all.', 1, 5);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(10, 1, 'Did not like this at all.', 1, 6);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(11, 1, 'Did not like this at all.', 1, 7);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(12, 1, 'Did not like this at all.', 1, 8);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(13, 1, 'Did not like this at all.', 1, 9);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(14, 1, 'Did not like this at all.', 1, 10);
+
 
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 (2, 2, 'Could be better.', 2, 2);
