@@ -324,7 +324,7 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
                                             WHERE m1.contentID = :contentID AND m2.duration = :duration AND m1.lengthType = :lengthType
                                             AND c2.ageRating = :ageRating AND c2.title = title AND c2.releaseDate = 
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted
-                                            ORDER BY m2.movieID ASC`,
+                                            ORDER BY m2.movieID`,
                                             [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
         } else {
             result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
@@ -332,7 +332,7 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
                                             WHERE m1.contentID = :contentID OR m2.duration = :duration OR m1.lengthType = :lengthType
                                             OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate = :releaseDate
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted
-                                            ORDER BY m2.movieID ASC`,
+                                            ORDER BY m2.movieID`,
                                             [contentID, duartion, lengthType, ageRating, title, releaseDate, ageRestricted]);
         }
 
@@ -340,6 +340,24 @@ async function searchMovies(contentID, duartion, lengthType, ageRating, title, r
     }).catch(() => {
         return [];
     });
+}
+
+async function getGenreCountByAverageRuntime(releaseDate) {
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT m1.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
+                                            FROM Movie_2 m2, Genre g, CategorizedAs ca
+                                            WHERE m2.contentID = ca.contentID AND ca.genreName = g.genreName
+                                            GROUP BY g.genreName
+                                            HAVING m2.duration < (SELECT AVG(m.duration)
+                                                                    FROM Movie m
+                                                                    WHERE m.releaseDate <= TO_DATE(:releaseDate, 'yyyy-mm-dd'))
+                                            ORDER BY g.genreName ASC`,
+                                             [releaseDate]);
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+
 }
 
 async function viewTable(tableName, attributes) {
@@ -387,7 +405,6 @@ module.exports = {
     getWatchlistsForUser,
     countWatchlist,
     countMovies,
-    countSeries,
     countReviews,
     countSeries,
     countServices,
@@ -396,6 +413,7 @@ module.exports = {
     getUltimateReviewers,
     getMostPopularGenre,
     searchMovies,
+    getGenreCountByAverageRuntime,
     viewTable,
     getTableNames,
     getAttributeNames
