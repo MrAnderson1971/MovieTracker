@@ -193,6 +193,7 @@ async function countMovies(userID) {
                                                 FROM Watchlist w, Collects c, Movie_2 m
                                                 WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
                                                 c.contentID = m.contentID`, [userID]);
+        console.log(result.rows);
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -205,6 +206,7 @@ async function countSeries(userID) {
                                                 FROM Watchlist w, Collects c, TVShow_1 t
                                                 WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
                                                 c.contentID = t.contentID`, [userID]);
+        console.log(result.rows);
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -214,6 +216,7 @@ async function countSeries(userID) {
 async function countReviews(userID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT Count(*) FROM Review_2 WHERE userID = :userID`, [userID]);
+        console.log(result.rows);
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -243,26 +246,25 @@ async function countShowsBySeasons(seasonNumber) {
 
 async function getUltimateReviewers(age) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT userID
-                                                FROM User_2 u
-                                                WHERE u.age <= :age NOT EXISTS ((SELECT c.contentID
-                                                                  FROM Content_2 c)
-                                                                  EXCEPT (SELECT r.reviewID
-                                                                  FROM Review_2 r
-                                                                  WHERE r.userID = u.userID)))`, [age]);
+        const result = await connection.execute(`SELECT DISTINCT u.userID, u.username 
+                                                FROM User_2 u, User_3 u3 WHERE u3.age <= :age AND NOT EXISTS 
+                                                (SELECT c.contentID FROM Content_2 c WHERE NOT EXISTS 
+                                                    (SELECT r.reviewID 
+                                                    FROM Review_2 r 
+                                                    WHERE c.contentID = r.contentID AND r.userID = u.userID))`, [age]);
         return result.rows;
     }).catch(() => {
         return -1;
     });
 }
 
-async function getMostPopularGenre() {
+async function getMostPopularGenre(userID) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT genreName, COUNT(*) as genreCount
-FROM CategorizedAs
-GROUP BY genreName
-ORDER BY genreCount DESC
-`);
+        const result = await connection.execute(`SELECT ca.genreName, COUNT(*) as genreCount
+                                                FROM Watchlist w, Collects c, CategorizedAs ca
+                                                WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND ca.contentID = c.contentID
+                                                GROUP BY genreName
+                                                ORDER BY genreCount DESC`, [userID]);
         return result.rows[0][0];
     }).catch(() => {
         return -1;

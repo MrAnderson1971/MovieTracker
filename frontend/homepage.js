@@ -122,7 +122,13 @@ function createBigUserStatBoard() {
     const cards = cardNames.map(cardName => document.querySelector(cardName));
 
     // Populate cards
-    fetch('/count-genres')
+    fetch('/count-genres', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: localStorage.getItem("userId") })
+    })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("error");
@@ -131,12 +137,19 @@ function createBigUserStatBoard() {
         })
         .then((data) => {
             if (data.success) {
-                populateCard(cards[0], 'FAVORITE GENRE', data.count);
+                populateCard(cards[0], 'FAVORITE GENRE', data.genre);
             } else {
                 console.error("Failed to get favorite genre.");
             }
-        })
-    fetch('/count-watchlist')
+        });
+
+    fetch('/count-watchlist', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: localStorage.getItem("userId") })
+    })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("error");
@@ -149,7 +162,7 @@ function createBigUserStatBoard() {
             } else {
                 console.error("Failed to get watchlist count.");
             }
-        })
+        });
 }
 
 function createBigCards() {
@@ -172,7 +185,13 @@ function createSmallUserStatBoard() {
     const cardNames = ['.cardSmall1', '.cardSmall2', '.cardSmall3'];
     const cards = cardNames.map(cardName => document.querySelector(cardName));
 
-    fetch('/count-movies')
+    fetch('/count-movies', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: localStorage.getItem("userId") })
+    })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("error");
@@ -186,7 +205,13 @@ function createSmallUserStatBoard() {
                 console.error("Failed to get movies count.");
             }
         })
-    fetch('/count-series')
+    fetch('/count-series', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: localStorage.getItem("userId") })
+    })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("error");
@@ -200,7 +225,13 @@ function createSmallUserStatBoard() {
                 console.error("Failed to get series count.");
             }
         })
-    fetch('/count-reviews')
+    fetch('/count-reviews', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userID: localStorage.getItem("userId") })
+    })
         .then((response) => {
             if (!response.ok) {
                 throw new Error("error");
@@ -274,7 +305,7 @@ function addLeaderBoardSearch() {
 
     const input = document.createElement('input');
     input.type = 'text';
-    input.id = 'seasonsGreater';
+    input.id = 'ageInput';
 
 
     sC.append(h1, label, input);
@@ -300,8 +331,32 @@ function addSearchButton() {
     lba.append(button);
 }
 
-function handleLeaderBoardSearch() {
-    alert("SEARCH");
+async function handleLeaderBoardSearch() {
+    const enteredAge = document.getElementById("ageInput").value;
+    console.log(enteredAge);
+
+    let userList = [];
+    try {
+        const response = await fetch('/get-ultimate-reviewers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ age: Number(enteredAge) })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            userList = data.result;
+        } else {
+            alert("Something went wrong");
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+    console.log(userList);
 }
 
 function handleStatBoardRefresh() {}
