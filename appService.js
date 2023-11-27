@@ -51,11 +51,37 @@ async function testOracleConnection() {
     });
 }
 
+function escapeSpecialChars(string) {
+    let output = string;
+    output = output.replace("(", "\(");
+    output = output.replace(")", "\)");
+    output = output.replace("[", "\[");
+    output = output.replace("]", "\]");
+    output = output.replace("{", "\{");
+    output = output.replace("}", "\}");
+    output = output.replace("'", "\'");
+    output = output.replace(",", "\,");
+    output = output.replace("&", "\&");
+    output = output.replace("=", "\=");
+    output = output.replace("?", "\?");
+    output = output.replace("-", "\-");
+    output = output.replace(";", "\;");
+    output = output.replace("~", "\~");
+    output = output.replace("|", "\|");
+    output = output.replace("$", "\$");
+    output = output.replace(">", "\>");
+    output = output.replace("*", "\*");
+    output = output.replace("%", "\%");
+    output = output.replace("_", "\_");
+
+    return output;
+}
+
 async function login(username, userPassword) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `SELECT userID, admin FROM User_2 WHERE username = :username AND userPassword = :userPassword`,
-            [ username, userPassword ]
+            [ escapeSpecialChars(username), escapeSpecialChars(userPassword) ]
         );
         return result.rows;
     }).catch((error) => {
@@ -64,6 +90,14 @@ async function login(username, userPassword) {
 }
 
 async function insertUser(username, email, password, birthDate) {
+    if (!/[a-zA-Z0-9+-_~]+@[a-zA-Z]+\.[a-z]+/.test(email)) {
+        return false;
+    }
+
+    if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(birthDate)) {
+        return false;
+    }
+
     return await withOracleDB(async (connection) => {
         let date = new Date();
         let year = date.getFullYear();
@@ -96,7 +130,7 @@ async function insertUser(username, email, password, birthDate) {
         const result2 = await connection.execute(
             `INSERT INTO User_2 (userID, birthDate, email, userPassword, username) 
             VALUES (:userID, TO_DATE(:birthDate, 'yyyy-mm-dd'), :email, :password, :username)`,
-            [userID, birthDate, email, password, username],
+            [userID, birthDate, email, escapeSpecialChars(password), escapeSpecialChars(username)],
             { autoCommit: true }
         );
 
@@ -113,7 +147,7 @@ async function createWatchlist(name, userID) {
         const result = await connection.execute(
             `INSERT INTO Watchlist (watchlistID, name, userID)
             VALUES (:watchlistID, :name, :userID)`,
-            [watchlistID, name, userID],
+            [watchlistID, escapeSpecialChars(name), userID],
             { autoCommit: true }
         );
 
@@ -140,6 +174,10 @@ async function getWatchlistsForUser(userID) {
 }
 
 async function deleteWatchlist(watchlistID) {
+    if (isNaN(watchlistID)) {
+        return false;
+    }
+
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(
             `DELETE FROM Watchlist WHERE watchlistID = :watchlistID`,
@@ -154,12 +192,16 @@ async function deleteWatchlist(watchlistID) {
 }
 
 async function updateWatchlist(watchlistID, name, userID) {
+    if (isNaN(watchlistID) || isNaN(userID)) {
+        return false;
+    }
+
     return await withOracleDB(async (connection) => {
         let result;
         if (name) {
             result = await connection.execute(
                 `UPDATE Watchlist SET name = :name WHERE watchlistID = :watchlistID`,
-                [name, watchlistID],
+                [escapeSpecialChars(name), watchlistID],
                 { autoCommit: true }
             );
         }
@@ -231,6 +273,10 @@ async function countServices() {
 }
 
 async function countShowsBySeasons(seasonNumber) {
+    if (isNaN(seasonNumber)) {
+        return [];
+    }
+
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT t.numSeasons, Count(*) as seasonCount 
                                                 FROM TVShow_1 t GROUP BY t.numSeasons 
@@ -242,6 +288,10 @@ async function countShowsBySeasons(seasonNumber) {
 }
 
 async function getUltimateReviewers(age) {
+    if (isNaN(age)) {
+        return -1;
+    }
+
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT DISTINCT u.userID, u.username 
                                                 FROM User_2 u, User_3 u3 WHERE u3.age <= :age AND NOT EXISTS 
@@ -271,8 +321,8 @@ async function getMostPopularGenre(userID) {
 async function searchServices(name, country, order) {
     return await withOracleDB(async (connection) => {
         let result;
-        let nameSearchTerm = "%" + name + "%";
-        let countrySearchTerm = "%" + country + "%";
+        let nameSearchTerm = "%" + escapeSpecialChars(name) + "%";
+        let countrySearchTerm = "%" + escapeSpecialChars(country) + "%";
         switch (order) {
             case 0:
             result = await connection.execute(`SELECT s.streamingServiceName, a.countryName
@@ -315,6 +365,18 @@ async function searchServices(name, country, order) {
 }
 
 async function searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and) {
+    if (contentID !== null && contentID !== "" && duration !== null && duration !== "" && ageRestricted !== null && ageRestricted !== "") {
+        if (isNaN(contentID) || isNaN(duration) || isNaN(ageRestricted)) {
+            return [];
+        }
+    }
+
+    if (releaseDate !== null && releaseDate !== "") {
+        if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(releaseDate)) {
+            return [];
+        }
+    }
+
     return await withOracleDB(async (connection) => {
         let result;
         if (and) {
@@ -325,7 +387,8 @@ async function searchMovies(contentID, duration, lengthType, ageRating, title, r
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted AND m1.duration = m2.duration
                                             AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating
                                             ORDER BY m2.contentID`,
-                                            [contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted]);
+                                            [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating), 
+                                                escapeSpecialChars(title), releaseDate, ageRestricted]);
         } else {
             result = await connection.execute(`SELECT DISTINCT m2.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2
@@ -334,7 +397,8 @@ async function searchMovies(contentID, duration, lengthType, ageRating, title, r
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted) AND m1.duration = m2.duration
                                             AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating
                                             ORDER BY m2.contentID`,
-                                            [contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted]);
+                                            [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating), 
+                                                escapeSpecialChars(title), releaseDate, ageRestricted]);
         }
 
         return result.rows;
@@ -344,6 +408,10 @@ async function searchMovies(contentID, duration, lengthType, ageRating, title, r
 }
 
 async function getGenreCountByAverageRuntime(releaseDate) {
+    if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(releaseDate)) {
+        return [];
+    }
+
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT ca.genreName, Count(*) as genreCount 
                                                 FROM Movie_2 m2, Content_2 c2, CategorizedAs ca 
@@ -359,6 +427,7 @@ async function getGenreCountByAverageRuntime(releaseDate) {
 
 }
 
+// Only uses names pulled from the database, selected from dropdowns. User cannot input values directly.
 async function viewTable(tableName, attributes) {
     return await withOracleDB(async (connection) => {
         let queryString = `SELECT `;

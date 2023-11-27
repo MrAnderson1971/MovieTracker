@@ -74,16 +74,32 @@ async function searchGenreCount() {
 
 async function searchMovies() {
     const title = document.getElementById("movieTitle").value;
-    const contentID = document.getElementById("movieID").value;
+    let contentID = document.getElementById("movieID").value;
     const ageRating = document.getElementById("movieAgeRating").value;
-    const ageRestricted = document.getElementById("movieAgeRes").value;
-    const releaseDate = document.getElementById("movieReleaseDate").value;
+    let ageRestricted = document.getElementById("movieAgeRes").value;
+    let releaseDate = document.getElementById("movieReleaseDate").value;
     const lengthType = document.getElementById("movieLengthType").value;
-    const duration = document.getElementById("movieDuration").value;
+    let duration = document.getElementById("movieDuration").value;
     let and = 0;
     if (document.getElementById("movieSelectionType").value === "and") {
         and = 1;
     }
+
+    // if (ageRestricted === null || ageRestricted === "") {
+    //     ageRestricted = 0;
+    // }
+
+    // if (contentID === null || contentID === "") {
+    //     contentID = 0;
+    // }
+
+    // if (duration === null || duration === "") {
+    //     duration = 0;
+    // }
+
+    // if (releaseDate === null || releaseDate === "") {
+    //     releaseDate = "1000-01-01";
+    // }
 
 
     const results = await fetch("/search-movies", {
