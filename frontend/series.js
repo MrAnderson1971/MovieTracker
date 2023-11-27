@@ -56,6 +56,7 @@ function changeSeriesNavBar() {
 
 async function searchShows() {
     const seasonNum = document.getElementById("seasonsGreater").value;
+    const resultsDiv = document.getElementById("searchResults");
 
     const response = await fetch('/count-shows-by-seasons', {
         method: 'POST',
@@ -68,7 +69,37 @@ async function searchShows() {
     const data = await response.json();
     if (!data.success) {
         alert("Invalid input");
+    } else if (data.result.length === 0) {
+        resultsDiv.innerHTML = "<p>No results</p>";
     } else {
-        console.log(data.result);
+        resultsDiv.appendChild(createResultsTable(data.result));
     }
+}
+
+function createResultsTable(results) {
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    const headerRow = document.createElement('tr');
+    ['Season Number', 'Count'].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+
+    results.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+    return table;
 }
