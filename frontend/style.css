@@ -375,16 +375,16 @@
     background-color: whitesmoke;
 }
 
-.B, .C {
+.B, .C{
     margin-left: 100px;
 }
 
-.A input, .B input, .C select {
+.A input, .B input, .C select, .alterContentArea select {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     border: 1px solid black;
     border-radius: 5px;
-    padding: 5px;
+    padding:2px;
 }
 
 #searchServices {
@@ -428,29 +428,29 @@
     background-color: whitesmoke;
 }
 
-.deleteArea, .addArea, .updateArea{
+.deleteArea, .addArea, .updateArea, .alterContentArea, .deleteContentArea{
     font-size: 18px;
     background-color: whitesmoke;
     padding: 20px;
 }
 
-.updateArea {
+.updateArea, .alterContentArea, .deleteContentArea {
     display: flex;
     align-items: center;
 }
 
 
-.watchlistSec input {
+.watchlistSec input, .watchlistSec select {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
     height: 40px;
-    margin: 15px;
+    margin: 10px;
 }
 
-#delWatchList, #addWatchList, #updateWatchList, #getTable {
+#delWatchList, #addWatchList, #updateWatchList, #getTable, #alterContentWatchlist, #delContentW {
     width: 150px;
     height: 40px;
     background-color: red;
@@ -461,7 +461,8 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover, #getTable:hover {
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #getTable:hover,
+#alterContentWatchlist:hover, #delContentW:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
@@ -527,29 +528,6 @@
     padding: 5px;
 }
 
-#chooseRelation {
-    width: 100px;
-    height: 40px;
-    background-color: red;
-    color: white;
-    font-size: 25px;
-    display: block;
-    border: 3px solid red;
-    border-radius: 10px;
-}
-
-.attrContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: whitesmoke;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-}
-
-.attrContainer label {
-    margin-left: 10px;
-}
 #refreshStats {
     width: 200px;
     height: 70px;
@@ -668,11 +646,49 @@
     right: 20px;
 }
 
+.watchlistMainBar, .adminMainBar {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    background: linear-gradient(to right, red, black 40%);
+    color: white;
+    padding: 20px;
+}
 
+.adminMainBar {
+    display: flex;
+    align-items: center;
+}
 
+#chooseRelation {
+    width: 100px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 2px solid red;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+}
 
+#chooseRelation:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid white;
+}
 
+.attrContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
 
+.attrContainer label {
+    margin-left: 10px;
+}
 
 
 
