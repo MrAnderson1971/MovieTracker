@@ -461,7 +461,7 @@
     border-radius: 10px;
 }
 
-#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #chooseRelation:hover, #getTable:hover,
+#delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #getTable:hover,
 #alterContentWatchlist:hover, #delContentW:hover {
     color: white;
     background-color: red;
@@ -528,29 +528,6 @@
     padding: 5px;
 }
 
-#chooseRelation {
-    width: 100px;
-    height: 40px;
-    background-color: red;
-    color: white;
-    font-size: 25px;
-    display: block;
-    border: 3px solid red;
-    border-radius: 10px;
-}
-
-.attrContainer {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: whitesmoke;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-}
-
-.attrContainer label {
-    margin-left: 10px;
-}
 #refreshStats {
     width: 200px;
     height: 70px;
@@ -669,7 +646,7 @@
     right: 20px;
 }
 
-.watchlistMainBar {
+.watchlistMainBar, .adminMainBar {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     background: linear-gradient(to right, red, black 40%);
@@ -677,6 +654,41 @@
     padding: 20px;
 }
 
+.adminMainBar {
+    display: flex;
+    align-items: center;
+}
+
+#chooseRelation {
+    width: 100px;
+    height: 40px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    display: block;
+    border: 2px solid red;
+    border-radius: 10px;
+    position: absolute;
+    right: 20px;
+}
+
+#chooseRelation:hover {
+    color: white;
+    background-color: red;
+    border: 2px solid white;
+}
+
+.attrContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+
+.attrContainer label {
+    margin-left: 10px;
+}
 
 
 

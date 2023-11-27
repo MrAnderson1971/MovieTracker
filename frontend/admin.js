@@ -1,5 +1,5 @@
 
-document.getElementById("chooseRelation").addEventListener("click", addRelationToggle);
+document.getElementById("chooseRelation").addEventListener("click", addRelationBar);
 
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
@@ -38,40 +38,78 @@ function changeAdminNavBar() {
     al.appendChild(liSO);
 }
 
-function addRelationToggle() {
-    // --- Get selector value
-    const rS = document.getElementById('relationSelector');
-    const rVal = rS.value;
+function addRelationBar() {
+    // const attributes = [
+//     //     ["score", "category"],
+//     //     ["reviewID", "score", "reviewText", "userID", "contentID"],
+//     //     ["age", "ageLock"],
+//     //     ["userID", "birthdate", "email", "userPassword", "username", "admin"],
+//     //     ["birthdate", "age"],
+//     //     ["ageRating", "ageRestricted"],
+//     //     ["contentID", "ageRating", "title", "releaseDate"],
+//     //     ["duration", "lengthType"],
+//     //     ["contentID", "duration"],
+//     //     ["contentID", "numSeasons"],
+//     //     ["numSeasons", "seriesType"],
+//     //     ["watchlistID", "name", "userID"],
+//     //     ["languageName"],
+//     //     ["genreName"],
+//     //     ["countryName"],
+//     //     ["streamingServiceName"],
+//     //     ["contentID", "season", "episode", "duration", "title"],
+//     //     ["languageName", "contentID", "audio", "subtitles"],
+//     //     ["watchlistID", "contentID"],
+//     //     ["genreName", "contentID"],
+//     //     ["streamingServiceName", "contentID"],
+//     //     ["countryName", "streamingServiceName"]
+//     // ];
 
-    const attributes = [
-        ["score", "category"],
-        ["reviewID", "score", "reviewText", "userID", "contentID"],
-        ["age", "ageLock"],
-        ["userID", "birthdate", "email", "userPassword", "username", "admin"],
-        ["birthdate", "age"],
-        ["ageRating", "ageRestricted"],
-        ["contentID", "ageRating", "title", "releaseDate"],
-        ["duration", "lengthType"],
-        ["contentID", "duration"],
-        ["contentID", "numSeasons"],
-        ["numSeasons", "seriesType"],
-        ["watchlistID", "name", "userID"],
-        ["languageName"],
-        ["genreName"],
-        ["countryName"],
-        ["streamingServiceName"],
-        ["contentID", "season", "episode", "duration", "title"],
-        ["languageName", "contentID", "audio", "subtitles"],
-        ["watchlistID", "contentID"],
-        ["genreName", "contentID"],
-        ["streamingServiceName", "contentID"],
-        ["countryName", "streamingServiceName"]
-    ];
+    resetRSel();
+    addSelectorLabel();
+    addSelector();
 
-    const selAttr = attributes[rVal];
+    // TODO: Get relation names [....]
+    const rNames = ["A", "B", "C"]
+    rNames.forEach(addSelectorOption)
+}
 
-    displayAttributeSelector(selAttr);
-    addSubmitButton();
+function resetRSel() {
+    const rSel = document.querySelector('.rSel');
+    rSel.remove();
+
+    const newRSEL = document.createElement("div");
+    newRSEL.className = "rSel";
+
+    const relationSelection = document.querySelector('.relationSelection');
+    relationSelection.append(newRSEL)
+}
+
+function addSelectorLabel() {
+    const labelSel = document.createElement('label');
+    labelSel.setAttribute('for', 'relationSelector');
+    labelSel.textContent = 'RELATION:';
+
+    const rSel = document.querySelector(".rSel");
+    rSel.append(labelSel);
+}
+
+function addSelector() {
+    const selector = document.createElement('select');
+    selector.id = 'relationSelector';
+
+    const rSel = document.querySelector(".rSel");
+    rSel.append(selector);
+}
+
+function addSelectorOption(relation) {
+    const selectElement = document.getElementById('relationSelector');
+    const optionElement = document.createElement('option');
+
+    // TODO Change value depending on format
+    optionElement.value = relation;
+
+    optionElement.textContent = relation;
+    selectElement.appendChild(optionElement);
 }
 
 function displayAttributeSelector(attArray) {
