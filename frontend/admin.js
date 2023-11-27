@@ -39,49 +39,38 @@ function changeAdminNavBar() {
 }
 
 function addRelationBar() {
-    // const attributes = [
-//     //     ["score", "category"],
-//     //     ["reviewID", "score", "reviewText", "userID", "contentID"],
-//     //     ["age", "ageLock"],
-//     //     ["userID", "birthdate", "email", "userPassword", "username", "admin"],
-//     //     ["birthdate", "age"],
-//     //     ["ageRating", "ageRestricted"],
-//     //     ["contentID", "ageRating", "title", "releaseDate"],
-//     //     ["duration", "lengthType"],
-//     //     ["contentID", "duration"],
-//     //     ["contentID", "numSeasons"],
-//     //     ["numSeasons", "seriesType"],
-//     //     ["watchlistID", "name", "userID"],
-//     //     ["languageName"],
-//     //     ["genreName"],
-//     //     ["countryName"],
-//     //     ["streamingServiceName"],
-//     //     ["contentID", "season", "episode", "duration", "title"],
-//     //     ["languageName", "contentID", "audio", "subtitles"],
-//     //     ["watchlistID", "contentID"],
-//     //     ["genreName", "contentID"],
-//     //     ["streamingServiceName", "contentID"],
-//     //     ["countryName", "streamingServiceName"]
-//     // ];
-
     resetRSel();
     addSelectorLabel();
     addSelector();
 
-    // TODO: Get relation names [....]
+    // TODO: Get relation names [....] from database
     const rNames = ["A", "B", "C"]
-    rNames.forEach(addSelectorOption)
+
+    rNames.forEach(function(name, index) {
+        addSelectorOption(name, index);
+    });
+
+    addSubmitButton()
 }
 
 function resetRSel() {
     const rSel = document.querySelector('.rSel');
-    rSel.remove();
+
+    if(rSel) {
+        rSel.remove()
+    }
 
     const newRSEL = document.createElement("div");
     newRSEL.className = "rSel";
 
     const relationSelection = document.querySelector('.relationSelection');
     relationSelection.append(newRSEL)
+
+    const gT = document.querySelector('#getTable');
+
+    if(gT) {
+        gT.remove();
+    }
 }
 
 function addSelectorLabel() {
@@ -101,25 +90,55 @@ function addSelector() {
     rSel.append(selector);
 }
 
-function addSelectorOption(relation) {
+function addSelectorOption(relation, index) {
     const selectElement = document.getElementById('relationSelector');
     const optionElement = document.createElement('option');
 
     // TODO Change value depending on format
-    optionElement.value = relation;
+    optionElement.value = index;
 
     optionElement.textContent = relation;
     selectElement.appendChild(optionElement);
 }
 
-function displayAttributeSelector(attArray) {
-    if(!Array.isArray(attArray)) {
-        alert("ERROR");
-    }
+function addSubmitButton() {
+    const button = document.createElement("button");
+    button.id = 'getTable';
+    button.value = 'getTable';
+
+    const icon = document.createElement('i');
+    icon.className = 'fa-solid fa-magnifying-glass';
+    button.append(icon);
+
+    button.addEventListener("click", displayAttributes);
+
+    const sC = document.querySelector(".relationSelection");
+    sC.appendChild(button);
+}
+
+
+function displayAttributes() {
+    resetSubmitArea();
+    // TODO: Get attribute names [....] from database
+    const rNames = [["a1"],["b2"],["c2", "c1", "c3", "c4"]];
+
+    const name = document.getElementById("relationSelector").value;
+    const attNames = rNames[name];
 
     resetSelector();
-    resetSubmit();
-    attArray.forEach(addCheckBoxes);
+    attNames.forEach(addCheckBoxes);
+    addSend();
+}
+
+function resetSubmitArea() {
+    const a = document.querySelector(".subContainer")
+    a.remove();
+
+    const newA = document.createElement("div");
+    newA.className = "subContainer";
+
+    const b = document.querySelector(".submitArea");
+    b.append(newA);
 }
 
 function resetSelector() {
@@ -131,17 +150,6 @@ function resetSelector() {
 
     const attSel = document.querySelector(".attributeSelection");
     attSel.appendChild(nCont);
-}
-
-function resetSubmit() {
-    const sC = document.querySelector(".subContainer");
-    sC.remove();
-
-    const newSC = document.createElement('div');
-    newSC.classList.add('subContainer');
-
-    const sA = document.querySelector(".submitArea");
-    sA.appendChild(newSC);
 }
 
 function addCheckBoxes(attr) {
@@ -165,18 +173,23 @@ function addCheckBoxes(attr) {
     div.appendChild(attLabel);
 }
 
-function addSubmitButton() {
+function addSend() {
     const button = document.createElement("button");
-    button.id = 'getTable';
-    button.value = 'getTable';
+    button.id = 'sendAttr';
+    button.value = 'sendAttr';
 
     const icon = document.createElement('i');
     icon.className = 'fa-solid fa-magnifying-glass';
     button.append(icon);
 
+    button.addEventListener("click", sendQuery);
+
     const sC = document.querySelector(".subContainer");
     sC.appendChild(button);
 }
 
+function sendQuery() {
+    alert("SEND");
+}
 
 
