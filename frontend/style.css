@@ -450,7 +450,7 @@
     margin: 10px;
 }
 
-#delWatchList, #addWatchList, #updateWatchList, #getTable, #alterContentWatchlist, #delContentW {
+#delWatchList, #addWatchList, #updateWatchList, #getTable, #alterContentWatchlist, #delContentW, #sendAttr {
     width: 150px;
     height: 40px;
     background-color: red;
@@ -462,13 +462,13 @@
 }
 
 #delWatchList:hover, #addWatchList:hover, #updateWatchList:hover, #getTable:hover,
-#alterContentWatchlist:hover, #delContentW:hover {
+#alterContentWatchlist:hover, #delContentW:hover, #sendAttr:hover {
     color: white;
     background-color: red;
     border: 2px solid black;
 }
 
-#getTable {
+#getTable, #sendAttr {
     margin: 20px ;
 }
 
@@ -688,6 +688,14 @@
 
 .attrContainer label {
     margin-left: 10px;
+}
+
+.rSel select {
+    margin-left: 10px;
+}
+
+.attributeSelection, .relationSelection {
+    background-color: whitesmoke;
 }
 
 
