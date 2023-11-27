@@ -52,7 +52,7 @@ CREATE TABLE User_2 (
 grant select on User_2 to public;
 
 CREATE TABLE Content_1 (
-  ageRating CHAR(10) PRIMARY KEY,
+  ageRating VARCHAR(10) PRIMARY KEY,
   ageRestricted INTEGER,
   CHECK (ageRestricted = 0 OR ageRestricted = 1)
 );
@@ -60,7 +60,7 @@ grant select on Content_1 to public;
 
 CREATE TABLE Content_2 (
   contentID INTEGER PRIMARY KEY,
-  ageRating CHAR(10),
+  ageRating VARCHAR(10),
   title VARCHAR(255) NOT NULL,
   releaseDate DATE NOT NULL,
   UNIQUE (title, releaseDate),
