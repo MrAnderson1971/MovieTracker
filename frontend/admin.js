@@ -103,14 +103,13 @@ function addSelector() {
     rSel.append(selector);
 }
 
-function addSelectorOption(relation, index) {
+function addSelectorOption(tableName) {
     const selectElement = document.getElementById('relationSelector');
     const optionElement = document.createElement('option');
 
-    // TODO Change value depending on format
-    optionElement.value = index;
+    optionElement.value = tableName; // set the value to the table name
+    optionElement.textContent = tableName; // set the text content to the table name for display
 
-    optionElement.textContent = relation;
     selectElement.appendChild(optionElement);
 }
 
