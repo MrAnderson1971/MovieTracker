@@ -534,7 +534,25 @@ INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
 ('German', 3, 1, 0);
 
 INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
-('Chinese', 4, 0, 1);
+('English', 4, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 5, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 6, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 7, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 8, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 9, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('Chinese', 10, 0, 1);
 
 
 INSERT INTO Collects(watchlistID, contentID) VALUES
@@ -582,7 +600,22 @@ INSERT INTO Has(streamingServiceName, contentID) VALUES
 ('Hulu', 4);
 
 INSERT INTO Has(streamingServiceName, contentID) VALUES
-('HBO Max', 5);
+('Netflix', 5);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 6);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 7);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 8);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 9);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('HBO Max', 10);
 
 
 INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
