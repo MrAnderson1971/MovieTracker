@@ -356,7 +356,7 @@ async function handleLeaderBoardSearch() {
         console.error('Error:', error);
     }
 
-    console.log(userList);
+    alert(userList);
 }
 
 function handleStatBoardRefresh() {}
