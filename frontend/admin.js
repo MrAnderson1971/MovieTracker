@@ -1,4 +1,3 @@
-
 document.getElementById("chooseRelation").addEventListener("click", addRelationBar);
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -38,25 +37,39 @@ function changeAdminNavBar() {
     al.appendChild(liSO);
 }
 
-function addRelationBar() {
+async function getTableNames() {
+    try {
+        const response = await fetch('/get-tables');
+        const data = await response.json();
+        if (data.success) {
+            return data.result;
+        } else {
+            console.error("Failed to get table names.");
+            return [];
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
+}
+
+async function addRelationBar() {
     resetRSel();
     addSelectorLabel();
     addSelector();
 
-    // TODO: Get relation names [....] from database
-    const rNames = ["A", "B", "C"]
-
+    const rNames = await getTableNames();
     rNames.forEach(function(name, index) {
         addSelectorOption(name, index);
     });
 
-    addSubmitButton()
+    addSubmitButton();
 }
 
 function resetRSel() {
     const rSel = document.querySelector('.rSel');
 
-    if(rSel) {
+    if (rSel) {
         rSel.remove()
     }
 
@@ -68,7 +81,7 @@ function resetRSel() {
 
     const gT = document.querySelector('#getTable');
 
-    if(gT) {
+    if (gT) {
         gT.remove();
     }
 }
@@ -90,14 +103,13 @@ function addSelector() {
     rSel.append(selector);
 }
 
-function addSelectorOption(relation, index) {
+function addSelectorOption(tableName) {
     const selectElement = document.getElementById('relationSelector');
     const optionElement = document.createElement('option');
 
-    // TODO Change value depending on format
-    optionElement.value = index;
+    optionElement.value = tableName; // set the value to the table name
+    optionElement.textContent = tableName; // set the text content to the table name for display
 
-    optionElement.textContent = relation;
     selectElement.appendChild(optionElement);
 }
 
@@ -116,22 +128,34 @@ function addSubmitButton() {
     sC.appendChild(button);
 }
 
-
-function displayAttributes() {
+async function displayAttributes() {
     resetSubmitArea();
-    // TODO: Get attribute names [....] from database
-    const rNames = [["a1"],["b2"],["c2", "c1", "c3", "c4"]];
+    const selectedTable = document.getElementById("relationSelector").value;
 
-    const name = document.getElementById("relationSelector").value;
-    const attNames = rNames[name];
+    try {
+        const response = await fetch('/get-attributes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ tableName: selectedTable })
+        });
+        const data = await response.json();
 
-    resetSelector();
-    attNames.forEach(addCheckBoxes);
-    addSend();
+        if (data.success) {
+            resetSelector();
+            data.result.forEach(addCheckBoxes);
+            addSend();
+        } else {
+            console.error("Failed to get attributes.");
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
 
 function resetSubmitArea() {
-    const a = document.querySelector(".subContainer")
+    const a = document.querySelector(".subContainer");
     a.remove();
 
     const newA = document.createElement("div");
@@ -188,8 +212,6 @@ function addSend() {
     sC.appendChild(button);
 }
 
-function sendQuery() {
-    alert("SEND");
+async function sendQuery() {
+    alert("sendQuery"); // TODO
 }
-
-
