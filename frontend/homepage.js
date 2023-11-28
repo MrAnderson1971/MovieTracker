@@ -139,7 +139,8 @@ function createBigUserStatBoard() {
             if (data.success) {
                 populateCard(cards[0], 'FAVORITE GENRE', data.genre);
             } else {
-                console.error("Failed to get favorite genre.");
+                populateCard(cards[0], 'FAVORITE GENRE', "-");
+                console.error("Failed to get favorite genre, you have added no content to watchlists.");
             }
         });
 
@@ -271,18 +272,38 @@ function populateCard(card, title, value) {
     card.append(h5, h1);
 }
 
-function displayUserLeaderBoard(){
+async function displayUserLeaderBoard(){
     const userLb = document.createElement("div");
     userLb.className = 'userLeaderboardArea';
 
     document.body.appendChild(userLb);
 
-    // Get list of usernames
-
     const test = document.createElement("h1");
     test.textContent = "USER LEADERBOARD";
 
     userLb.appendChild(test);
+
+    const response = await fetch("/get-ultimate-reviewers");
+    const data = await response.json();
+    if (data.success) {
+        if (data.rows.length === 0) {
+            const p = document.createElement("p");
+            p.textContent = "No results.";
+            userLb.appendChild(p);
+        } else {
+            const table = document.createElement("table");
+            data.rows.forEach(row => {
+               const tr = document.createElement("tr");
+               const th = document.createElement("th");
+               th.textContent = row[1];
+               tr.appendChild(th);
+               table.appendChild(tr);
+            });
+            userLb.appendChild(table);
+        }
+    } else {
+        console.error("Failed to get leaderboard.");
+    }
 
     addLeaderBoardSearch();
 }
@@ -306,7 +327,6 @@ function addLeaderBoardSearch() {
     const input = document.createElement('input');
     input.type = 'text';
     input.id = 'ageInput';
-
 
     sC.append(h1, label, input);
     mC.append(sC);
@@ -350,7 +370,7 @@ async function handleLeaderBoardSearch() {
         if (data.success) {
             userList = data.result;
         } else {
-            alert("Something went wrong");
+            alert("Invalid input");
         }
     } catch (error) {
         console.error('Error:', error);

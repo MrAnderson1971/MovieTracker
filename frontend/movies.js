@@ -69,22 +69,25 @@ async function searchGenreCount() {
 
     const data = await results.json();
 
-    console.log(data.result);
+    if (data.success) {
+        // Display results
+    } else {
+        alert("Please enter a valid relese date");
+    }
 }
 
 async function searchMovies() {
     const title = document.getElementById("movieTitle").value;
-    const contentID = document.getElementById("movieID").value;
+    let contentID = document.getElementById("movieID").value;
     const ageRating = document.getElementById("movieAgeRating").value;
-    const ageRestricted = document.getElementById("movieAgeRes").value;
-    const releaseDate = document.getElementById("movieReleaseDate").value;
+    let ageRestricted = document.getElementById("movieAgeRes").value;
+    let releaseDate = document.getElementById("movieReleaseDate").value;
     const lengthType = document.getElementById("movieLengthType").value;
-    const duration = document.getElementById("movieDuration").value;
+    let duration = document.getElementById("movieDuration").value;
     let and = 0;
     if (document.getElementById("movieSelectionType").value === "and") {
         and = 1;
     }
-
 
     const results = await fetch("/search-movies", {
         method: "POST",
@@ -96,5 +99,12 @@ async function searchMovies() {
 
     const data = await results.json();
 
-    console.log(data.result);
+    if (data.success) {
+        
+        // Display results
+    } else  if (results.status === 400){
+        alert("Invalid input");
+    } else {
+        alert("Something went wrong. Try again.");
+    }
 }
