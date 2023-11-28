@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         changeHomeNavBar();
         changeHomePage();
 
-        if(localStorage.getItem("admin") == 1) {
+        if (localStorage.getItem("admin") === "1") {
             addAdminLink();
         }
     }
@@ -262,7 +262,7 @@ function createSmallCards() {
     userStatBoardSmall.append(cards[0], cards[1], cards[2]);
 }
 
-function populateCard(card, title, value) {
+function  populateCard(card, title, value) {
     const h5 = document.createElement('h5');
     h5.textContent = title;
 
@@ -365,7 +365,7 @@ async function handleLeaderBoardSearch() {
 }
 
 function handleStatBoardRefresh() {
-    alert("HI");
+    window.location.reload();
 }
 
 function createTable(results) {
@@ -413,4 +413,3 @@ function resetTable() {
 
     mC.append(newCon);
 }
-

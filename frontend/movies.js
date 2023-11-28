@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         changeMoviesNavBar();
 
-        if(localStorage.getItem("admin") == 1) {
+        if (localStorage.getItem("admin") === "1") {
             addAdminLink();
         }
     }
@@ -147,7 +147,7 @@ async function searchMovies() {
     const data = await results.json();
 
     if (data.success) {
-        
+
         // Display results
     } else  if (results.status === 400){
         alert("Invalid input");
@@ -155,3 +155,4 @@ async function searchMovies() {
         alert("Something went wrong. Try again.");
     }
 }
+
