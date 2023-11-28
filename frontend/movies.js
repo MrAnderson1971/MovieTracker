@@ -147,12 +147,31 @@ async function searchMovies() {
     const data = await results.json();
 
     if (data.success) {
+        const resultsArea = document.getElementById('movieResults');
+        resultsArea.innerHTML = '';
 
-        // Display results
+        const table = document.createElement('table');
+
+        const headerRow = table.insertRow();
+        const headers = ['Content ID', 'Duration', 'Length Type', 'Age Rating', 'Title', 'Release Date', 'Age Restricted'];
+        headers.forEach(headerText => {
+            const header = document.createElement('th');
+            header.textContent = headerText;
+            headerRow.appendChild(header);
+        });
+
+        data.result.forEach(row => {
+            const tableRow = table.insertRow();
+            headers.forEach(header => {
+                const cell = tableRow.insertCell();
+                cell.textContent = row[header];
+            });
+        });
+
+        resultsArea.appendChild(table);
     } else  if (results.status === 400){
         alert("Invalid input");
     } else {
         alert("Something went wrong. Try again.");
     }
 }
-
