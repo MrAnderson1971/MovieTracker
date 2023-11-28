@@ -69,7 +69,7 @@ function searchServices() {
             if (data.success) {
                 displaySearchResults(data.result);
             } else {
-                console.error('Search failed:', data.result);
+                alert("Something went wrong. Try again");
             }
         })
         .catch(error => {
