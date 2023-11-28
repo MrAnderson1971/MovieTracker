@@ -367,13 +367,13 @@ async function searchServices(name, country, order) {
 async function searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and) {
     if (contentID !== null && contentID !== "" && duration !== null && duration !== "" && ageRestricted !== null && ageRestricted !== "") {
         if (isNaN(contentID) || isNaN(duration) || isNaN(ageRestricted)) {
-            return [];
+            return [-1];
         }
     }
 
     if (releaseDate !== null && releaseDate !== "") {
         if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(releaseDate)) {
-            return [];
+            return [-1];
         }
     }
 
@@ -434,7 +434,7 @@ async function viewTable(tableName, attributes) {
         for (a in attributes) {
             queryString = queryString + a + ` `;
         }
-        queryString = queryString + ` FROM ` + tableName;
+        queryString = queryString + `FROM ` + tableName;
 
         const result = await connection.execute(queryString);
         return result.rows[0][0];

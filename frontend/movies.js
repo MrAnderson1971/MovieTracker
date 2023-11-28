@@ -69,7 +69,11 @@ async function searchGenreCount() {
 
     const data = await results.json();
 
-    console.log(data.result);
+    if (data.success) {
+        // Display results
+    } else {
+        alert("Please enter a valid relese date");
+    }
 }
 
 async function searchMovies() {
@@ -85,23 +89,6 @@ async function searchMovies() {
         and = 1;
     }
 
-    // if (ageRestricted === null || ageRestricted === "") {
-    //     ageRestricted = 0;
-    // }
-
-    // if (contentID === null || contentID === "") {
-    //     contentID = 0;
-    // }
-
-    // if (duration === null || duration === "") {
-    //     duration = 0;
-    // }
-
-    // if (releaseDate === null || releaseDate === "") {
-    //     releaseDate = "1000-01-01";
-    // }
-
-
     const results = await fetch("/search-movies", {
         method: "POST",
         headers: {
@@ -112,5 +99,12 @@ async function searchMovies() {
 
     const data = await results.json();
 
-    console.log(data.result);
+    if (data.success) {
+        
+        // Display results
+    } else  if (results.status === 400){
+        alert("Invalid input");
+    } else {
+        alert("Something went wrong. Try again.");
+    }
 }

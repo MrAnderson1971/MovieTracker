@@ -139,7 +139,8 @@ function createBigUserStatBoard() {
             if (data.success) {
                 populateCard(cards[0], 'FAVORITE GENRE', data.genre);
             } else {
-                console.error("Failed to get favorite genre.");
+                populateCard(cards[0], 'FAVORITE GENRE', "-");
+                console.error("Failed to get favorite genre, you have added no content to watchlists.");
             }
         });
 
@@ -350,7 +351,7 @@ async function handleLeaderBoardSearch() {
         if (data.success) {
             userList = data.result;
         } else {
-            alert("Something went wrong");
+            alert("Invalid input");
         }
     } catch (error) {
         console.error('Error:', error);
