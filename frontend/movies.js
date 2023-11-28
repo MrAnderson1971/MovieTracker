@@ -70,11 +70,58 @@ async function searchGenreCount() {
     const data = await results.json();
 
     if (data.success) {
-        // Display results
+        createTable(data.result)
     } else {
-        alert("Please enter a valid relese date");
+        alert("Please enter a valid release date");
     }
 }
+
+function createTable(results) {
+    resetTable();
+
+    const con = document.querySelector(".genreCountsResultsCon")
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    const headerRow = document.createElement('tr');
+    ['Genre', 'Count'].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+
+    results.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    con.append(table);
+}
+
+function resetTable() {
+    const con = document.querySelector(".genreCountsResultsCon");
+    con.remove();
+
+    const mC = document.querySelector(".genreCountsResults");
+
+    const newCon = document.createElement("div");
+    newCon.className = "genreCountsResultsCon"
+
+    mC.append(newCon);
+}
+
 
 async function searchMovies() {
     const title = document.getElementById("movieTitle").value;
