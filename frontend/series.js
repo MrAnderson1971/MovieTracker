@@ -54,9 +54,22 @@ function changeSeriesNavBar() {
     al.appendChild(liSO);
 }
 
+function resetShowsResults() {
+    const con = document.querySelector(".searchSeriesContainer");
+    con.remove();
+
+    const newCon = document.createElement("div");
+    newCon.className = "searchSeriesContainer";
+
+    const mainCon = document.querySelector(".searchResults");
+    mainCon.append(newCon);
+}
+
 async function searchShows() {
+    resetShowsResults();
+
+    const con = document.querySelector(".searchSeriesContainer");
     const seasonNum = document.getElementById("seasonsGreater").value;
-    const resultsDiv = document.getElementById("searchResults");
 
     const response = await fetch('/count-shows-by-seasons', {
         method: 'POST',
@@ -67,12 +80,13 @@ async function searchShows() {
     });
 
     const data = await response.json();
+
     if (!data.success) {
         alert("Invalid input");
     } else if (data.result.length === 0) {
-        resultsDiv.innerHTML = "<p>No results</p>";
+        con.innerHTML = "<p>No results</p>";
     } else {
-        resultsDiv.appendChild(createResultsTable(data.result));
+        con.append(createResultsTable(data.result));
     }
 }
 

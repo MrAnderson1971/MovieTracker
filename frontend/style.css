@@ -700,6 +700,24 @@
 
 
 
+table {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+}
+
+th {
+    background-color: red;
+    color: white;
+}
+
+td {
+    text-align: center;
+    padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+
 
 
 
