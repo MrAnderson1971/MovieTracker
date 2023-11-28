@@ -387,7 +387,7 @@ async function searchMovies(contentID, duration, lengthType, ageRating, title, r
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted AND m1.duration = m2.duration
                                             AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating
                                             ORDER BY m2.contentID`,
-                                            [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating), 
+                                            [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating),
                                                 escapeSpecialChars(title), releaseDate, ageRestricted]);
         } else {
             result = await connection.execute(`SELECT DISTINCT m2.contentID, m2.duration, m1.lengthType, c2.ageRating, c2.title, c2.releaseDate, c1.ageRestricted
@@ -397,7 +397,7 @@ async function searchMovies(contentID, duration, lengthType, ageRating, title, r
                                             TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted) AND m1.duration = m2.duration
                                             AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating
                                             ORDER BY m2.contentID`,
-                                            [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating), 
+                                            [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating),
                                                 escapeSpecialChars(title), releaseDate, ageRestricted]);
         }
 
@@ -431,7 +431,7 @@ async function getGenreCountByAverageRuntime(releaseDate) {
 async function viewTable(tableName, attributes) {
     return await withOracleDB(async (connection) => {
         let queryString = `SELECT `;
-        for (a in attributes) {
+        for (let a in attributes) {
             queryString = queryString + a + ` `;
         }
         queryString = queryString + `FROM ` + tableName;

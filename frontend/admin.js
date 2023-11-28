@@ -213,5 +213,17 @@ function addSend() {
 }
 
 async function sendQuery() {
-    alert("sendQuery"); // TODO
+    try {
+        const response = await fetch('/view-table`');
+        const data = await response.json();
+        if (data.success) {
+            console.log(data.result);
+        } else {
+            console.error("Failed to view table.");
+            return [];
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return [];
+    }
 }
