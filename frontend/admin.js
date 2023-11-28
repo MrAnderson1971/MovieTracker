@@ -212,18 +212,47 @@ function addSend() {
     sC.appendChild(button);
 }
 
-async function sendQuery() {
+async function sendQuery(tableName, attributes) {
     try {
-        const response = await fetch('/view-table`');
+        const response = await fetch('/view-table', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ tableName, attributes })
+        });
         const data = await response.json();
+
         if (data.success) {
-            console.log(data.result);
+            if (data.length.rows > 0) {
+                const table = document.createElement("table");
+
+                const headerRow = table.insertRow();
+                attributes.forEach(attr => {
+                    const headerCell = document.createElement("th");
+                    headerCell.textContent = attr;
+                    headerRow.appendChild(headerCell);
+                });
+
+                data.result.forEach(row => {
+                    const tableRow = table.insertRow();
+                    attributes.forEach(attr => {
+                        const cell = tableRow.insertCell();
+                        cell.textContent = row[attr];
+                    });
+                });
+
+                document.body.appendChild(table);
+            } else {
+                const p = document.createElement("p");
+                p.textContent = "No results.";
+                document.body.appendChild(p);
+            }
         } else {
             console.error("Failed to view table.");
-            return [];
         }
     } catch (error) {
         console.error('Error:', error);
-        return [];
     }
 }
+
