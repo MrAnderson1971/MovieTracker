@@ -69,9 +69,8 @@ router.post("/get-watchlists", async (req, res) => {
     }
 });
 
-router.post("/get-watchlist-content", async (req, res) => {
-    const { watchlistID } = req.body;
-    const result = await appService.getContentInWatchlist(watchlistID);
+router.get("/get-watchlist-content", async (req, res) => {
+    const result = await appService.getContentInWatchlist();
     if (result.length > 0) {
         res.json({ success: true, result: result });
     } else {
