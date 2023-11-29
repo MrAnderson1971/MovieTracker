@@ -47,7 +47,7 @@ document.getElementById("updateWatchList").addEventListener('click', async funct
             headers: {
                 'Content-Type': "application/json"
             },
-            body: JSON.stringify({watchlistID: id, name, userId})
+            body: JSON.stringify({watchlistID: id, name: name, userID: userId})
         });
         const data = await response.json();
         if (data.success) {
@@ -70,7 +70,7 @@ document.getElementById('delWatchList').addEventListener('click', async function
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ watchlistID: watchlistID })
+                body: JSON.stringify({watchlistID: watchlistID })
             });
 
             const data = await response.json();
