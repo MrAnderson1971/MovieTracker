@@ -375,7 +375,7 @@ function createTable(results) {
     const tbody = document.createElement('tbody');
 
     const headerRow = document.createElement('tr');
-    ['User ID', 'User name'].forEach(text => {
+    ['User ID', 'User name', 'Age'].forEach(text => {
         const th = document.createElement('th');
         th.textContent = text;
         headerRow.appendChild(th);
