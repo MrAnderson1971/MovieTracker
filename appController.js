@@ -85,10 +85,13 @@ router.post("/add-watchlist-content", async (req, res) => {
     if (insertResult === 1) {
         res.status(200).json({ success: true });
     } else if (insertResult === 404) {
+        console.log("Not found");
         res.status(404).json({ success: false });
     } else if (insertResult === 400) {
+        console.log("duplicate")
         res.status(400).json({ success: false });
     } else {
+        console.log("Other error");
         res.status(500).json({ success: false });
     }
 });

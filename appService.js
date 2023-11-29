@@ -191,7 +191,7 @@ async function getContentInWatchlist(userID) {
 
 async function adddContentToWatchlist(watchlistID, contentID) {
     if (isNaN(watchlistID) || isNaN(contentID)) {
-        return false;
+        return 0;
     }
 
     return await withOracleDB(async (connection) => {
@@ -215,7 +215,11 @@ async function adddContentToWatchlist(watchlistID, contentID) {
         const result = await connection.execute(`INSERT INTO Collects(watchlistID, contentID) VALUES
                                                 (:watchlistID, :contentID)`, [watchlistID, contentID], { autoCommit: true });
 
-        return result.rowsAffected && result.rowsAffected > 0;
+        if (result.rowsAffected && result.rowsAffected > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }).catch(() => {
         return 0;
     });
