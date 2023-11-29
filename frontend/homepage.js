@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
         changeHomeNavBar();
         changeHomePage();
 
-        if(localStorage.getItem("admin") == 1) {
+        if (localStorage.getItem("admin") === "1") {
             addAdminLink();
         }
     }
@@ -262,7 +262,7 @@ function createSmallCards() {
     userStatBoardSmall.append(cards[0], cards[1], cards[2]);
 }
 
-function populateCard(card, title, value) {
+function  populateCard(card, title, value) {
     const h5 = document.createElement('h5');
     h5.textContent = title;
 
@@ -276,36 +276,22 @@ async function displayUserLeaderBoard(){
     const userLb = document.createElement("div");
     userLb.className = 'userLeaderboardArea';
 
-    document.body.appendChild(userLb);
+    const results = document.createElement("div");
+    results.className = 'userLeaderboardRes'
+
+    document.body.append(userLb, results);
+
+    const resCon = document.createElement("div");
+    resCon.className = 'userLeaderboardResCon'
+
+    results.append(resCon);
 
     const test = document.createElement("h1");
-    test.textContent = "USER LEADERBOARD";
-
-    userLb.appendChild(test);
-
-    const response = await fetch("/get-ultimate-reviewers");
-    const data = await response.json();
-    if (data.success) {
-        if (data.rows.length === 0) {
-            const p = document.createElement("p");
-            p.textContent = "No results.";
-            userLb.appendChild(p);
-        } else {
-            const table = document.createElement("table");
-            data.rows.forEach(row => {
-               const tr = document.createElement("tr");
-               const th = document.createElement("th");
-               th.textContent = row[1];
-               tr.appendChild(th);
-               table.appendChild(tr);
-            });
-            userLb.appendChild(table);
-        }
-    } else {
-        console.error("Failed to get leaderboard.");
-    }
+    test.textContent = "REVIEW LEADERBOARD";
 
     addLeaderBoardSearch();
+
+    userLb.appendChild(test);
 }
 
 function addLeaderBoardSearch() {
@@ -369,19 +355,61 @@ async function handleLeaderBoardSearch() {
 
         if (data.success) {
             userList = data.result;
+            createTable(userList);
         } else {
             alert("Invalid input");
         }
     } catch (error) {
         console.error('Error:', error);
     }
-
-    alert(userList);
 }
 
-function handleStatBoardRefresh() {}
+function handleStatBoardRefresh() {
+    window.location.reload();
+}
 
+function createTable(results) {
+    resetTable();
 
+    const con = document.querySelector(".userLeaderboardResCon")
 
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
 
+    const headerRow = document.createElement('tr');
+    ['User ID', 'User name'].forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
 
+    thead.appendChild(headerRow);
+
+    results.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    con.append(table);
+}
+
+function resetTable() {
+    const con = document.querySelector(".userLeaderboardResCon");
+    con.remove();
+
+    const mC = document.querySelector(".userLeaderboardRes");
+
+    const newCon = document.createElement("div");
+    newCon.className = "userLeaderboardResCon"
+
+    mC.append(newCon);
+}
