@@ -102,8 +102,7 @@ async function searchMovies() {
 
     if (data.success) {
         const attr = ["Content ID", "Duration", "Length Type", "Age Rating", "Title",
-            "Release Date", "Age Restricted"];
-        alert(data.result);
+            "Release Date", "Age Restricted", "Genre"];
         createTable(data.result, "moviesResults", "moviesResCon", attr)
     } else  if (results.status === 400){
         alert("Invalid input");
