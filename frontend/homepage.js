@@ -130,9 +130,6 @@ function createBigUserStatBoard() {
         body: JSON.stringify({ userID: localStorage.getItem("userId") })
     })
         .then((response) => {
-            if (!response.ok) {
-                throw new Error("error");
-            }
             return response.json();
         })
         .then((data) => {
