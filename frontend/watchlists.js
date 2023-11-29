@@ -166,7 +166,7 @@ async function refContent() {
         });
         const data = await response.json();
         if (data.success) {
-            const attr = ["Watchlist ID", "Watchlist Name", "Content ID", "Title", "Release Date", "Age Rating"]
+            const attr = ["Watchlist ID", "Watchlist Name", "Content ID", "Title", "Release Date", "Age Rating", "Genre"]
             createTable(data.result, "contentInfo", "contentCon", attr);
         } else {
             alert(data.success);
