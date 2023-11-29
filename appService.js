@@ -178,9 +178,10 @@ async function getWatchlistsForUser(userID) {
 
 async function getContentInWatchlist(userID) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT w.watchlistID, w.name, c2.contentID, c2.title, c2.releaseDate, c2.ageRating
-                                                FROM Watchlist w, Collects c, Content_2 c2
-                                                WHERE w.userID = :userID AND w.watchlistID = c.watchlistID AND c.contentID = c2.contentID
+        const result = await connection.execute(`SELECT w.watchlistID, w.name, c2.contentID, c2.title, c2.releaseDate, c2.ageRating, ca.genreName
+                                                FROM Watchlist w, Collects c, Content_2 c2, CategorizedAs ca
+                                                WHERE w.userID = :userID AND w.watchlistID = c.watchlistID AND c.contentID = c2.contentID 
+                                                AND c2.contentID = ca.contentID
                                                 ORDER BY w.watchlistID ASC, c2.contentID ASC`, [userID]);
 
         return result.rows;
