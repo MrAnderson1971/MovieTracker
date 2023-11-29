@@ -78,7 +78,6 @@ function searchServices() {
 }
 
 function displaySearchResults(results) {
-    console.log(results);
     const container = document.getElementById('searchResultsContainer');
     container.innerHTML = '';
 

@@ -430,14 +430,10 @@ async function getGenreCountByAverageRuntime(releaseDate) {
 // Only uses names pulled from the database, selected from dropdowns. User cannot input values directly.
 async function viewTable(tableName, attributes) {
     return await withOracleDB(async (connection) => {
-        let queryString = `SELECT `;
-        for (let a in attributes) {
-            queryString = queryString + a + ` `;
-        }
-        queryString = queryString + `FROM ` + tableName;
-
+        let queryString = "SELECT " + attributes.join(", ") + " FROM " + tableName;
+        
         const result = await connection.execute(queryString);
-        return result.rows[0][0];
+        return result.rows;
     }).catch(() => {
         return -1;
     });

@@ -214,8 +214,8 @@ router.post('/get-ultimate-reviewers', async (req, res) => {
 });
 
 router.post('/view-table', async (req, res) => {
-    const { tableName, attributes } = req.body;
-    const response = await appService.viewTable(tableName, attributes);
+    const { tableName, attributeNames } = req.body;
+    const response = await appService.viewTable(tableName, attributeNames);
     if (response.length >= 0) {
         res.json({
             success: true,

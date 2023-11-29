@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+let tableName = "";
+
 function changeAdminNavBar() {
     const al = document.querySelector('.account_links');
 
@@ -131,6 +133,7 @@ function addSubmitButton() {
 async function displayAttributes() {
     resetSubmitArea();
     const selectedTable = document.getElementById("relationSelector").value;
+    tableName = selectedTable;
 
     try {
         const response = await fetch('/get-attributes', {
@@ -213,17 +216,59 @@ function addSend() {
 }
 
 async function sendQuery() {
+    let checked = document.querySelectorAll("input[type=checkbox]:checked");
+    let attributeNames = [];
+    checked.forEach((a) => {
+        attributeNames.push(a.name);
+    });
+    console.log(attributeNames);
+
     try {
-        const response = await fetch('/view-table`');
+        const response = await fetch('/view-table', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ tableName, attributeNames })
+        });
         const data = await response.json();
         if (data.success) {
             console.log(data.result);
+            displaySearchResults(data.result, attributeNames);
         } else {
-            console.error("Failed to view table.");
-            return [];
+            alert("Something went wrong, please try again.");
         }
     } catch (error) {
-        console.error('Error:', error);
+        console.log(error);
+        alert("Something went wrong, please try again.");
         return [];
     }
+}
+
+function displaySearchResults(results, attributeNames) {
+    const container = document.getElementById('projectionResultsContainer');
+    container.innerHTML = '';
+
+    const table = document.createElement('table');
+    table.classList.add('results-table');
+
+    const headerRow = document.createElement('tr');
+    attributeNames.forEach((a) => {
+        const attributeHeader = document.createElement('th');
+        attributeHeader.textContent = a;
+        headerRow.appendChild(attributeHeader);
+    });
+    table.appendChild(headerRow);
+
+    results.forEach((result) => {
+        const row = document.createElement('tr');
+        result.forEach((val) => {
+            const cell = document.createElement('td');
+            cell.textContent = val;
+            row.appendChild(cell);
+        });
+        table.appendChild(row);
+    });
+
+    container.appendChild(table);
 }
