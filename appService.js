@@ -176,12 +176,12 @@ async function getWatchlistsForUser(userID) {
     });
 }
 
-async function getContentInWatchlist() {
+async function getContentInWatchlist(userID) {
     return await withOracleDB(async (connection) => {
         const result = await connection.execute(`SELECT w.watchlistID, w.name, c2.contentID, c2.title, c2.releaseDate, c2.ageRating
                                                 FROM Watchlist w, Collects c, Content_2 c2
-                                                WHERE w.watchlistID = c.watchlistID AND c.contentID = c2.contentID
-                                                ORDER BY w.watchlistID ASC, c2.contentID ACS`);
+                                                WHERE w.userID = :userID w.watchlistID = c.watchlistID AND c.contentID = c2.contentID
+                                                ORDER BY w.watchlistID ASC, c2.contentID ACS`, [userID]);
 
         return result.rows;
     }).catch(() => {
