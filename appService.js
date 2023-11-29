@@ -375,12 +375,13 @@ async function getUltimateReviewers(age) {
     }
 
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT DISTINCT u.userID, u.username 
-                                                FROM User_2 u, User_3 u3 WHERE u3.age <= :age AND NOT EXISTS 
+        const result = await connection.execute(`SELECT DISTINCT u.userID, u.username, u3.age
+                                                FROM User_2 u, User_3 u3 WHERE u3.age <= :age AND u.birthdate = u3.birthdate AND NOT EXISTS 
                                                 (SELECT c.contentID FROM Content_2 c WHERE NOT EXISTS 
                                                     (SELECT r.reviewID 
                                                     FROM Review_2 r 
-                                                    WHERE c.contentID = r.contentID AND r.userID = u.userID))`, [age]);
+                                                    WHERE c.contentID = r.contentID AND r.userID = u.userID))
+                                                ORDER BY u3.age`, [age]);
         return result.rows;
     }).catch(() => {
         return -1;
