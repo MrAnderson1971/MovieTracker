@@ -194,24 +194,24 @@ async function adddContentToWatchlist(watchlistID, contentID) {
         return false;
     }
 
-    const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
-    if (widexists.rows.length === 0) {
-        return 404;
-    }
-
-    const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
-    if (cidexists.rows.length === 0) {
-        return 404;
-    }
-
-    const entryexists = await connection.execute(`SELECT * FROM Collects 
-                                                WHERE watchlistID = :watchlistID AND contentID = :contentID`, 
-                                                [watchlistID, contentID]);
-    if (entryexists.rows.length === 1) {
-        return 400;
-    }
-
     return await withOracleDB(async (connection) => {
+        const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
+        if (widexists.rows.length === 0) {
+            return 404;
+        }
+    
+        const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
+        if (cidexists.rows.length === 0) {
+            return 404;
+        }
+    
+        const entryexists = await connection.execute(`SELECT * FROM Collects 
+                                                    WHERE watchlistID = :watchlistID AND contentID = :contentID`, 
+                                                    [watchlistID, contentID]);
+        if (entryexists.rows.length === 1) {
+            return 400;
+        }
+
         const result = await connection.execute(`INSERT INTO Collects(watchlistID, contentID) VALUES
                                                 (:watchlistID, :contentID)`, [watchlistID, contentID], { autoCommit: true });
 
