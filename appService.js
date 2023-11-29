@@ -386,6 +386,9 @@ async function getMostPopularGenre(userID) {
                                                 WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND ca.contentID = c.contentID
                                                 GROUP BY genreName
                                                 ORDER BY genreCount DESC`, [userID]);
+        if (result.length === 0) {
+            return -1;
+        }
         return result.rows[0][0];
     }).catch(() => {
         return -1;
