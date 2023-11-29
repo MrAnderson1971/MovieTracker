@@ -230,22 +230,26 @@ async function deleteContentFromWatchlist(watchlistID, contentID) {
         return 0;
     }
 
-    const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
-    if (widexists.rows.length === 0) {
-        return 404;
-    }
-
-    const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
-    if (cidexists.rows.length === 0) {
-        return 404;
-    }
-
     return await withOracleDB(async (connection) => {
+        const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
+        if (widexists.rows.length === 0) {
+            return 404;
+        }
+    
+        const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
+        if (cidexists.rows.length === 0) {
+            return 404;
+        }
+
         const result = await connection.execute(`DELETE FROM Collects 
                                                 WHERE watchlistID = :watchlistID AND contentID = :contentID`, 
                                                 [watchlistID, contentID], { autoCommit: true });
 
-        return result.rowsAffected && result.rowsAffected > 0;
+        if (result.rowsAffected && result.rowsAffected > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
     }).catch(() => {
         return 0;
     });
