@@ -159,14 +159,21 @@
     text-decoration: none;
 }
 
-.info {
+.info, .signupInfo {
     color: white;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, red, black 40%);
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
+}
+
+.info {
+    background: linear-gradient(to right, red, black 40%);
+}
+
+.signupInfo {
+    background-color: black;
 }
 
 #newUserForm {
