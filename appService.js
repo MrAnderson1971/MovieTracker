@@ -158,18 +158,97 @@ async function createWatchlist(name, userID) {
 }
 
 async function getWatchlistsForUser(userID) {
+    if (isNaN(userID)) {
+        return [];
+    }
+
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute(`SELECT w.watchlistID, w.name, c.contentID
-                                                FROM Watchlist w, Collects c
-                                                WHERE w.userID = :userID and w.watchlistID = c.watchlistID
+        const result = await connection.execute(`SELECT w.watchlistID, w.name, w.userID
+                                                FROM Watchlist w
+                                                WHERE w.userID = :userID
                                                 ORDER BY w.watchlistID ASC`,
-            [userID],
-            { autoCommit: true }
+            [userID]
         );
 
         return result.rows;
     }).catch(() => {
+        return [];
+    });
+}
+
+async function getContentInWatchlist(watchlistID) {
+    if (isNaN(watchlistID)) {
+        return [];
+    }
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`SELECT c2.contentID, c2.title, c2.releaseDate, c2.ageRating
+                                                FROM Watchlist w, Collects c, Content_2 c2
+                                                WHERE w.watchlistID = :watchlistID AND w.watchlistID = c.watchlistID AND
+                                                    c.contentID = c2.contentID
+                                                ORDER BY c2.contentID ASC`, [watchlistID]);
+
+        return result.rows;
+    }).catch(() => {
+        return [];
+    });
+}
+
+async function adddContentToWatchlist(watchlistID, contentID) {
+    if (isNaN(watchlistID) || isNaN(contentID)) {
         return false;
+    }
+
+    const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
+    if (widexists.rows.length === 0) {
+        return 404;
+    }
+
+    const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
+    if (cidexists.rows.length === 0) {
+        return 404;
+    }
+
+    const entryexists = await connection.execute(`SELECT * FROM Collects 
+                                                WHERE watchlistID = :watchlistID AND contentID = :contentID`, 
+                                                [watchlistID, contentID]);
+    if (entryexists.rows.length === 1) {
+        return 400;
+    }
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`INSERT INTO Collects(watchlistID, contentID) VALUES
+                                                (:watchlistID, :contentID)`, [watchlistID, contentID], { autoCommit: true });
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return 0;
+    });
+}
+
+async function deleteContentFromWatchlist(watchlistID, contentID) {
+    if (isNaN(watchlistID) || isNaN(contentID)) {
+        return 0;
+    }
+
+    const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
+    if (widexists.rows.length === 0) {
+        return 404;
+    }
+
+    const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
+    if (cidexists.rows.length === 0) {
+        return 404;
+    }
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(`DELETE FROM Collects 
+                                                WHERE watchlistID = :watchlistID AND contentID = :contentID`, 
+                                                [watchlistID, contentID], { autoCommit: true });
+
+        return result.rowsAffected && result.rowsAffected > 0;
+    }).catch(() => {
+        return 0;
     });
 }
 
@@ -234,7 +313,7 @@ async function countMovies(userID) {
         const result = await connection.execute(`SELECT Count(*) 
                                                 FROM Watchlist w, Collects c, Movie_2 m
                                                 WHERE w.userID = :userID AND c.watchlistID = w.watchlistID AND
-                                                c.contentID = m.contentID`, [userID]);
+                                                c.contentID = m.contentID`, [userID], { autoCommit: true });
         return result.rows[0][0];
     }).catch(() => {
         return -1;
@@ -467,6 +546,9 @@ module.exports = {
     deleteWatchlist,
     updateWatchlist,
     getWatchlistsForUser,
+    getContentInWatchlist,
+    adddContentToWatchlist,
+    deleteContentFromWatchlist,
     countWatchlist,
     countMovies,
     countReviews,

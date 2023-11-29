@@ -69,6 +69,42 @@ router.post("/get-watchlists", async (req, res) => {
     }
 });
 
+router.post("/get-watchlist-content", async (req, res) => {
+    const { watchlistID } = req.body;
+    const result = await appService.getContentInWatchlist(watchlistID);
+    if (result.length > 0) {
+        res.json({ success: true, result: result });
+    } else {
+        res.status(500).json({ success: false, result: result });
+    }
+});
+
+router.post("/add-watchlist-content", async (req, res) => {
+    const { watchlistID, contentID } = req.body;
+    const insertResult = await appService.adddContentToWatchlist(watchlistID, contentID);
+    if (insertResult === 1) {
+        res.status(200).json({ success: true });
+    } else if (insertResult === 404) {
+        res.status(404).json({ success: false });
+    } else if (insertResult === 400) {
+        res.status(400).json({ success: false });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.delete("/remove-watchlist-content", async (req, res) => {
+    const { watchlistID, contentID } = req.body;
+    const insertResult = await appService.removeContentFromWatchlist(watchlistID, contentID);
+    if (insertResult === 1) {
+        res.status(200).json({ success: true });
+    } else if (insertResult === 404) {
+        res.status(404).json({ success: false });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post('/count-watchlist', async (req, res) => {
     const { userID } = req.body;
     const tableCount = await appService.countWatchlist(userID);
