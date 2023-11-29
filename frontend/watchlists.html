@@ -33,21 +33,45 @@
     <h1>WATCHLIST</h1>
 </div>
 
-<!--WATCHLIST ADD SECTION-->
+<div class="divider">
+    <div class="watchlistBox">
+        <!--WATCHLIST ADD SECTION-->
 
-<div class="watchlistBar">
-    <h2>ADD</h2>
-</div>
+        <div class="watchlistBar">
+            <h2>ADD</h2>
+        </div>
 
-<div class="watchlistSec">
-    <div class="addArea">
-        <label for="watchlistAddName">NAME:</label>
-        <input type="text" id="watchlistAddName"><br>
+        <div class="watchlistSec">
+            <div class="addArea">
+                <label for="watchlistAddName">NAME:</label>
+                <input type="text" id="watchlistAddName"><br>
+            </div>
+            <button id="addWatchList" value="addWatchList">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>
     </div>
-    <button id="addWatchList" value="addWatchList">
-        <i class="fa-solid fa-plus"></i>
-    </button>
+    <div class="watchlistBox">
+        <!--WATCHLIST DELETE SECTION-->
+
+        <div class="watchlistBar">
+            <h2>DELETE</h2>
+        </div>
+
+        <div class="watchlistSec">
+            <div class="deleteArea">
+                <label for="deleteWatchlist">ID:</label>
+                <input type="text" id="deleteWatchlist"><br>
+            </div>
+            <button id="delWatchList" value="delWatchList">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+        </div>
+
+    </div>
 </div>
+
+
 
 <!--WATCHLIST UPDATE SECTION-->
 
@@ -70,24 +94,6 @@
         <i class="fa-solid fa-pen-to-square"></i>
     </button>
 </div>
-
-<!--WATCHLIST DELETE SECTION-->
-
-<div class="watchlistBar">
-    <h2>DELETE</h2>
-</div>
-
-<div class="watchlistSec">
-    <div class="deleteArea">
-        <label for="deleteWatchlist">ID:</label>
-        <input type="text" id="deleteWatchlist"><br>
-    </div>
-    <button id="delWatchList" value="delWatchList">
-        <i class="fa-solid fa-trash"></i>
-    </button>
-</div>
-
-
 
 <div class="watchlistMainBar">
     <h1>CONTENT</h1>
@@ -118,19 +124,47 @@
     </button>
 </div>
 
-<!-----------------------------------------------------------------------------MY WATCHLIST(S) SECTION-->
+<!-----------------------------------------------------------------------------MY CONTENT(S) SECTION-->
 
 <div class="mainWatchlistBar">
-    <h1>MY WATCHLISTS</h1>
+    <h1>MY CONTENT</h1>
     <div class="watchlistRefresh">
-        <button id="refWatchList" value="refWatchList">
+        <button id="refContent" value="refContent">
             <i class="fa-solid fa-arrows-rotate"></i>
         </button>
     </div>
 </div>
 
 <!--PLACEHOLDER FOR DATA-->
-<div class="watchlistInfo"></div>
+<div class="contentInfo">
+    <div class="contentCon"></div>
+</div>
+
+
+
+
+
+
+
+
+<!-----------------------------------------------------------------------------MY WATCHLIST(S) SECTION-->
+
+<div class="mainWatchlistBar">
+    <h1>MY WATCHLISTS</h1>
+    <div class="watchlistRefresh">
+        <button id="refWatchList" value="refWatchList">
+            <i class="fa-solid fa-list"></i>
+        </button>
+    </div>
+</div>
+
+<!--PLACEHOLDER FOR DATA-->
+<div class="watchlistInfo">
+    <div class="watchListCon"></div>
+</div>
+
+
+
 
 <script type="module" src="watchlists.js"></script>
 

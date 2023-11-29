@@ -1,4 +1,7 @@
-document.getElementById("refWatchList").addEventListener("click", refWatchList);
+document.getElementById("refWatchList").addEventListener("click", refWatchlist);
+document.getElementById("refContent").addEventListener("click", refContent);
+
+
 document.getElementById("alterContentWatchlist").addEventListener("click", alterContentWatchlist);
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -28,6 +31,10 @@ function addAdminLink() {
     al.appendChild(listItem);
 }
 
+function refWatchlist() {
+    // TODO: ADD CONNECTION FOR WATCHLISTS ONLY
+    alert("HI");
+}
 
 document.getElementById("updateWatchList").addEventListener('click', async function() {
     const id = document.getElementById('watchlistUpdateID').value;
@@ -130,8 +137,79 @@ function changeWatchlistsNavBar() {
     al.appendChild(liSO);
 }
 
-function refWatchList() {
-    alert("HI");
+async function refContent() {
+    const userID = localStorage.getItem("userId");
+
+    try {
+        const response = await fetch('/get-watchlists', {
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json"
+            },
+            body: JSON.stringify({userID: userID})
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            createTable(data.result, "contentInfo", "contentCon", ["Watchlist ID", "Name",
+                "Content ID"])
+        } else {
+            alert("Failed to fetch watchlists");
+        }
+    } catch (err) {
+        alert("Error");
+    }
+}
+
+function createTable(results, mc, sc, attr) {
+    resetTable(mc, sc);
+
+    const con = document.querySelector("." + sc)
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    const headerRow = document.createElement('tr');
+
+    if(!Array.isArray(attr)) {
+        /// TODO: ADD SOMETHING HERE JUST IN CASE
+    }
+
+    attr.forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+
+    results.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    con.append(table);
+}
+
+function resetTable(mc, sc) {
+    const con = document.querySelector("." + sc);
+    con.remove();
+
+    const mC = document.querySelector("." + mc);
+
+    const newCon = document.createElement("div");
+    newCon.className = sc;
+
+    mC.append(newCon);
 }
 
 function alterContentWatchlist() {

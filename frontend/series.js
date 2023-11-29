@@ -96,7 +96,7 @@ function createResultsTable(results) {
     const tbody = document.createElement('tbody');
 
     const headerRow = document.createElement('tr');
-    ['Season Number', 'Count'].forEach(text => {
+    ['Number of Seasons', 'Number of Shows'].forEach(text => {
         const th = document.createElement('th');
         th.textContent = text;
         headerRow.appendChild(th);
