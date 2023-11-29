@@ -227,9 +227,48 @@ function resetTable(mc, sc) {
     mC.append(newCon);
 }
 
+async function alterContentWatchlist() {
+    const select = document.getElementById("watchListOp").value;
+    const wid = document.getElementById("alterContentWID").value;
+    const cid = document.getElementById("alterContentCID").value;
 
+    if(select == "add") {
+        try {
+            const response = await fetch("/add-watchlist-content", {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({watchlistID: wid, contentID: cid})
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("Content has been added")
+            } else {
+                alert("Content has not been added");
+            }
+        } catch (err) {
+            alert("Error add");
+        }
+    } else {
+        try {
+            const response = await fetch("/remove-watchlist-content", {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({watchlistID: wid, contentID: cid})
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("Content has been removed")
+            } else {
+                alert("Content has not been removed");
+            }
+        } catch (err) {
+            alert("Error remove");
+        }
+    }
 
-
-function alterContentWatchlist() {
-    alert("ALTER");
+    // alert(select);
 }
