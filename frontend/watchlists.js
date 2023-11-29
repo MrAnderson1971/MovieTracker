@@ -152,7 +152,7 @@ async function refContent() {
 
         if (data.success) {
             createTable(data.result, "contentInfo", "contentCon", ["Watchlist ID", "Name",
-                "Content ID"])
+                "User ID"])
         } else {
             alert("Failed to fetch watchlists");
         }
