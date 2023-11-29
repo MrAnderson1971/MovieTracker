@@ -140,7 +140,7 @@ function createBigUserStatBoard() {
                 populateCard(cards[0], 'FAVORITE GENRE', data.genre);
             } else {
                 populateCard(cards[0], 'FAVORITE GENRE', "-");
-                console.error("Failed to get favorite genre, you have added no content to watchlists.");
+                alert("Failed to get favorite genre, you have added no content to watchlists.");
             }
         });
 
