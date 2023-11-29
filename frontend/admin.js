@@ -221,7 +221,6 @@ async function sendQuery() {
     checked.forEach((a) => {
         attributeNames.push(a.name);
     });
-    console.log(attributeNames);
 
     try {
         const response = await fetch('/view-table', {
@@ -232,8 +231,8 @@ async function sendQuery() {
             body: JSON.stringify({ tableName, attributeNames })
         });
         const data = await response.json();
+
         if (data.success) {
-            console.log(data.result);
             displaySearchResults(data.result, attributeNames);
         } else {
             alert("Something went wrong, please try again.");
@@ -272,3 +271,4 @@ function displaySearchResults(results, attributeNames) {
 
     container.appendChild(table);
 }
+
