@@ -220,6 +220,21 @@ router.post('/count-shows-by-seasons', async (req, res) => {
     }
 });
 
+router.get('/get-series', async (req, res) => {
+    const response = await appService.getSeries();
+    if (response.length >= 0) {
+        res.json({
+            success: true,
+            result: response
+        });
+    } else {
+        res.status(500).json({
+            success: false,
+            result: response
+        });
+    }
+});
+
 router.post('/search-services', async (req, res) => {
     const { name, country, order } = req.body;
     const response = await appService.searchServices(name, country, order);
