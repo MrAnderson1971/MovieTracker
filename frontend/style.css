@@ -159,14 +159,11 @@
     text-decoration: none;
 }
 
-
-
-
 .info {
     color: white;
     display: flex;
     flex-direction: column;
-    background-color: black;
+    background: linear-gradient(to right, red, black 40%);
     font-size: 20px;
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
@@ -476,7 +473,7 @@
     display: flex;
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
-    background-color: black;
+    background: linear-gradient(to right, red, black 40%);
     color: white;
     padding: 20px;
 }
@@ -486,7 +483,7 @@
     right: 20px;
 }
 
-#refWatchList {
+#refWatchList, #refContent {
     width: 100px;
     height: 40px;
     background-color: red;
@@ -497,7 +494,7 @@
     border-radius: 10px;
 }
 
-#refWatchList:hover {
+#refWatchList:hover, #refContent:hover {
     border-color: white;
 }
 
@@ -698,15 +695,13 @@
     background-color: whitesmoke;
 }
 
-
-
 table {
     font-family: 'Montserrat', sans-serif;
     width: 100%;
 }
 
 th {
-    background-color: red;
+    background-color: black;
     color: white;
     padding: 8px;
     font-size: 20px;
@@ -717,13 +712,17 @@ td {
     padding: 8px;
 }
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+tr:nth-child(even) {background-color: #f2f2f3;}
 
+.divider {
+    display: flex;
+    justify-content: space-between;
+}
 
-
-
-
-
+.watchlistBox {
+    width: 50%;
+    border: 1px solid black;
+}
 
 
 
