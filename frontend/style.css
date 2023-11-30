@@ -70,9 +70,6 @@
     background-color: black;
 }
 
-
-
-
 .account_links {
     height: 90px;
     position: absolute;
@@ -82,8 +79,6 @@
     list-style: none;
     display: inline-block;
 }
-
-
 
 .account_links li {
     display: inline-block;
@@ -144,7 +139,6 @@
     margin: 10px;
     box-shadow: none;
 }
-
 
 .join_link li a {
     color: white;
@@ -722,6 +716,3 @@ tr:nth-child(even) {background-color: #f2f2f3;}
     width: 50%;
     border: 1px solid black;
 }
-
-
-
