@@ -48,7 +48,7 @@ document.getElementById("updateWatchList").addEventListener('click', async funct
         if (data.success) {
             alert("Watchlist updated successfully");
         } else {
-            alert("Failed to update watchlist.");
+            alert("Failed to update watchlist");
         }
     } catch (err) {
         alert("Error in form");
