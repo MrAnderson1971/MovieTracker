@@ -42,7 +42,7 @@ document.getElementById("updateWatchList").addEventListener('click', async funct
             headers: {
                 'Content-Type': "application/json"
             },
-            body: JSON.stringify({watchlistID: id, name, userId})
+            body: JSON.stringify({watchlistID: id, name: name, userID: userId})
         });
         const data = await response.json();
         if (data.success) {
@@ -144,10 +144,12 @@ async function refWatchList() {
         });
         const data = await response.json();
         if (data.success) {
-            const attr = ["Watchlist ID", "Watchlist Name", "User ID"]
-            createTable(data.result, "watchlistInfo", "watchListCon", attr)
+            const attr = ["Watchlist ID", "Watchlist Name", "User ID"];
+            createTable(data.result, "watchlistInfo", "watchListCon", attr);
         } else {
-            alert("Failed to refresh watchlist");
+            alert("No watchlists created (or there was a problem)");
+            const attr = ["Watchlist ID", "Watchlist Name", "User ID"];
+            createTable([], "watchlistInfo", "watchListCon", attr);
         }
     } catch (err) {
         alert("Error");
@@ -169,7 +171,9 @@ async function refContent() {
             const attr = ["Watchlist ID", "Watchlist Name", "Content ID", "Title", "Release Date", "Age Rating", "Genre"]
             createTable(data.result, "contentInfo", "contentCon", attr);
         } else {
-            alert(data.success);
+            const attr = ["Watchlist ID", "Watchlist Name", "Content ID", "Title", "Release Date", "Age Rating", "Genre"]
+            createTable([], "contentInfo", "contentCon", attr);
+            alert("No content added (or there was a problem)");
         }
     } catch (err) {
         alert("Error");
@@ -253,7 +257,7 @@ async function alterContentWatchlist() {
     } else {
         try {
             const response = await fetch("/remove-watchlist-content", {
-                method: "POST",
+                method: "DELETE",
                 headers: {
                     'Content-Type': "application/json"
                 },
