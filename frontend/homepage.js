@@ -334,10 +334,17 @@ function addSearchButton() {
     lba.append(button);
 }
 
-async function handleLeaderBoardSearch() {
+function handleLeaderBoardSearch() {
     const enteredAge = document.getElementById("ageInput").value;
-    console.log(enteredAge);
 
+    if(enteredAge) {
+        performLeaderBoardSearch(enteredAge).then();
+    } else {
+        alert("Error: Please enter an age");
+    }
+}
+
+async function performLeaderBoardSearch(age) {
     let userList = [];
     try {
         const response = await fetch('/get-ultimate-reviewers', {
@@ -345,7 +352,7 @@ async function handleLeaderBoardSearch() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ age: Number(enteredAge) })
+            body: JSON.stringify({ age: Number(age) })
         });
 
         const data = await response.json();
@@ -357,7 +364,7 @@ async function handleLeaderBoardSearch() {
             alert("Invalid input");
         }
     } catch (error) {
-        console.error('Error:', error);
+        alert.error('Error:', error);
     }
 }
 
