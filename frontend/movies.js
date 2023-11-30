@@ -85,6 +85,7 @@ async function searchMovies() {
     let releaseDate = document.getElementById("movieReleaseDate").value;
     const lengthType = document.getElementById("movieLengthType").value;
     let duration = document.getElementById("movieDuration").value;
+    let genre = document.getElementById("movieGenre").value;
     let and = 0;
     if (document.getElementById("movieSelectionType").value === "and") {
         and = 1;
@@ -95,7 +96,7 @@ async function searchMovies() {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and })
+        body: JSON.stringify({ contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, genre, and})
     });
 
     const data = await results.json();
