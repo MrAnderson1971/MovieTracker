@@ -163,7 +163,7 @@
     color: white;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
+    font-size: 18px;
     font-family: 'Montserrat', sans-serif;
     padding: 20px;
 }
@@ -476,7 +476,7 @@
     margin: 20px ;
 }
 
-.mainWatchlistBar {
+.mainWatchlistBar, .mainSeriesBar, .mainAdminBar {
     display: flex;
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
@@ -485,12 +485,16 @@
     padding: 20px;
 }
 
+.mainAdminBar {
+    background: black;
+}
+
 .watchlistRefresh {
     position: absolute;
     right: 20px;
 }
 
-#refWatchList, #refContent {
+#refWatchList, #refContent, #refSeries {
     width: 100px;
     height: 40px;
     background-color: red;
@@ -501,16 +505,8 @@
     border-radius: 10px;
 }
 
-#refWatchList:hover, #refContent:hover {
+#refWatchList:hover, #refContent:hover, #refSeries:hover {
     border-color: white;
-}
-
-.dataHeader {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
-    color: white;
-    padding: 20px;
-    background-color: black;
 }
 
 .relationSelection {
@@ -650,17 +646,12 @@
     right: 20px;
 }
 
-.watchlistMainBar, .adminMainBar {
+.watchlistMainBar, .seriesMainBar {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
     background: linear-gradient(to right, red, black 40%);
     color: white;
     padding: 20px;
-}
-
-.adminMainBar {
-    display: flex;
-    align-items: center;
 }
 
 #chooseRelation {

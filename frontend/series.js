@@ -1,4 +1,6 @@
 document.getElementById("searchShows").addEventListener("click", searchShows);
+document.getElementById("refSeries").addEventListener("click", refSeries);
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
@@ -13,6 +15,79 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 });
+
+async function refSeries() {
+    try {
+        const response = await fetch("/get-series", {
+            method: "GET",
+            headers: {
+                'Content-Type': "application/json"
+            },
+        });
+        const data = await response.json();
+        if (data.success) {
+            alert(data.result);
+            const attr = ["Content ID", "Title", "Release Date", "Age Rating", "Age Restricted", "Number of Seasons",
+                "Series Type", "Genre"]
+            createTable(data.result, "searchSeries", "searchSeriesCon", attr);
+        } else {
+            alert(data.success);
+        }
+    } catch (err) {
+        alert("Error");
+    }
+}
+
+function createTable(results, mc, sc, attr) {
+    resetTable(mc, sc);
+
+    const con = document.querySelector("." + sc)
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
+
+    const headerRow = document.createElement('tr');
+
+    if(!Array.isArray(attr)) {
+        /// TODO: ADD SOMETHING HERE JUST IN CASE
+    }
+
+    attr.forEach(text => {
+        const th = document.createElement('th');
+        th.textContent = text;
+        headerRow.appendChild(th);
+    });
+
+    thead.appendChild(headerRow);
+
+    results.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+            const td = document.createElement('td');
+            td.textContent = cell;
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+
+    table.appendChild(thead);
+    table.appendChild(tbody);
+
+    con.append(table);
+}
+
+function resetTable(mc, sc) {
+    const con = document.querySelector("." + sc);
+    con.remove();
+
+    const mC = document.querySelector("." + mc);
+
+    const newCon = document.createElement("div");
+    newCon.className = sc;
+
+    mC.append(newCon);
+}
 
 function addAdminLink() {
     const al = document.querySelector('.nav_links');
