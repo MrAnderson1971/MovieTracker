@@ -102,7 +102,7 @@ async function searchMovies() {
     const data = await results.json();
 
     if (data.success) {
-        const attr = ["Content ID", "Duration", "Length Type", "Age Rating", "Title",
+        const attr = ["Content ID", "Duration (mins)", "Length Type", "Age Rating", "Title",
             "Release Date", "Age Restricted", "Genre"];
         createTable(data.result, "moviesResults", "moviesResCon", attr)
     } else  if (results.status === 400){
