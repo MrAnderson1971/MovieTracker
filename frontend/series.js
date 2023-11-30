@@ -26,7 +26,6 @@ async function refSeries() {
         });
         const data = await response.json();
         if (data.success) {
-            alert(data.result);
             const attr = ["Content ID", "Title", "Release Date", "Age Rating", "Age Restricted", "Number of Seasons",
                 "Series Type", "Genre"]
             createTable(data.result, "searchSeries", "searchSeriesCon", attr);
