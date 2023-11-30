@@ -284,8 +284,8 @@ router.post('/view-table', async (req, res) => {
 });
 
 router.post('/search-movies', async (req, res) => {
-    const { contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and } = req.body;
-    const response = await appService.searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and);
+    const { contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, genre, and } = req.body;
+    const response = await appService.searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, genre, and);
     if (response[0] === -1) {
         res.status(400).json({
             success: false,

@@ -466,7 +466,7 @@ async function searchServices(name, country, order) {
     });
 }
 
-async function searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, and) {
+async function searchMovies(contentID, duration, lengthType, ageRating, title, releaseDate, ageRestricted, genre, and) {
     if (contentID !== null && contentID !== "" && duration !== null && duration !== "" && ageRestricted !== null && ageRestricted !== "") {
         if (isNaN(contentID) || isNaN(duration) || isNaN(ageRestricted)) {
             return [-1];
@@ -486,23 +486,25 @@ async function searchMovies(contentID, duration, lengthType, ageRating, title, r
                                                                 c2.title, c2.releaseDate, c1.ageRestricted, ca.genreName
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2, CategorizedAs ca
                                             WHERE m2.contentID = :contentID AND m2.duration <= :duration AND m1.lengthType = :lengthType
-                                            AND c2.ageRating = :ageRating AND c2.title = :title AND c2.releaseDate <= 
-                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted AND m1.duration = m2.duration
-                                            AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating AND ca.contentID = m2.contentID
+                                            AND c2.ageRating = :ageRating AND c2.title = :title AND ca.genreName = :genre AND
+                                            c2.releaseDate <= TO_DATE(:releaseDate, 'yyyy-mm-dd') AND c1.ageRestricted = :ageRestricted 
+                                            AND m1.duration = m2.duration AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating 
+                                            AND ca.contentID = m2.contentID
                                             ORDER BY m2.contentID`,
                                             [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating),
-                                                escapeSpecialChars(title), releaseDate, ageRestricted]);
+                                                escapeSpecialChars(title), escapeSpecialChars(genre), releaseDate, ageRestricted]);
         } else {
             result = await connection.execute(`SELECT DISTINCT m2.contentID, m2.duration, m1.lengthType, c2.ageRating, 
                                                                 c2.title, c2.releaseDate, c1.ageRestricted, ca.genreName
                                             FROM Movie_1 m1, Movie_2 m2, Content_1 c1, Content_2 c2, CategorizedAs ca
                                             WHERE (m2.contentID = :contentID OR m2.duration <= :duration OR m1.lengthType = :lengthType
-                                            OR c2.ageRating = :ageRating OR c2.title = :title OR c2.releaseDate <=
-                                            TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted) AND m1.duration = m2.duration
-                                            AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating AND ca.contentID = m2.contentID
+                                            OR c2.ageRating = :ageRating OR c2.title = :title OR ca.genreName = :genre OR
+                                            c2.releaseDate <= TO_DATE(:releaseDate, 'yyyy-mm-dd') OR c1.ageRestricted = :ageRestricted) 
+                                            AND m1.duration = m2.duration AND c2.contentID = m2.contentID AND c2.ageRating = c1.ageRating 
+                                            AND ca.contentID = m2.contentID
                                             ORDER BY m2.contentID`,
                                             [contentID, duration, escapeSpecialChars(lengthType), escapeSpecialChars(ageRating),
-                                                escapeSpecialChars(title), releaseDate, ageRestricted]);
+                                                escapeSpecialChars(title), escapeSpecialChars(genre), releaseDate, ageRestricted]);
         }
 
         return result.rows;
