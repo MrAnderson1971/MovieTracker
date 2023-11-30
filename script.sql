@@ -409,6 +409,68 @@ INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 
 
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(101, 1, 'Did not like this at all.', 3, 1);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(102, 1, 'Did not like this at all.', 3, 2);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(103, 1, 'Did not like this at all.', 3, 3);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(104, 1, 'Did not like this at all.', 3, 4);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(105, 1, 'Did not like this at all.', 3, 5);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(106, 1, 'Did not like this at all.', 3, 6);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(107, 1, 'Did not like this at all.', 3, 7);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(108, 1, 'Did not like this at all.', 3, 8);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(109, 1, 'Did not like this at all.', 3, 9);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(110, 1, 'Did not like this at all.', 3, 10);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(111, 1, 'Did not like this at all.', 3, 11);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(112, 1, 'Did not like this at all.', 3, 12);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(113, 1, 'Did not like this at all.', 3, 13);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(114, 1, 'Did not like this at all.', 3, 14);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(115, 1, 'Did not like this at all.', 3, 15);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(116, 1, 'Did not like this at all.', 3, 16);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(117, 1, 'Did not like this at all.', 3, 17);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(118, 1, 'Did not like this at all.', 3, 18);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(119, 1, 'Did not like this at all.', 3, 19);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(120, 1, 'Did not like this at all.', 3, 20);
+
+
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 (2, 2, 'Could be better.', 2, 2);
 
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
