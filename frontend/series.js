@@ -157,8 +157,6 @@ async function searchShows() {
 
     if (!data.success) {
         alert("Invalid input");
-    } else if (data.result.length === 0) {
-        con.innerHTML = "<p>No results</p>";
     } else {
         con.append(createResultsTable(data.result));
     }
