@@ -308,7 +308,7 @@ function addLeaderBoardSearch() {
     label.textContent = 'UP TO:';
 
     const input = document.createElement('input');
-    input.type = 'text';
+    input.type = 'number';
     input.id = 'ageInput';
 
     sC.append(h1, label, input);
