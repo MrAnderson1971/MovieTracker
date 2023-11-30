@@ -304,7 +304,7 @@ function addLeaderBoardSearch() {
     h1.textContent = "AGE";
 
     const label = document.createElement('label');
-    label.setAttribute('for', 'seasonsGreater');
+    label.setAttribute('for', 'ageInput');
     label.textContent = 'UP TO:';
 
     const input = document.createElement('input');
