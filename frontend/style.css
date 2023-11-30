@@ -529,7 +529,7 @@
 }
 
 #refreshStats {
-    width: 200px;
+    width: 100px;
     height: 70px;
     background-color: black;
     color: white;
@@ -617,7 +617,7 @@
 }
 
 #searchLeaderBoard {
-    width: 200px;
+    width: 100px;
     height: 70px;
     background-color: black;
     color: white;

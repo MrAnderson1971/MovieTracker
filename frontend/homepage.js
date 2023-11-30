@@ -283,10 +283,10 @@ async function displayUserLeaderBoard(){
 
     results.append(resCon);
 
+    addLeaderBoardSearch();
+
     const test = document.createElement("h1");
     test.textContent = "REVIEW LEADERBOARD";
-
-    addLeaderBoardSearch();
 
     userLb.appendChild(test);
 }
