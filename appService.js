@@ -234,11 +234,13 @@ async function deleteContentFromWatchlist(watchlistID, contentID) {
     return await withOracleDB(async (connection) => {
         const widexists = await connection.execute(`SELECT * FROM Watchlist WHERE watchlistID = :watchlistID`, [watchlistID]);
         if (widexists.rows.length === 0) {
+            console.log("Watchlist not found");
             return 404;
         }
     
         const cidexists = await connection.execute(`SELECT * FROM Content_2 WHERE contentID = :contentID`, [contentID]);
         if (cidexists.rows.length === 0) {
+            console.log("Content not found");
             return 404;
         }
 

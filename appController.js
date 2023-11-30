@@ -62,7 +62,7 @@ router.post("/update-watchlist", async (req, res) => {
 router.post("/get-watchlists", async (req, res) => {
     const { userID } = req.body;
     const result = await appService.getWatchlistsForUser(userID);
-    if (result.length > 0) {
+    if (result.length >= 0) {
         res.json({ success: true, result: result });
     } else {
         res.status(500).json({ success: false, result: result });
@@ -72,7 +72,7 @@ router.post("/get-watchlists", async (req, res) => {
 router.post("/get-watchlist-content", async (req, res) => {
     const { userID } = req.body;
     const result = await appService.getContentInWatchlist(userID);
-    if (result.length > 0) {
+    if (result.length >= 0) {
         res.json({ success: true, result: result });
     } else {
         res.status(500).json({ success: false, result: result });
@@ -98,7 +98,7 @@ router.post("/add-watchlist-content", async (req, res) => {
 
 router.delete("/remove-watchlist-content", async (req, res) => {
     const { watchlistID, contentID } = req.body;
-    const insertResult = await appService.removeContentFromWatchlist(watchlistID, contentID);
+    const insertResult = await appService.deleteContentFromWatchlist(watchlistID, contentID);
     if (insertResult === 1) {
         res.status(200).json({ success: true });
     } else if (insertResult === 404) {

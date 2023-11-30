@@ -286,6 +286,21 @@ INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
 (5, 'NR', 'Movie 5', TO_DATE('20220501', 'yyyymmdd'));
 
 INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(11, 'PG', 'Movie A', TO_DATE('20150101', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(12, 'PG-13', 'Movie B', TO_DATE('20140201', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(13, 'R', 'Movie C', TO_DATE('20130301', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(14, 'G', 'Movie D', TO_DATE('20120401', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(15, 'NR', 'Movie E', TO_DATE('20110501', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
 (6, 'PG', 'Show 1', TO_DATE('20220101', 'yyyymmdd'));
 
 INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
@@ -299,6 +314,21 @@ INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
 
 INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
 (10, 'NR', 'Show 5', TO_DATE('20220501', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(16, 'PG', 'Show A', TO_DATE('20200101', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(17, 'PG-13', 'Show B', TO_DATE('20200201', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(18, 'R', 'Show C', TO_DATE('20200301', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(19, 'G', 'Show D', TO_DATE('20200401', 'yyyymmdd'));
+
+INSERT INTO Content_2(contentID, ageRating, title, releaseDate) VALUES
+(20, 'NR', 'Show E', TO_DATE('20200501', 'yyyymmdd'));
 
 
 INSERT INTO Review_1(score, category) VALUES
@@ -347,9 +377,45 @@ INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 (14, 1, 'Did not like this at all.', 1, 10);
 
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(17, 1, 'Did not like this at all.', 1, 11);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(18, 1, 'Did not like this at all.', 1, 12);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(19, 1, 'Did not like this at all.', 1, 13);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(20, 1, 'Did not like this at all.', 1, 14);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(21, 1, 'Did not like this at all.', 1, 15);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(22, 1, 'Did not like this at all.', 1, 16);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(23, 1, 'Did not like this at all.', 1, 17);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(24, 1, 'Did not like this at all.', 1, 18);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(25, 1, 'Did not like this at all.', 1, 19);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(26, 1, 'Did not like this at all.', 1, 20);
+
 
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 (2, 2, 'Could be better.', 2, 2);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(15, 2, 'Could be better.', 2, 3);
+
+INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
+(16, 2, 'Could be better.', 2, 4);
 
 INSERT INTO Review_2(reviewID, score, reviewText, userID, contentID) VALUES
 (3, 3, 'It was bad but had some redeeming qualities.', 3, 3);
@@ -365,16 +431,31 @@ INSERT INTO Movie_1(duration, lengthType) VALUES
 (120, 'Medium');
 
 INSERT INTO Movie_1(duration, lengthType) VALUES
+(125, 'Medium');
+
+INSERT INTO Movie_1(duration, lengthType) VALUES
 (90, 'Short');
 
 INSERT INTO Movie_1(duration, lengthType) VALUES
+(100, 'Short');
+
+INSERT INTO Movie_1(duration, lengthType) VALUES
 (150, 'Long');
+
+INSERT INTO Movie_1(duration, lengthType) VALUES
+(160, 'Long');
+
+INSERT INTO Movie_1(duration, lengthType) VALUES
+(180, 'Long');
 
 INSERT INTO Movie_1(duration, lengthType) VALUES
 (110, 'Medium');
 
 INSERT INTO Movie_1(duration, lengthType) VALUES
 (95, 'Short');
+
+INSERT INTO Movie_1(duration, lengthType) VALUES
+(80, 'Short');
 
 
 INSERT INTO Movie_2(contentID, duration) VALUES
@@ -391,6 +472,21 @@ INSERT INTO Movie_2(contentID, duration) VALUES
 
 INSERT INTO Movie_2(contentID, duration) VALUES
 (5, 95);
+
+INSERT INTO Movie_2(contentID, duration) VALUES
+(11, 80);
+
+INSERT INTO Movie_2(contentID, duration) VALUES
+(12, 100);
+
+INSERT INTO Movie_2(contentID, duration) VALUES
+(13, 180);
+
+INSERT INTO Movie_2(contentID, duration) VALUES
+(14, 125);
+
+INSERT INTO Movie_2(contentID, duration) VALUES
+(15, 160);
 
 
 INSERT INTO TVShow_2(numSeasons, seriesType) VALUES
@@ -423,6 +519,21 @@ INSERT INTO TVShow_1(contentID, numSeasons) VALUES
 
 INSERT INTO TVShow_1(contentID, numSeasons) VALUES
 (10, 4);
+
+INSERT INTO TVShow_1(contentID, numSeasons) VALUES
+(16, 1);
+
+INSERT INTO TVShow_1(contentID, numSeasons) VALUES
+(17, 2);
+
+INSERT INTO TVShow_1(contentID, numSeasons) VALUES
+(18, 1);
+
+INSERT INTO TVShow_1(contentID, numSeasons) VALUES
+(19, 3);
+
+INSERT INTO TVShow_1(contentID, numSeasons) VALUES
+(20, 1);
 
 
 INSERT INTO Watchlist(watchlistID, name, userID) VALUES
@@ -488,6 +599,9 @@ INSERT INTO Country(countryName) VALUES
 INSERT INTO Country(countryName) VALUES
 ('India');
 
+INSERT INTO Country(countryName) VALUES
+('China');
+
 
 INSERT INTO StreamingService(streamingServiceName) VALUES
 ('Netflix');
@@ -509,16 +623,109 @@ INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
 (6, 1, 1, 40, 'Pilot Episode');
 
 INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(6, 1, 2, 40, 'Getting Out');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(6, 1, 3, 40, 'Growing Up');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(7, 1, 1, 45, 'The Beginning');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
 (7, 1, 2, 45, 'The Reunion');
 
 INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
-(8, 1, 3, 42, 'Twist and Turns');
+(7, 1, 3, 45, 'The Fallout');
 
 INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
-(9, 2, 1, 50, 'A New Beginning');
+(7, 2, 1, 45, 'The Ultimatum');
 
 INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
-(10, 2, 2, 48, 'Unexpected Events');
+(7, 2, 2, 45, 'The Dispute');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(7, 2, 3, 45, 'The Resolution');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(7, 3, 1, 45, 'The Acceptance');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(7, 3, 2, 45, 'The Denoument');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(7, 3, 3, 45, 'The End');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(8, 1, 1, 42, 'Twist and Turns');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(8, 2, 1, 42, 'Give Me Everything');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(8, 3, 1, 42, 'Simplicity');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(8, 4, 1, 42, 'What Goes Up...');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(8, 5, 1, 42, '...Must Come Down');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(9, 1, 1, 50, 'A New Beginning');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(9, 1, 2, 50, 'In The City');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(9, 2, 1, 50, 'Bring It Back');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(9, 2, 3, 50, 'Letting Go');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 1, 1, 48, 'The Investigation');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 1, 2, 48, 'Unexpected Events');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 2, 1, 48, 'On The Trail');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 2, 2, 48, 'The Suspect');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 3, 1, 48, 'Cold Trail');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 3, 2, 48, 'A New Lead');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(10, 4, 1, 48, 'The Culprit is Caught');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(16, 1, 1, 40, 'Pilot Episode');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(17, 1, 1, 40, 'Pilot');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(17, 2, 1, 40, 'Reborn');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(18, 1, 1, 40, 'Pilot Episode');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(19, 1, 1, 40, 'Pilot Episode');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(19, 2, 1, 40, 'New Beginnings');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(19, 3, 1, 40, 'End of it All');
+
+INSERT INTO Episode(contentID, season, episode, duration, title) VALUES
+(20, 1, 1, 40, 'Pilot Episode');
 
 
 INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
@@ -554,6 +761,37 @@ INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
 INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
 ('Chinese', 10, 0, 1);
 
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('Spanish', 11, 0, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('French', 12, 0, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('German', 13, 1, 0);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 14, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 15, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 16, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 17, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 18, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('English', 19, 1, 1);
+
+INSERT INTO TranslatedAs(languageName, contentID, audio, subtitles) VALUES
+('Chinese', 20, 0, 1);
+
+
 
 INSERT INTO Collects(watchlistID, contentID) VALUES
 (1, 1);
@@ -562,13 +800,34 @@ INSERT INTO Collects(watchlistID, contentID) VALUES
 (1, 2);
 
 INSERT INTO Collects(watchlistID, contentID) VALUES
+(1, 4);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
+(1, 5);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
 (2, 3);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
+(2, 6);
 
 INSERT INTO Collects(watchlistID, contentID) VALUES
 (3, 4);
 
 INSERT INTO Collects(watchlistID, contentID) VALUES
-(4, 5);
+(3, 1);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
+(3, 10);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
+(3, 9);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
+(4, 7);
+
+INSERT INTO Collects(watchlistID, contentID) VALUES
+(4, 8);
 
 
 INSERT INTO CategorizedAs(genreName, contentID) VALUES
@@ -581,23 +840,59 @@ INSERT INTO CategorizedAs(genreName, contentID) VALUES
 ('Action', 3);
 
 INSERT INTO CategorizedAs(genreName, contentID) VALUES
-('Thriller', 4);
+('Comedy', 4);
 
 INSERT INTO CategorizedAs(genreName, contentID) VALUES
 ('Romance', 5);
 
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Drama', 6);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Drama', 7);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Action', 8);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Action', 9);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Romance', 10);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Drama', 11);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Comedy', 12);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Comedy', 13);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Comedy', 14);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Action', 15);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Drama', 16);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Romance', 17);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Action', 18);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Drama', 19);
+
+INSERT INTO CategorizedAs(genreName, contentID) VALUES
+('Romance', 20);
+
 
 INSERT INTO Has(streamingServiceName, contentID) VALUES
 ('Netflix', 1);
-
-INSERT INTO Has(streamingServiceName, contentID) VALUES
-('Amazon Prime', 2);
-
-INSERT INTO Has(streamingServiceName, contentID) VALUES
-('Disney+', 3);
-
-INSERT INTO Has(streamingServiceName, contentID) VALUES
-('Hulu', 4);
 
 INSERT INTO Has(streamingServiceName, contentID) VALUES
 ('Netflix', 5);
@@ -615,20 +910,146 @@ INSERT INTO Has(streamingServiceName, contentID) VALUES
 ('Netflix', 9);
 
 INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 11);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 12);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 13);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 14);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 15);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 16);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 17);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 18);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 19);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Netflix', 20);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Amazon Prime', 2);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Amazon Prime', 3);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Amazon Prime', 4);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Amazon Prime', 5);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Disney+', 3);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Disney+', 1);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Disney+', 6);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Disney+', 7);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Disney+', 8);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Hulu', 4);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Hulu', 6);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Hulu', 8);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Hulu', 9);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('Hulu', 10);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
 ('HBO Max', 10);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('HBO Max', 1);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('HBO Max', 3);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('HBO Max', 4);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('HBO Max', 6);
+
+INSERT INTO Has(streamingServiceName, contentID) VALUES
+('HBO Max', 9);
 
 
 INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
 ('USA', 'Netflix');
 
 INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('UK', 'Netflix');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('Canada', 'Netflix');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('Australia', 'Netflix');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('India', 'Netflix');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('China', 'Netflix');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('USA', 'Amazon Prime');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
 ('UK', 'Amazon Prime');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('Canada', 'Amazon Prime');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('Australia', 'Amazon Prime');
 
 INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
 ('Canada', 'Disney+');
 
 INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('USA', 'Disney+');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('UK', 'Disney+');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('China', 'Disney+');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
 ('Australia', 'Hulu');
 
 INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
-('India', 'HBO Max');
+('USA', 'Hulu');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('UK', 'Hulu');
+
+INSERT INTO AvailableIn(countryName, streamingServiceName) VALUES
+('USA', 'HBO Max');
