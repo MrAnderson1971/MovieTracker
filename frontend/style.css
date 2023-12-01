@@ -45,7 +45,7 @@
 
 .nav_links li {
     display: inline-block;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 2px solid white;
     margin: 20px;
     padding: 15px;
@@ -99,7 +99,7 @@
 
 .account_links li {
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .grid {
@@ -698,7 +698,7 @@ table {
 }
 
 th {
-    background-color: black;
+    background-color: red;
     color: white;
     padding: 8px;
     font-size: 20px;
