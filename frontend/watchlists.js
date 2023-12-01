@@ -1,7 +1,9 @@
 document.getElementById("refWatchList").addEventListener("click", refWatchList);
 document.getElementById("refContent").addEventListener("click", refContent);
-
+document.getElementById("updateWatchList").addEventListener('click', updWatchlist);
 document.getElementById("alterContentWatchlist").addEventListener("click", alterContentWatchlist);
+document.getElementById('delWatchList').addEventListener('click', deleteWL);
+document.getElementById("addWatchList").addEventListener("click", addWatchlist);
 
 document.addEventListener("DOMContentLoaded", function () {
     const lS = localStorage.getItem("loginStatus");
@@ -30,32 +32,39 @@ function addAdminLink() {
     al.appendChild(listItem);
 }
 
-
-document.getElementById("updateWatchList").addEventListener('click', async function() {
+async function updWatchlist() {
     const id = document.getElementById('watchlistUpdateID').value;
     const name = document.getElementById('watchlistUpdateName').value;
     const userId = document.getElementById('watchlistUpdateUserID').value;
 
-    try {
-        const response = await fetch('/update-watchlist', {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify({watchlistID: id, name: name, userID: userId})
-        });
-        const data = await response.json();
-        if (data.success) {
-            alert("Watchlist updated successfully");
+    if(id) {
+        if(!name && !userId) {
+            alert("Error: Please enter a combination of watchlist name or user ID");
         } else {
-            alert("Failed to update watchlist");
+            try {
+                const response = await fetch('/update-watchlist', {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/json"
+                    },
+                    body: JSON.stringify({watchlistID: id, name: name, userID: userId})
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert("Watchlist updated successfully");
+                } else {
+                    alert("Failed to update watchlist");
+                }
+            } catch (err) {
+                alert("Error: Please Try Again");
+            }
         }
-    } catch (err) {
-        alert("Error in form");
+    } else {
+        alert("Please enter a watchlist ID");
     }
-})
+}
 
-document.getElementById('delWatchList').addEventListener('click', async function() {
+async function deleteWL() {
     const watchlistID = document.getElementById('deleteWatchlist').value;
 
     if (watchlistID) {
@@ -81,29 +90,33 @@ document.getElementById('delWatchList').addEventListener('click', async function
     } else {
         alert('Please enter a watchlist ID');
     }
-});
+}
 
-document.getElementById("addWatchList").addEventListener("click", async function() {
+async function addWatchlist() {
     const name = document.getElementById("watchlistAddName").value;
-    const userID = localStorage.getItem("userId");
-    try {
-        const response = await fetch('/create-watchlist', {
-            method: "POST",
-            headers: {
-                'Content-Type': "application/json"
-            },
-            body: JSON.stringify({name: name, userID: userID})
-        });
-        const data = await response.json();
-        if (data.success) {
-            alert("Successfully added watchlist");
-        } else {
-            alert("Failed to add watchlist");
+    if(name) {
+        const userID = localStorage.getItem("userId");
+        try {
+            const response = await fetch('/create-watchlist', {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify({name: name, userID: userID})
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("Successfully added watchlist");
+            } else {
+                alert("Failed to add watchlist");
+            }
+        } catch (err) {
+            alert("Error: Please try again");
         }
-    } catch (err) {
-        alert("Please enter a name.");
+    } else {
+        alert("Please enter a watchlist name");
     }
-})
+}
 
 function changeWatchlistsNavBar() {
     const al = document.querySelector('.account_links');
@@ -231,12 +244,8 @@ function resetTable(mc, sc) {
     mC.append(newCon);
 }
 
-async function alterContentWatchlist() {
-    const select = document.getElementById("watchListOp").value;
-    const wid = document.getElementById("alterContentWID").value;
-    const cid = document.getElementById("alterContentCID").value;
-
-    if(select == "add") {
+async function alterContent(select, wid, cid) {
+    if (select == "add") {
         try {
             const response = await fetch("/add-watchlist-content", {
                 method: "POST",
@@ -247,12 +256,18 @@ async function alterContentWatchlist() {
             });
             const data = await response.json();
             if (data.success) {
-                alert("Content has been added")
+                alert("Content has been added to watchlist")
             } else {
-                alert("Content has not been added");
+                if(response.status === 400) {
+                    alert("Error: Watchlist content already present");
+                } else if(response.status === 404) {
+                    alert("Error: Content not found");
+                } else {
+                    alert("Error: Please try again");
+                }
             }
         } catch (err) {
-            alert("Error add");
+            alert("Error: Add");
         }
     } else {
         try {
@@ -265,14 +280,28 @@ async function alterContentWatchlist() {
             });
             const data = await response.json();
             if (data.success) {
-                alert("Content has been removed")
+                alert("Content has been removed from watchlist")
             } else {
-                alert("Content has not been removed");
+                if(response.status === 404) {
+                    alert("Error: Content not found in watchlist");
+                } else {
+                    alert("Error: Please try again");
+                }
             }
         } catch (err) {
-            alert("Error remove");
+            alert("Error: Remove");
         }
     }
+}
 
-    // alert(select);
+async function alterContentWatchlist() {
+    const select = document.getElementById("watchListOp").value;
+    const wid = document.getElementById("alterContentWID").value;
+    const cid = document.getElementById("alterContentCID").value;
+
+    if(!wid && !cid) {
+        alert("Error: Please enter a combination of watchlist ID and content ID");
+    } else {
+        await alterContent(select, wid, cid);
+    }
 }
