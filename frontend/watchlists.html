@@ -80,16 +80,19 @@
 </div>
 
 <div class="watchlistSec">
-    <div class="updateArea">
-        <label for="watchlistUpdateID">ID:</label>
+    <div class="updateAreaMain">
+        <label for="watchlistUpdateID">WATCHLIST ID:</label>
         <input type="text" id="watchlistUpdateID"><br>
+    </div>
 
-        <label for="watchlistUpdateName">NAME:</label>
+    <div class="updateAreaAttr">
+        <label for="watchlistUpdateName">WATCHLIST NAME:</label>
         <input type="text" id="watchlistUpdateName"><br>
 
         <label for="watchlistUpdateUserID">USER ID:</label>
         <input type="text" id="watchlistUpdateUserID"><br>
     </div>
+
     <button id="updateWatchList" value="updateWatchList">
         <i class="fa-solid fa-pen-to-square"></i>
     </button>
@@ -107,17 +110,17 @@
 
 <div class="watchlistSec">
     <div class="alterContentArea">
-        <label for="alterContentWID">WATCHLIST ID:</label>
-        <input type="text" id="alterContentWID"><br>
-
-        <label for="alterContentCID">CONTENT ID:</label>
-        <input type="text" id="alterContentCID"><br>
-
         <label for="watchListOp">OPERATION:</label>
         <select id="watchListOp">
             <option value="add">ADD</option>
             <option value="remove">REMOVE</option>
         </select>
+
+        <label for="alterContentWID">WATCHLIST ID:</label>
+        <input type="text" id="alterContentWID"><br>
+
+        <label for="alterContentCID">CONTENT ID:</label>
+        <input type="text" id="alterContentCID"><br>
     </div>
     <button id="alterContentWatchlist" value="alterContentWatchlist">
         <i class="fa-solid fa-plus"></i>

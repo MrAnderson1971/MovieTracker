@@ -426,15 +426,19 @@
     background-color: whitesmoke;
 }
 
-.deleteArea, .addArea, .updateArea, .alterContentArea, .deleteContentArea{
+.deleteArea, .addArea, .updateAreaMain, .alterContentArea, .deleteContentArea, .updateAreaAttr {
     font-size: 18px;
     background-color: whitesmoke;
     padding: 20px;
 }
 
-.updateArea, .alterContentArea, .deleteContentArea {
+.updateAreaMain, .updateAreaAttr, .alterContentArea, .deleteContentArea {
     display: flex;
     align-items: center;
+}
+
+.updateAreaMain {
+    border-right: 2px solid black;
 }
 
 

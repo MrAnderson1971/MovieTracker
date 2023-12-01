@@ -156,9 +156,7 @@ async function searchShows() {
     const data = await response.json();
 
     if (!data.success) {
-        alert("Invalid input");
-    } else if (data.result.length === 0) {
-        con.innerHTML = "<p>No results</p>";
+        alert("Error: Please try again");
     } else {
         con.append(createResultsTable(data.result));
     }
