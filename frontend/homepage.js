@@ -288,7 +288,7 @@ async function displayUserLeaderBoard(){
     addLeaderBoardSearch();
 
     const test = document.createElement("h1");
-    test.textContent = "REVIEW LEADERBOARD";
+    test.textContent = "ULTIMATE REVIEWERS";
 
     userLb.appendChild(test);
 }

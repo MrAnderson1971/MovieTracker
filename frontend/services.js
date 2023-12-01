@@ -86,7 +86,7 @@ function displaySearchResults(results) {
 
     const headerRow = document.createElement('tr');
     const serviceHeader = document.createElement('th');
-    serviceHeader.textContent = 'Streaming Service';
+    serviceHeader.textContent = 'Name';
     const countryHeader = document.createElement('th');
     countryHeader.textContent = 'Country';
 
