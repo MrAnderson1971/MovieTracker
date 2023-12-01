@@ -137,8 +137,10 @@ function createBigUserStatBoard() {
                 populateCard(cards[0], 'FAVORITE GENRE', data.genre);
             } else {
                 populateCard(cards[0], 'FAVORITE GENRE', "-");
-                alert("Failed to get favorite genre, you have added no content to watchlists.");
             }
+        })
+        .catch((err) => {
+            alert("Failed to get favorite genre.");
         });
 
     fetch('/count-watchlist', {
@@ -158,7 +160,7 @@ function createBigUserStatBoard() {
             if (data.success) {
                 populateCard(cards[1], 'WATCHLISTS CREATED', data.count);
             } else {
-                console.error("Failed to get watchlist count.");
+                alert("Failed to get watchlist count.");
             }
         });
 }
@@ -200,7 +202,7 @@ function createSmallUserStatBoard() {
             if (data.success) {
                 populateCard(cards[0], 'MOVIES TRACKED', data.count);
             } else {
-                console.error("Failed to get movies count.");
+                alert("Failed to get movies count.");
             }
         })
     fetch('/count-series', {
@@ -220,7 +222,7 @@ function createSmallUserStatBoard() {
             if (data.success) {
                 populateCard(cards[1], 'SERIES TRACKED', data.count);
             } else {
-                console.error("Failed to get series count.");
+                alert("Failed to get series count.");
             }
         })
     fetch('/count-reviews', {
@@ -240,7 +242,7 @@ function createSmallUserStatBoard() {
             if (data.success) {
                 populateCard(cards[2], 'REVIEWS WRITTEN', data.count);
             } else {
-                console.error("Failed to get reviews count.");
+                alert("Failed to get reviews count.");
             }
         })
 }

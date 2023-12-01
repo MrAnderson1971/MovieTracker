@@ -292,6 +292,11 @@ async function updateWatchlist(watchlistID, name, userID) {
         }
 
         if (userID) {
+            const userexists = await connection.execute(`SELECT * FROM User_2 WHERE userID = :userID`, [userID]);
+            if (userexists.rows.length === 0) {
+                return false;
+            }
+
             result = await connection.execute(
                 `UPDATE Watchlist SET userID = :userID WHERE watchlistID = :watchlistID`,
                 [userID, watchlistID],
