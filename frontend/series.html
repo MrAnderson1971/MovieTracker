@@ -7,9 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -18,16 +16,48 @@
         <li><a href="homepage.html">WATCHER</a></li>
     </ul>
     <ul class="nav_links">
-        <li><a href="services.html">SERVICES</a></li>
-        <li><a href="series.html">SERIES</a></li>
-        <li><a href="movies.html">MOVIES</a></li>
-        <li><a href="watchlists.html">WATCHLISTS</a></li>
+        <li id="servicesLI"><a id="servicesLink" href="services.html">SERVICES</a></li>
+        <li id="seriesLI"><a id="seriesLink" href="series.html">SERIES</a></li>
+        <li id="moviesLI"><a id="moviesLink" href="movies.html">MOVIES</a></li>
+        <li id="watchlistLI"><a id="watchListsLink" href="watchlists.html">WATCHLISTS</a></li>
     </ul>
+
+    <script>
+        window.onload = function() {
+            const currentPath = window.location.pathname;
+
+            let wLL = "";
+            let li = "";
+
+            if(currentPath === "/watchlists.html") {
+                wLL = document.getElementById('watchListsLink');
+                li = document.getElementById('watchlistLI');
+            } else if(currentPath === "/movies.html") {
+                wLL = document.getElementById('moviesLink');
+                li = document.getElementById('moviesLI');
+            } else if(currentPath === "/series.html") {
+                wLL = document.getElementById('seriesLink');
+                li = document.getElementById('seriesLI');
+            } else if(currentPath === "/services.html") {
+                wLL = document.getElementById('servicesLink');
+                li = document.getElementById('servicesLI');
+            } else if(currentPath === "/admin.html") {
+                wLL = document.getElementById('adminLink');
+                li = document.getElementById('adminLI');
+            }
+
+            wLL.style.color = 'white';
+            li.style.background = 'black';
+            li.style.border = 'black';
+        };
+    </script>
+
     <ul class="account_links">
         <li><a href="login_page.html">SIGN IN</a></li>
         <li><a href="signup.html">SIGN UP</a></li>
     </ul>
 </div>
+
 
 <!-- SERIES SECTION -->
 
